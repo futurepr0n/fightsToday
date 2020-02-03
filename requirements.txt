@@ -9,6 +9,6 @@ feedparser
 lxml
 pyquery
 requests
-mysql
+pymysql
 ics
 time

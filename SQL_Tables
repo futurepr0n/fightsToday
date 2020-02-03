@@ -1,0 +1,10 @@
+
+CREATE TABLE `mark5463_ft_prod`.`mma_events` ( `event_day` INT(11) NOT NULL , `event_fight_card_url` VARCHAR(350) NOT NULL , `event_id` INT(11) NOT NULL , `event_location` VARCHAR(200) NOT NULL , `event_month` CHAR(3) NOT NULL , `event_name` VARCHAR(75) NOT NULL , `event_org` VARCHAR(30) NOT NULL , `event_year` INT(11) NOT NULL ) ENGINE = MyISAM;
+
+CREATE TABLE `mark5463_ft_prod`.`mma_events_wiki` ( `event_name` VARCHAR(250) NOT NULL , `event_id` INT(11) NOT NULL , `event_fight_card_url` VARCHAR(300) NOT NULL , `event_org` VARCHAR(200) NOT NULL , `event_date` VARCHAR(50) NOT NULL ) ENGINE = MyISAM;
+
+CREATE TABLE `mark5463_ft_prod`.`mma_events_wiki_poster` ( `event_fight_poster_url` VARCHAR(500) NOT NULL , `event_id` INT(11) NOT NULL , `event_fight_card_url` VARCHAR(250) NOT NULL , `event_name` VARCHAR(300) NOT NULL , `event_date` VARCHAR(50) NOT NULL ) ENGINE = MyISAM;
+
+CREATE TABLE `mark5463_ft_prod`.`mma_fight_cards` ( `event_name` VARCHAR(150) NOT NULL , `fighter_one` VARCHAR(150) NOT NULL , `fighter_one_url` VARCHAR(150) NOT NULL , `fighter_two` VARCHAR(150) NOT NULL , `fighter_two_url` VARCHAR(150) NOT NULL , `event_url` VARCHAR(300) NOT NULL ) ENGINE = MyISAM;
+
+CREATE TABLE `mark5463_ft_prod`.`wiki_mma_fight_cards` ( `event_name` VARCHAR(150) NOT NULL , `fighter_one` VARCHAR(150) NOT NULL , `fighter_one_url` VARCHAR(150) NOT NULL , `fighter_two` VARCHAR(150) NOT NULL , `fighter_two_url` VARCHAR(150) NOT NULL , `event_url` VARCHAR(300) NOT NULL ) ENGINE = MyISAM;

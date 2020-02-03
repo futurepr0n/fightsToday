@@ -1,0 +1,14 @@
+cffi
+characteristic
+cryptography
+cssselect
+django
+docopt
+enum34
+feedparser
+lxml
+pyquery
+requests
+mysql
+ics
+time

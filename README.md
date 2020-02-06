@@ -19,7 +19,7 @@
 	* Have Python3 Installed 
 	    sudo apt-get install python3 python3-pip
 	    pip install pipenv
-	* Use $ pipenv install -r requirements.txt 
+	* Use $ pipenv install -r requirements.txt / pipenv --python 3.7 install -r requirements.txt --deploy --skip-lock
 
 * Database Configuration
 
@@ -36,31 +36,31 @@
 * From inside python/ run the scripts in this order:
  
  Sherdog Scrapes 
- 1. $ pipenv run python sherdog-event-list-scraper.py
+ 1. $ pipenv run python python/sherdog-event-list-scraper.py
     * This will load the database with Event Data from Sherdog.
 
- 2. $ pipenv run python sherdog-fight-card-scrape.py
+ 2. $ pipenv run python python/sherdog-fight-card-scrape.py
     * This will load the database with Fight Card Data from Sherdog.
     
  
  Wikipedia Scrapes 
     
- 3. $ pipenv run python wikipedia-bellator-event-scrape.py
+ 3. $ pipenv run python python/wikipedia-bellator-event-scrape.py
     * This will load the database with UFC Event Data from Wikipedia.
     
- 3. $ pipenv run python wikipedia-ufc-event-scrape.py
+ 3. $ pipenv run python python/wikipedia-ufc-event-scrape.py
     * This will load the database with UFC Event Data from Wikipedia.
 
- 4. $ pipenv run python wikipedia-ufc-poster-scrape.py
+ 4. $ pipenv run python python/wikipedia-ufc-poster-scrape.py
     * This will load the database with UFC Event Poster Data from Wikipedia.
     
- 5. $ pipenv run python wikipedia-fight-card-scrape.py
+ 5. $ pipenv run python python/wikipedia-fight-card-scrape.py
     * This should load the database for wikipedia fight card info
     
 
 ## Generate the HTML Page ##		
  
- 6. $ pipenv run python generate-html.py > ../index.html
+ 6. $ pipenv run python python/generate-html.py > ../index.html
     This will create a file "index.html" and put it in the correct directory for it to be opened locally in Google Chrome. Unfortunately, this file needs to be encoded in utf-8. At the moment, I am doing this manually by opening the file in Sublime Text and choosing Save with Encoding UTF-8. After this has been encoded properly, index.html will render properly in Chrome, Firefox, etc.
 
  7. $ pipenv run python generate-ics.py 

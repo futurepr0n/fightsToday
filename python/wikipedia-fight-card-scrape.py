@@ -34,7 +34,7 @@ def scrapeEvent(event_url, event_org):
 db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
                      user="mark5463_ft_test",  # your username
                      passwd="fttesting",  # your password
-                     db="mark5463_ft_testdb")  # name of the data base
+                     db="mark5463_ft_prod")  # name of the data base
 
 #  you must create a Cursor object. It will let
 #  you execute all the queries you need
@@ -223,8 +223,7 @@ for y in range(0, fighterloop - 1):
     e_fc_url = ''.join(fight_card_event_url[y])
     e_org = ''.join(fight_card_org[y])
 
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\")" % (
-    e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org)
     print (query)
     ## Query not needed after first load
     cur.execute(query)

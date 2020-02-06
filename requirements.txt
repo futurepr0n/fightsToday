@@ -11,4 +11,7 @@ pyquery
 requests
 pymysql
 ics
-time
+mysqlclient
+mysql
+
+

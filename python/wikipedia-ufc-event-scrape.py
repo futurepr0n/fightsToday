@@ -185,7 +185,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('Success!...')
       print('***********************************************************************************************')
       # commenting out the query since we are loaded in the db right now
-      cur.execute(query)
+      #cur.execute(query)
       array_pos = (array_pos) + 1
       event_id = event_id - 1
     prev_row_ptr = prev_row_ptr + row_len

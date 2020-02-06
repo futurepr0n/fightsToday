@@ -21,7 +21,7 @@ def scrapeEvent(event_url, event_org):
     # set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_url))
+    d = pq(url='%s' % event_url)
 
     # get the row length by querying the event table on table rows
     p = d(".content table tr")
@@ -43,66 +43,71 @@ db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT * FROM sd_mma_events")
+cur.execute("SELECT event_name, event_month, event_day, event_year, event_id, event_fight_card_url, event_org FROM sd_mma_events")
 
 # initialize the arrays
-event_name = []
-event_id = []
-event_fight_card_url = []
-event_org = []
-event_month = []
-event_day = []
-event_year = []
-
-# fight card specific arrays
-fight_card_event_name = []
-fight_card_event_url = []
-fight_card_event_org = []
-fight_card_event_id = []
+g_event_name = []
+g_event_id = []
+g_event_fight_card_url = []
+g_event_org = []
+g_event_month = []
+g_event_day = []
+g_event_year = []
 
 # load our arrays with all of our event data.
 for row in cur.fetchall():
-    event_name.append(row[0])
-    event_id.append(row[4])
-    event_fight_card_url.append(row[5])
-    event_org.append(row[6])
-    event_month.append(row[1])
-    event_day.append(row[2])
-    event_year.append(row[3])
+    g_event_name.append(row[0])
+    g_event_month.append(row[1])
+    g_event_day.append(row[2])
+    g_event_year.append(row[3])
+    g_event_id.append(row[4])
+    g_event_fight_card_url.append(row[5])
+    g_event_org.append(row[6])
+    print('***********************************************************************************************')
+    print('Loading event: \t\t\t %s ...' % row[0])
+    print('Loading event ID: \t\t %s ' % row[4])
+    print('Loading event Org: \t\t %s' % row[6])
+    print('Loading event Date: \t\t', row[1], row[2], row[3])
+    print('Loading event URL: \t\t %s' % row[5])
+    # print('Loading event Unique ID: \t ', w_e_id)
+    print('***********************************************************************************************')
+
 
 # set up the fighter arrays
-fighter_one = []
-fighter_two = []
-fighter_one_url = []
-fighter_two_url = []
+g_fighter_one = []
+g_fighter_two = []
+g_fighter_one_url = []
+g_fighter_two_url = []
+# fight card specific arrays
+g_fight_card_event_name = []
+g_fight_card_event_url = []
+g_fight_card_event_org = []
+g_fight_card_event_id = []
 
-x_range = len(event_name)
+x_range = len(g_event_name)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range - 1):  # prev 0, 533
+    print('***********************************************************************************************')
     # bring in the url information
-    event_main_event_url = event_fight_card_url[x]
-    page = requests.get('%s' % (event_main_event_url))
+    event_main_event_url = g_event_fight_card_url[x]
+    page = requests.get('%s' % event_main_event_url)
     tree = html.fromstring(page.content)
-
-    this_event_name = event_name[x]
-    this_event_org = event_org[x]
-    this_event_id = event_id[x]
-
-    fight_card_event_name.append(this_event_name)
-    fight_card_event_org.append(this_event_org)
-    fight_card_event_id.append(this_event_id)
-    fight_card_event_url.append(event_main_event_url)
-
-    # time.sleep(35)
-    # debug info
-    # print("this is the main event url")
-    # print(event_main_event_url)
-    # print("---------------------")
+    g_fight_card_event_url.append(event_main_event_url)
+    print('Fight_card_event_url = %s ' % event_main_event_url)
+    this_event_name = g_event_name[x]
+    g_fight_card_event_name.append(this_event_name)
+    print('Fight_card_event_name = %s ' % this_event_name)
+    this_event_org = g_event_org[x]
+    g_fight_card_event_org.append(this_event_org)
+    print('Fight_card_event_org = %s ' % this_event_org)
+    this_event_id = g_event_id[x]
+    g_fight_card_event_id.append(this_event_id)
+    print('Fight_card_event_id = %s ' % this_event_id)
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_main_event_url))
+    d = pq(url='%s' % event_main_event_url)
     # --get the row length by querying the event table on table rows
     p = d(".content table tr")
     # p = d(".content table tr")
@@ -116,118 +121,83 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     # set up the array
     # scrape main event event name
-    main_event_fighter_one_array = tree.xpath(
-        '/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[1]/h3/a/span/text()')
-
+    main_event_fighter_one_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[1]/h3/a/span/text()')
     newstr = ''.join(main_event_fighter_one_array)
     asccii_string = smart_str(newstr)
+    # print("Main event fighter one name: ", asccii_string)
+    g_fighter_one.append(asccii_string)
 
-    # debug info
-    # print("main event fighter one name:")
-    # print(asccii_string)
-    # print("---------------------")
+    main_event_fighter_one_url_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[1]/h3/a/@href')
+    me_fgtr1_wbst_string = 'http://www.sherdog.com', ''.join(main_event_fighter_one_url_array)
+    me_fgtr1_wbst = ''.join(me_fgtr1_wbst_string)
+    # print("Main event fighter one website: ", me_fgtr1_wbst)
+    g_fighter_one_url.append(me_fgtr1_wbst)
 
-    fighter_one.append(asccii_string)
-
-    main_event_fighter_one_url_array = tree.xpath(
-        '/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[1]/h3/a/@href')
-
-    me_fgtr1_wbst = 'http://www.sherdog.com', ''.join(main_event_fighter_one_url_array)
-
-    # debug info
-    # print("main event fighter one website: ")
-    # print(me_fgtr1_wbst)
-    # print("---------------------")
-    fighter_one_url.append(me_fgtr1_wbst)
-
-    main_event_fighter_two_array = tree.xpath(
-        '/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[2]/h3/a/span/text()')
-
+    main_event_fighter_two_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[2]/h3/a/span/text()')
     newstr2 = ''.join(main_event_fighter_two_array)
     asccii_string2 = smart_str(newstr2)
+    # print("main event fighter 2 name: ", asccii_string2)
+    g_fighter_two.append(asccii_string2)
 
-    # debug info
-    # print("main event fighter 2 name: ")
-    # print(asccii_string2)
-    # print("---------------------")
+    main_event_fighter_two_url_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[2]/h3/a/@href')
+    me_fgtr2_wbst_string = 'http://www.sherdog.com', ''.join(main_event_fighter_two_url_array)
+    me_fgtr2_wbst = ''.join(me_fgtr2_wbst_string)
+    # print("main event fighter 2 website:", me_fgtr2_wbst)
+    g_fighter_two_url.append(me_fgtr2_wbst)
 
-    fighter_two.append(asccii_string2)
+    print("Main event fighter one name:\t\t", asccii_string, "main event fighter two name: \t", asccii_string2)
+    main_event_query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (this_event_name, asccii_string, me_fgtr1_wbst, asccii_string2, me_fgtr2_wbst, event_main_event_url, this_event_org, this_event_id)
+    print(main_event_query)
+    print('Query Executed...')
+    cur.execute(main_event_query)
+    print('Success!...')
 
-    main_event_fighter_two_url_array = tree.xpath(
-        '/html/body/div[2]/div[2]/div[1]/section[1]/div/div[2]/div[2]/div[2]/h3/a/@href')
-
-    me_fgtr2_wbst = 'http://www.sherdog.com', ''.join(main_event_fighter_two_url_array)
-
-    # debug info
-    # print("main event fighter 2 website:")
-    # print(me_fgtr2_wbst)
-    # print("---------------------")
-
-    fighter_two_url.append(me_fgtr2_wbst)
-    ###### WORKING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     for z in range(2, row_len):
-        # print("Z is = to: ")
-        # print(z)
         # scrape fighter one name
-        ##fighter_one_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/a/span/text()' % (z))
-        fighter_one_array = tree.xpath(
-            '/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/div/a/span/text()' % (z))
-
-
-        # scrape fighter one name
-        # fighter_one_array = tree.xpath('/html/body/div[3]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/div/a/span/name/text()' % (z))
-
+        fighter_one_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/div/a/span/text()' % (z))
         newstr3 = ''.join(fighter_one_array)
         asccii_string3 = smart_str(newstr3)
-        # print debug stuff
-        #    print("this is the next fighter one:")
-        #   print(asccii_string3)
-        #  print("========================")
-        fighter_one.append(asccii_string3)
+        # print("this is match ", z, " fighter one: \t", asccii_string3)
+        g_fighter_one.append(asccii_string3)
 
         # scrape fighter one URL
-        fighter_one_url_array = tree.xpath(
-            '/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/div/a/@href' % (z))
+        fighter_one_url_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[2]/div/a/@href' % (z))
+        # fgtr1_wbst = 'http://www.sherdog.com', ''.join(fighter_one_url_array)
+        fgtr1_wbst_string = 'http://www.sherdog.com', ''.join(fighter_one_url_array)
+        fgtr1_wbst = ''.join(fgtr1_wbst_string)
+        # print("this is the fighter 1 website", fgtr1_wbst)
+        g_fighter_one_url.append(fgtr1_wbst)
 
-        fgtr1_wbst = 'http://www.sherdog.com', ''.join(fighter_one_url_array)
-        # print("this is the fighter 1 website")
-        # print(fgtr1_wbst)
-        # print("========================")
-        fighter_one_url.append(fgtr1_wbst)
         # scrape fighter two name
-        fighter_two_array = tree.xpath(
-            '/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[4]/div/a/span/text()' % (z))
-
+        fighter_two_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[4]/div/a/span/text()' % (z))
         newstr4 = ''.join(fighter_two_array)
         asccii_string4 = smart_str(newstr4)
+        # print("this is match ", z, " fighter two: \t", asccii_string4)
+        g_fighter_two.append(asccii_string4)
 
-        # print(asccii_string4)
-        # print("========================")
-        fighter_two.append(asccii_string4)
         # scrape fighter two URL
-        fighter_two_url_array = tree.xpath(
-            '/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[4]/div/a/@href' % (z))
+        fighter_two_url_array = tree.xpath('/html/body/div[2]/div[2]/div[1]/section[2]/div/div/table/tbody/tr[%i]/td[4]/div/a/@href' % (z))
+        fgtr2_wbst_string = 'http://www.sherdog.com', ''.join(fighter_two_url_array)
+        fgtr2_wbst = ''.join(fgtr2_wbst_string)
+        # print("this is the fighter 2 website", fgtr2_wbst)
+        g_fighter_two_url.append(fgtr2_wbst)
 
-        fgtr2_wbst = 'http://www.sherdog.com', ''.join(fighter_two_url_array)
-        # print("this is the fighter 2 website")
-        # print(fgtr2_wbst)
-        # print("========================")
-        fighter_two_url.append(fgtr2_wbst)
-        fight_card_event_name.append(this_event_name)
-        fight_card_event_url.append(event_main_event_url)
-        fight_card_event_org.append(this_event_org)
+        print("this is match ", z, "\tfighter one name: ", asccii_string3, "\tfighter two name: \t", asccii_string4)
 
-fighterloop = len(fighter_one)
+        undercard_query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (this_event_name, asccii_string3, fgtr1_wbst, asccii_string4, fgtr2_wbst, event_main_event_url, this_event_org, this_event_id)
+        print(undercard_query)
+        print('Query Executed...')
+        cur.execute(undercard_query)
+        print('Success!...')
 
-# print "the length of fighter array is also"
-# print "the fighter loop variable:"
-# print(fighterloop)
+        g_fight_card_event_name.append(this_event_name)
+        g_fight_card_event_url.append(event_main_event_url)
+        g_fight_card_event_org.append(this_event_org)
+        g_fight_card_event_id.append(this_event_id)
 
-# db = MySQLdb.connect(host="markpereira.com", # your host, usually localhost
-#                     user="mark5463_crawler", # your username
-#                      passwd="mmacrawl", # your password
-#                      db="mark5463_mma") # name of the data base
+
+fighterloop = len(g_fighter_one)
 
 db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
                      user="mark5463_ft_test",  # your username
@@ -240,23 +210,35 @@ db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
 cur = db.cursor()
 
 # This section will delete the information on the table, for a clean run.
-cur.execute("TRUNCATE sd_mma_fight_cards")
+# print('CLEAN the Tables')
+# cur.execute("TRUNCATE sd_mma_fight_cards")
 
-for y in range(0, fighterloop - 1):
-    e_name = ''.join(fight_card_event_name[y])
-    e_f1 = ''.join(fighter_one[y])
-    e_f1_url = ''.join(fighter_one_url[y])
-    e_f2 = ''.join(fighter_two[y])
-    e_f2_url = ''.join(fighter_two_url[y])
-    e_fc_url = ''.join(fight_card_event_url[y])
-    e_mma_org = ''.join(fight_card_event_org[y])
-    e_mma_event_id = ''.join(fight_card_event_id[y])
-    query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % \
-            (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_mma_org, e_mma_event_id)
-    cur.execute(query)
+# for y in range(0, fighterloop - 1):
+#     print('***********************************************************************************************')
+#     e_name = ''.join(fight_card_event_name[y])
+#     e_f1 = ''.join(fighter_one[y])
+#     e_f1_url = ''.join(fighter_one_url[y])
+#     e_f2 = ''.join(fighter_two[y])
+#     e_f2_url = ''.join(fighter_two_url[y])
+#     e_fc_url = ''.join(fight_card_event_url[y])
+#     e_mma_org = ''.join(fight_card_event_org[y])
+#     e_ev_id = ''.join(str(fight_card_event_id[y]))
+#     print('Adding Event: %s ...' % e_name)
+#     print('Fighter One: \t\t %i ' % e_f1)
+#     print('Fighter One URL: \t\t %s' % e_f1_url)
+#     print('Fighter Two: \t\t %i ' % e_f2)
+#     print('Fighter Two URL: \t\t %s' % e_f2_url)
+#     print('Event Org: \t', e_mma_org)
+#     print('Event URL: \t\t %s' % e_fc_url)
+#     print('Event ID: \t ', e_ev_id)
+#     print('***********************************************************************************************')
+#     query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_mma_org, e_ev_id)
+#     print(query)
+#     print('***********************************************************************************************')
+#     print('Query Executed...')
+#     cur.execute(query)
+#     print('Success!...')
+#     print('***********************************************************************************************')
 
-    # cur.execute("INSERT INTO mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\")" % \
-    #        (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url))
-    print(query)
     # Query not needed after first load
 

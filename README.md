@@ -103,3 +103,22 @@ pipenv run python python/wikipedia-ufc-poster-scrape.py
 pipenv run python python/wikipedia-fight-card-scrape.py
 pipenv run python python/generate-ics.py 
 pipenv run python python/generate-html.py
+
+### TODO
+* Create SQL Views that Merge data from Sherdog and Wikipedia.
+
+* Upgrade the ICS Generation so that it includes posters and uses the View of merged data
+
+* Add X-TRUMBA-CUSTOMFIELD for Images to Calendar for test:
+https://www.trumba.com/help/api/icsfiles.aspx
+X-TRUMBA-CUSTOMFIELD;NAME="Event image";ID=40;TYPE=Image:http://www.trumba.com/i/DgBTYJSrl5YVo*2Ogw9Dasd3.jpg
+https://icspy.readthedocs.io/en/stable/advanced.html#low-level-api
+
+* Add logic for Wikipedia and Sherdog fight card scrapes where they do not detect a fighter name or URL
+
+* Develop a system to update only upcoming events
+
+
+* Clean up the HTML Generation so it removes the google calendar event code which is not required
+
+* Add section to HTML Generation for upcoming Bellator Events

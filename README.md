@@ -92,3 +92,14 @@
 
 * Python code written by the authors
 * [AppStation Bootstrap Theme from BootstrapZero](http://www.bootstrapzero.com/bootstrap-template/appstation-app-landing-page-template)
+
+
+### Jenkins Shell Instructions
+pipenv run python python/sherdog-event-list-scraper.py
+pipenv run python python/sherdog-fight-card-scrape.py
+pipenv run python python/wikipedia-bellator-event-scrape.py
+pipenv run python python/wikipedia-ufc-event-scrape.py
+pipenv run python python/wikipedia-ufc-poster-scrape.py
+pipenv run python python/wikipedia-fight-card-scrape.py
+pipenv run python python/generate-ics.py 
+pipenv run python python/generate-html.py

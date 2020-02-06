@@ -37,13 +37,13 @@ def loadPosterData (event_url):
 
     return ev_fp_wbst;
 
-def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name):
+def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     print('+++++++++++++++++++++++++++++')
     db_e_poster_url = ''.join(poster_url)
     print('Adding poster URL to the Database: ', db_e_poster_url)
     print('+++++++++++++++++++++++++++++')
     print('+++++++++++++++++++++++++++++')
-    query = "INSERT INTO wiki_mma_events_poster (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name) VALUES (\"%s\",%i, \"%s\", \"%s\", \"%s\")"%(db_e_poster_url, event_id, event_fight_card_url, event_date, event_name)
+    query = "INSERT INTO wiki_mma_events_poster (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org) VALUES(\"%s\",%i, \"%s\", \"%s\", \"%s\", \"%s\")"%(db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org)
     print(query)
     # commenting out the query since we are loaded in the db right now
     cur.execute(query)
@@ -66,35 +66,43 @@ cur.execute("TRUNCATE wiki_mma_events_poster ")
 cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' ORDER BY event_id ASC")
 
 # initialize the arrays
-event_name = []
-event_id = []
-event_fight_card_url = []
-event_org = []
-event_date = []
+g_event_name = []
+g_event_id = []
+g_event_fight_card_url = []
+g_event_org = []
+g_event_date = []
 
 #fight poster specific arrays
 #fight_card_poster = []
-fight_card_poster_url = []
+g_fight_card_poster_url = []
+g_fight_card_org = []
 
 # load our arrays with all of our event data.
 for row in cur.fetchall() :
-    event_name.append(row[0])
-    event_id.append(row[1])
-    event_fight_card_url.append(row[2])
-    event_org.append(row[3])
-    event_date.append(row[4])
+    g_event_name.append(row[0])
+    g_event_id.append(row[1])
+    g_event_fight_card_url.append(row[2])
+    g_event_org.append(row[3])
+    g_event_date.append(row[4])
+    print('***********************************************************************************************')
+    print('Loading event Name: \t\t\t %s ...' % row[0])
+    print('Loading event ID: \t\t %s ' % row[1])
+    print('Loading event Org: \t\t %s' % row[3])
+    print('Loading event Date: \t\t', row[4])
+    print('Loading event URL: \t\t %s' % row[2])
+    print('***********************************************************************************************')
 
 
-x_range = len(event_name)
+x_range = len(g_event_name)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
   #bring in the url information
-  wiki_url = event_fight_card_url[x]
+  wiki_url = g_event_fight_card_url[x]
   this_event_poster = loadPosterData(wiki_url)
   #fight_card_event_name.append(this_event_name)
-  fight_card_poster_url.append(this_event_poster)
-  insertRows(this_event_poster, x + 1, event_fight_card_url[x], event_date[x], event_name[x])
+  g_fight_card_poster_url.append(this_event_poster)
+  insertRows(this_event_poster, x + 1, g_event_fight_card_url[x], g_event_date[x], g_event_name[x], g_event_org[x])
 
   # time.sleep(5)
 

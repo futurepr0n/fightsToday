@@ -104,7 +104,7 @@ pipenv run python python/wikipedia-fight-card-scrape.py
 pipenv run python python/generate-ics.py 
 pipenv run python python/generate-html.py
 
-### TODO
+### More work to be done
 * Create SQL Views that Merge data from Sherdog and Wikipedia.
 
 * Upgrade the ICS Generation so that it includes posters and uses the View of merged data
@@ -117,7 +117,6 @@ https://icspy.readthedocs.io/en/stable/advanced.html#low-level-api
 * Add logic for Wikipedia and Sherdog fight card scrapes where they do not detect a fighter name or URL
 
 * Develop a system to update only upcoming events
-
 
 * Clean up the HTML Generation so it removes the google calendar event code which is not required
 

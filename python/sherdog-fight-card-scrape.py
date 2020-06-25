@@ -42,6 +42,10 @@ db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
 #  you execute all the queries you need
 cur = db.cursor()
 
+# This section will delete the information on the table, for a clean run.
+print('CLEAN the Tables')
+cur.execute("TRUNCATE sd_mma_fight_cards")
+
 # This section will query the database and return all data in the table
 cur.execute("SELECT event_name, event_month, event_day, event_year, event_id, event_fight_card_url, event_org FROM sd_mma_events")
 

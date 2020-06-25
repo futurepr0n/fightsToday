@@ -249,16 +249,16 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(511, 523):
+    for x in range(530, 540):
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (poster_url[x]), file=f)
-        str1 = urlify(event_name[x])
-        str2 = dateify(event_date[x])
-        # print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
-        print('<p>%s %s %s ' % (str1, str2, str2), file=f)
-        # http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
-        # print '<img src="images/Small_Wikipedia_logo.png">'
+        # str1 = urlify(event_name[x])
+        # str2 = dateify(event_date[x])
+        ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
+        # print('<p>%s %s %s ' % (str1, str2, str2), file=f)
+        ## http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
+        ## print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></td></tr><br>', file=f)
 
     print('''
@@ -282,7 +282,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    i = 510
+    i = 529
     while i >= 0:
         print('<tr><th >%s</th></tr><br>' % (event_name[i]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
@@ -313,7 +313,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for z in range(0, 250):
+    for z in range(0, 255):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[z]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[z]), file=f)
         print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)

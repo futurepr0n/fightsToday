@@ -44,7 +44,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     print('+++++++++++++++++++++++++++++')
     print('+++++++++++++++++++++++++++++')
     query = "INSERT INTO wiki_mma_events_poster (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org) VALUES(\"%s\",%i, \"%s\", \"%s\", \"%s\", \"%s\")"%(db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org)
-    print(query)
+    # print(query)
     # commenting out the query since we are loaded in the db right now
     cur.execute(query)
 

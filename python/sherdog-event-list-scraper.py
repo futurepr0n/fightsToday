@@ -91,7 +91,7 @@ def insertRows(row_len, total_event, prev_row_ptr, array_pos):
         print('Event Unique ID: \t ', db_sd_ev_id)
         print('***********************************************************************************************')
         query = "INSERT INTO sd_mma_events (event_name, event_month, event_day, event_year, event_id, event_fight_card_url, event_org, event_location, sd_event_id) VALUES (\"%s\",\'%s\',%s,%s,%i,\"%s\",\"%s\",\"%s\", \"%s\")" % (db_e_en, db_e_ev, db_e_ed, db_e_ey, event_id, db_e_fc, g_event_org, db_e_lc, db_sd_ev_id)
-        print(query)
+        # print(query) # -- This is so we can see the query, Commented out
         print('***********************************************************************************************')
         # commenting out the query since we are loaded in the db right now
         print('Query Executed...')

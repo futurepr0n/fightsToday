@@ -148,10 +148,10 @@ for x in range(0, x_range - 1):  # prev 0, 533
     me_fgtr2_wbst = ''.join(me_fgtr2_wbst_string)
     # print("main event fighter 2 website:", me_fgtr2_wbst)
     g_fighter_two_url.append(me_fgtr2_wbst)
-
-    print("Main event fighter one name:\t\t", asccii_string, "main event fighter two name: \t", asccii_string2)
+    print('***********************************************************************************************')
+    print("**\tMain event fighter one name:\t\t", asccii_string, "main event fighter two name: \t**", asccii_string2)
     main_event_query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (this_event_name, asccii_string, me_fgtr1_wbst, asccii_string2, me_fgtr2_wbst, event_main_event_url, this_event_org, this_event_id)
-    print(main_event_query)
+    # print(main_event_query) # -- This is the query printed so we can see it. Commented out bc its not necessary.
     print('Query Executed...')
     cur.execute(main_event_query)
     print('Success!...')
@@ -187,11 +187,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
         # print("this is the fighter 2 website", fgtr2_wbst)
         g_fighter_two_url.append(fgtr2_wbst)
 
-        print("this is match ", z, "\tfighter one name: ", asccii_string3, "\tfighter two name: \t", asccii_string4)
+        print("**\tFight ", z, "\tfighter one: ", asccii_string3, "\tfighter two: \t**", asccii_string4)
 
         undercard_query = "INSERT INTO sd_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id ) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (this_event_name, asccii_string3, fgtr1_wbst, asccii_string4, fgtr2_wbst, event_main_event_url, this_event_org, this_event_id)
-        print(undercard_query)
-        print('Query Executed...')
+        # print(undercard_query) # commented out bc we do not need to see the full query unless debug
+        print('Query Executing...')
         cur.execute(undercard_query)
         print('Success!...')
 

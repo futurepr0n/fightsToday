@@ -92,8 +92,8 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('Event Unique ID: \t ', w_e_id)
       print('***********************************************************************************************')
       query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\")" % (db_e_en, event_id - 22, db_e_fc, event_org, db_e_fd, w_e_id)
-      print (query)
-      print('***********************************************************************************************')
+      # print (query) # only necessary to print the query for debug
+      # print('***********************************************************************************************')
       print('Query Executed...')
       cur.execute(query)
       print('Success!...')

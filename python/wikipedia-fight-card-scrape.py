@@ -194,8 +194,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
         g_fighter_two_url.append(fgtr2_wbst)
 
-        print("this is match ", z, "\tfighter one name: ", asccii_string3, "\tfighter two name: \t", asccii_string4)
+        print("Fight ", z, "\tfighter one: ", asccii_string3, "\tfighter two: \t", asccii_string4)
         print("fighter 1 website", fgtr1_wbst, "fighter 2 website", fgtr2_wbst)
+        print('***********************************************************************************************')
         # print("This is the fighter org", this_event_org)
         g_fight_card_event_name.append(this_event_name)
         g_fight_card_event_url.append(event_main_event_url)
@@ -240,9 +241,9 @@ for y in range(0, fighterloop - 1):
     print('Event URL: \t\t %s' % e_fc_url)
     print('Event Org: \t\t %s' % e_org)
     print('***********************************************************************************************')
-    print('Query ...')
+    # print('Query ...')
     query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org)
-    print (query)
+    # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')
     cur.execute(query)

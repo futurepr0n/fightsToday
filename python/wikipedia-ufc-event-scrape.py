@@ -45,7 +45,7 @@ def loadPastEventsData (event_url, event_org):
     pe_string = "PAST_EVENTS = %i" %(pe_num)
     past_events = [pe_string]
 
-    outF_pe = open("pastevents.py", "w")
+    outF_pe = open("python/pastevents.py", "w")
 
     for line in past_events:
       print(line, file=outF_pe)
@@ -125,7 +125,7 @@ def loadUpcomingEventsData (event_url, event_org):
     se_string = "SCHED_EVENTS = %i" %(se_num)
     sched_events = [se_string]
 
-    outF_se = open("schedevents.py", "w")
+    outF_se = open("python/schedevents.py", "w")
 
     for line in sched_events:
       print(line, file=outF_se)
@@ -271,7 +271,7 @@ te_num = pe_num + se_num
 te_string = "TOTAL_EVENTS = %i" %(te_num)
 total_events = [te_string]
 
-outF_te = open("totalevents.py", "w")
+outF_te = open("python/totalevents.py", "w")
 
 for line in total_events:
   print(line, file=outF_te)

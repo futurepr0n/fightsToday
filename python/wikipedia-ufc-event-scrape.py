@@ -11,6 +11,10 @@ from pyquery import PyQuery as pq
 import requests
 import MySQLdb
 
+pe_num = 0
+se_num = 0
+te_num = 0
+
 def loadPastEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
     page = requests.get('%s'%(event_url))

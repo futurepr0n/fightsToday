@@ -36,11 +36,17 @@ def loadPastEventsData (event_url, event_org):
     #set the row length
     row_len = len(p)
 
-    print ("*********************************************************")
+    # ***** Creating the Files for autonomous runs *****
+    pe_num = row_len - 1
+    pe_string = "PAST_EVENTS = %i" %(pe_num)
+    past_events = [pe_string]
 
-    print ("I AM THE ROW LENGTH FOR PAST EVENTS %i"%(row_len))
+    outF_pe = open("pastevents.py", "w")
 
-    print ("*********************************************************")
+    for line in past_events:
+      print >>outF_pe, line
+    outF_pe.close()
+
 
     #run through every row in the table
     for x in range (2, row_len+1):
@@ -109,11 +115,16 @@ def loadUpcomingEventsData (event_url, event_org):
     #set the row length
     row_len = len(p)
 
-    print ("*********************************************************")
+    # Creating the Files for autonomous runs *****")
+    se_num = row_len - 1
+    se_string = "SCHED_EVENTS = %i" %(se_num)
+    sched_events = [se_string]
 
-    print ("I AM THE ROW LENGTH FOR SCHEDULED EVENTS %i" %(row_len))
+    outF_se = open("schedevents.py", "w")
 
-    print ("*********************************************************")
+    for line in sched_events:
+      print >>outF_se, line
+    outF_se.close()
 
 
     #run through every row in the table
@@ -235,12 +246,6 @@ event_url = 'https://en.wikipedia.org/wiki/List_of_UFC_events'
 event_id = 0
 
 
-
-
-
-
-
-
 ufc_row_len = loadPastEventsData(event_url, event_org)
 print(" ---- Inserts ----")
 insertRows(ufc_row_len, prev_row_ptr, array_pos)
@@ -253,3 +258,15 @@ ufc_row_len2 = loadUpcomingEventsData(event_url, event_org)
 
 print(" ---- Inserts ----")
 insertRows(ufc_row_len2, prev_row_ptr, array_pos)
+
+# Creating the Files for autonomous runs *****
+
+te_num = pe_num + se_num
+te_string = "TOTAL_EVENTS = %i" %(te_num)
+total_events = [te_string]
+
+outF_te = open("totalevents.py", "w")
+
+for line in total_events:
+  print >>outF_te, line
+outF_te.close()

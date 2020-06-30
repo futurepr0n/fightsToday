@@ -1,5 +1,5 @@
 ##################
-# FILE HAS BEEN TESTED Not SUCCESSFULLY
+# FILE HAS BEEN TESTED not SUCCESSFULLY
 #
 
 from lxml import html, etree
@@ -13,6 +13,11 @@ import time
 import sys
 import requests
 import MySQLdb
+from pastevents import *
+from schedevents import * 
+from totalevents import *
+
+
 
 def urlify(s):
     # Remove all non-word characters (everything except numbers and letters)
@@ -249,7 +254,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(530, 540):
+    for x in range(PAST_EVENTS, TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (poster_url[x]), file=f)
@@ -282,7 +287,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    i = 529
+    i = (TOTAL_EVENTS - SCHED_EVENTS) - 1
     while i >= 0:
         print('<tr><th >%s</th></tr><br>' % (event_name[i]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)

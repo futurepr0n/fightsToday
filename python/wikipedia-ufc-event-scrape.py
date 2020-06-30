@@ -36,11 +36,11 @@ def loadPastEventsData (event_url, event_org):
     #set the row length
     row_len = len(p)
 
-    print "*********************************************************"
+    print ("*********************************************************")
 
-    print "I AM THE ROW LENGTH FOR PAST EVENTS %i" %(row_len)
+    print ("I AM THE ROW LENGTH FOR PAST EVENTS %i"%(row_len))
 
-    print "*********************************************************"
+    print ("*********************************************************")
 
     #run through every row in the table
     for x in range (2, row_len+1):
@@ -109,11 +109,11 @@ def loadUpcomingEventsData (event_url, event_org):
     #set the row length
     row_len = len(p)
 
-    print "*********************************************************"
+    print ("*********************************************************")
 
-    print "I AM THE ROW LENGTH FOR SCHEDULED EVENTS %i" %(row_len)
+    print ("I AM THE ROW LENGTH FOR SCHEDULED EVENTS %i" %(row_len))
 
-    print "*********************************************************"
+    print ("*********************************************************")
 
 
     #run through every row in the table

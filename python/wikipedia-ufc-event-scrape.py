@@ -44,7 +44,8 @@ def loadPastEventsData (event_url, event_org):
     outF_pe = open("pastevents.py", "w")
 
     for line in past_events:
-      print >>outF_pe, line
+      print(line, file=outF_pe)
+      #print >>outF_pe, line
     outF_pe.close()
 
 
@@ -123,7 +124,8 @@ def loadUpcomingEventsData (event_url, event_org):
     outF_se = open("schedevents.py", "w")
 
     for line in sched_events:
-      print >>outF_se, line
+      print(line, file=outF_se)
+      #print >>outF_se, line
     outF_se.close()
 
 
@@ -268,5 +270,6 @@ total_events = [te_string]
 outF_te = open("totalevents.py", "w")
 
 for line in total_events:
-  print >>outF_te, line
+  print(line, file=outF_te)
+  # print >>outF_te, line
 outF_te.close()

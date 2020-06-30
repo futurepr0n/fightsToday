@@ -22,7 +22,7 @@ node {
    stage('Sherdog Fight Cards Scrape') {
       // Run the build
          if (isUnix()) {
-            sh 'pipenv run python python/sherdog-fight-card-scrape.py'
+            //sh 'pipenv run python python/sherdog-fight-card-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }

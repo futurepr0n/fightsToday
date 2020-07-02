@@ -14,7 +14,7 @@ node {
    stage('Sherdog Events Scrape') {
       // Run the build
          if (isUnix()) {
-//            sh 'pipenv run python python/sherdog-event-list-scraper.py'
+            sh 'pipenv run python python/sherdog-event-list-scraper.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -24,7 +24,7 @@ node {
    stage('Sherdog Fight Cards Scrape') {
       // Run the build
          if (isUnix()) {
-//            sh 'pipenv run python python/sherdog-fight-card-scrape.py'
+            sh 'pipenv run python python/sherdog-fight-card-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -34,7 +34,7 @@ node {
    stage('Wikipedia Bellator Events Scrape') {
       // Run the build
          if (isUnix()) {
-//            sh 'pipenv run python python/wikipedia-bellator-event-scrape.py'
+            sh 'pipenv run python python/wikipedia-bellator-event-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -54,7 +54,7 @@ node {
    stage('Wikipedia UFC Posters Scrape') {
       // Run the build
          if (isUnix()) {
- //           sh 'pipenv run python python/wikipedia-ufc-poster-scrape.py'
+            sh 'pipenv run python python/wikipedia-ufc-poster-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -64,7 +64,7 @@ node {
    stage('Wikipedia Fight Cards Scrape') {
       // Run the build
          if (isUnix()) {
-//            sh 'pipenv run python python/wikipedia-fight-card-scrape.py'
+            sh 'pipenv run python python/wikipedia-fight-card-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }

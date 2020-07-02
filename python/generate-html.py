@@ -139,7 +139,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(PAST_EVENTS - 1, TOTAL_EVENTS):
+    for x in range(PAST_EVENTS, TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (poster_url[x]), file=f)
@@ -213,7 +213,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     for x in range(250, 255):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
-        print('<img src="%s"><br>' % (poster_url[x]), file=f)
+        print('<img src="%s"><br>' % (bellator_event_fight_poster_url[x]), file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
         ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)

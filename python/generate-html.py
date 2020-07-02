@@ -170,7 +170,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    i = (TOTAL_EVENTS - SCHED_EVENTS) - 1
+    i = PAST_EVENTS - 1
     while i >= 0:
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
@@ -211,8 +211,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     # nrows = len(poster_url)
 
     for x in range(250, 255):
-        print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
-        print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
+        print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
+        print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (poster_url[x]), file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])

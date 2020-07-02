@@ -13,7 +13,8 @@ import MySQLdb
 
 pe_num = 0
 se_num = 0
-te_num = 0
+te_num = 0 
+
 
 def loadPastEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
@@ -44,7 +45,7 @@ def loadPastEventsData (event_url, event_org):
     pe_num = row_len - 1
     pe_string = "PAST_EVENTS = %i" %(pe_num)
     past_events = [pe_string]
-
+ 
     outF_pe = open("python/pastevents.py", "w")
 
     for line in past_events:
@@ -253,6 +254,7 @@ event_id = 0
 
 
 ufc_row_len = loadPastEventsData(event_url, event_org)
+pe2_num = ufc_row_len-1
 print(" ---- Inserts ----")
 insertRows(ufc_row_len, prev_row_ptr, array_pos)
 
@@ -261,16 +263,18 @@ prev_row_ptr = ufc_row_len + prev_row_ptr - 1
 
 
 ufc_row_len2 = loadUpcomingEventsData(event_url, event_org)
-
+se2_num = ufc_row_len2-1
 print(" ---- Inserts ----")
 insertRows(ufc_row_len2, prev_row_ptr, array_pos)
 
 # Creating the Files for autonomous runs *****
 
-te_num = pe_num + se_num
+print("The SE NUM = %i" %(se2_num))
+print("The PE NUM = %i" %(pe2_num))
+te_num = pe2_num + se2_num
 te_string = "TOTAL_EVENTS = %i" %(te_num)
 total_events = [te_string]
-
+print("The TE num = %i" %(te_num))
 outF_te = open("python/totalevents.py", "w")
 
 for line in total_events:

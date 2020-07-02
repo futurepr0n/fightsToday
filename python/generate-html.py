@@ -170,8 +170,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    i = PAST_EVENTS - 2
-    while i >= 0:
+    i = PAST_EVENTS - 1
+    while i >= (PAST_EVENTS - SCHED_EVENTS):
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
         print('<img src="%s">' % (poster_url[i]), file=f)

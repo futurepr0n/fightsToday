@@ -2,3 +2,6 @@ Pipfile
 Pipfile.lock
 index.html
 all_events.ics
+python/totalevents.py
+python/schedevents.py
+python/pastevents.py

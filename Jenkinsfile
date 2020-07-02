@@ -34,7 +34,7 @@ node {
    stage('Wikipedia Bellator Events Scrape') {
       // Run the build
          if (isUnix()) {
-            sh 'pipenv run python python/wikipedia-bellator-event-scrape.py'
+//            sh 'pipenv run python python/wikipedia-bellator-event-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -44,7 +44,7 @@ node {
    stage('Wikipedia UFC Events Scrape') {
       // Run the build
          if (isUnix()) {
- //           sh 'pipenv run python python/wikipedia-ufc-event-scrape.py'
+            sh 'pipenv run python python/wikipedia-ufc-event-scrape.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }

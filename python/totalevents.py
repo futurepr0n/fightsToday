@@ -1,1 +1,0 @@
-TOTAL_EVENTS = 542

@@ -139,7 +139,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(PAST_EVENTS, TOTAL_EVENTS):
+    for x in range(PAST_EVENTS - 1, TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (poster_url[x]), file=f)
@@ -170,7 +170,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    i = PAST_EVENTS - 1
+    i = PAST_EVENTS - 2
     while i >= 0:
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
@@ -635,7 +635,6 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         <script src="/js/jquery.flipster.min.js"></script>
     </body>
 </html>
-
 ''', file=f)
 
 

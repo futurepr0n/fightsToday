@@ -152,7 +152,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         print('</a></td></tr><br>', file=f)
 
     print('''
-                                    </p>
+                  </p>
                 </div>
             </div>
         </section>
@@ -236,7 +236,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
             </div>
             <div id="demo-flat" class="demo">
                 <div id="flat2">
-                    <ul>''', file=f)
+                    <ul>
+''', file=f)
 
 
     for z in range(0, 255):

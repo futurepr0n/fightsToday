@@ -1,0 +1,1 @@
+TOTAL_EVENTS = 0

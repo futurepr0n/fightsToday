@@ -174,7 +174,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     while i >= 0:
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
-        print('<img src="%s"><br>' % (poster_url[i]), file=f)
+        print('<img src="%s">' % (poster_url[i]), file=f)
         print('</li>', file=f)
         i -= 1
         # print '<img src="images/Small_Wikipedia_logo.png">'
@@ -241,7 +241,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 
     for z in range(0, 255):
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
-        print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
+        print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</li>', file=f)
 

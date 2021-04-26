@@ -140,11 +140,12 @@ def createEvents(event_day, event_fight_card_url, event_location, event_month, e
 
 
 # Database Connection
-db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
-                     user="mark5463_ft_test",  # your username
-                     passwd="fttesting",  # your password
-                     db="mark5463_ft_prod")  # name of the data base
+#db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
+#                     user="mark5463_ft_test",  # your username
+#                     passwd="fttesting",  # your password
+#                     db="mark5463_ft_prod")  # name of the data base
 
+db = MySQLdb.connect(host="135.23.253.254:3308", user="root", passwd="fttesting", db="mark5463_ft_prod")
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
 

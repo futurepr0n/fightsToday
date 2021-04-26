@@ -25,7 +25,7 @@ node {
    stage('Prepare database by importing structure') { // prep the db
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
-          sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting mark5436_ft_prod'
+          sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
       } else {
           //put windows command here
       }        

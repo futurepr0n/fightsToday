@@ -14,15 +14,31 @@ node {
    }
    stage('startup mysql docker container') { // prep the db
       // Set up the Python Environment and dependencies  
-      
-         sh 'docker build -t fight-test-db .'
-      
+      if (isUnix()) {
+         sh 'docker run --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d mysql'
+      }else{
+
+      }
         // docker.image('mysql').withRun('-v `$PWD`:`$PWD` --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d') {c -> 
         //    sh 'docker exec -i fightsTodayTestDB service mysql start'
         //    sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
         // }
       
-      discordSend description: "mysql Container Started; db prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
+      discordSend description: "mysql Container Started", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
+   }
+   stage('startup mysql docker container') { // prep the db
+      // Set up the Python Environment and dependencies  
+      if (isUnix()) {
+         sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting mark5436_ft_prod'
+      }else{
+
+      }
+        // docker.image('mysql').withRun('-v `$PWD`:`$PWD` --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d') {c -> 
+        //    sh 'docker exec -i fightsTodayTestDB service mysql start'
+        //    sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
+        // }
+      
+      discordSend description: "mysql db prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
    }
    stage('Sherdog Events Scrape') {
       // Run the build

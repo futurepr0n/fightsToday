@@ -16,7 +16,7 @@ node {
       // Set up the Python Environment and dependencies  
       steps {
          sh """
-            docker build -t fightTestDB
+            docker build -t fightTestDB .
          """
 
       }

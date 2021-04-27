@@ -14,7 +14,7 @@ node {
    }
    stage('startup mysql docker container') { // prep the db
       // Set up the Python Environment and dependencies  
-      steps{
+      steps {
          sh """
             docker build -t fightTestDB
          """

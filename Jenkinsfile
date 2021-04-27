@@ -13,7 +13,7 @@ node {
  //     discordSend description: "Environment Prepared\n" + "Duration: " + currentBuild.durationString , footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    stage('startup mysql docker container') { // prep the db
-      step{
+      step {
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
          sh 'docker run --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d mysql'
@@ -27,7 +27,6 @@ node {
       
          discordSend description: "mysql Container Started", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
       }
-   
       step { // prep the db
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
@@ -40,7 +39,8 @@ node {
         //    sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
         // }
       
-      discordSend description: "mysql db prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
+         discordSend description: "mysql db prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
+      }
    }
    stage('Sherdog Events Scrape') {
       // Run the build

@@ -12,7 +12,7 @@ node {
       discordSend description: "Environment Prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
  //     discordSend description: "Environment Prepared\n" + "Duration: " + currentBuild.durationString , footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
-  stage('startup mysql docker container') { // prep the db
+  stage('Startup MySQL Docker Container') { // prep the db
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
          sh 'docker run --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d mysql'
@@ -26,7 +26,7 @@ node {
       
          discordSend description: "mysql container run", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
    }
-   stage('startup mysql docker container') { // prep the db
+   stage('Prepare the fightsToday DB for loading') { // prep the db
       git 'https://github.com/futurepr0n/fightsToday.git'
       // Set up the Python Environment and dependencies  
       if (isUnix()) {

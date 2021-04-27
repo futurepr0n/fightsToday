@@ -16,7 +16,7 @@ node {
   stage('Startup MySQL Docker Container') { // prep the db
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
-         sh 'docker run --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d mysql'
+         MY_CONTAINER = sh(script: 'docker run --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d mysql', returnStdout: true)
       }else{
 
       }
@@ -129,11 +129,8 @@ node {
       println(MY_CONTAINER)
       echo MY_CONTAINER
       if (isUnix()) {
-         sleep(5)
             sh 'docker kill ' + MY_CONTAINER 
             sh 'docker rm ' + MY_CONTAINER
-
-             
          }else{
          
       }

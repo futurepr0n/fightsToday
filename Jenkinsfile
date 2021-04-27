@@ -14,12 +14,9 @@ node {
    }
    stage('startup mysql docker container') { // prep the db
       // Set up the Python Environment and dependencies  
-      steps {
-         sh """
-            docker build -t fightTestDB .
-         """
-
-      }
+      
+         sh 'docker build -t fightTestDB .'
+      
         // docker.image('mysql').withRun('-v `$PWD`:`$PWD` --name fightsTodayTestDB -p 3308:3306 --expose=3308 -e MYSQL_ROOT_PASSWORD="fttesting" -d') {c -> 
         //    sh 'docker exec -i fightsTodayTestDB service mysql start'
         //    sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'

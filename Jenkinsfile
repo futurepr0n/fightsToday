@@ -30,7 +30,8 @@ node {
       git 'https://github.com/futurepr0n/fightsToday.git'
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
-         retry(100){
+         sleep(45)
+         retry(15){
             sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
          }
              

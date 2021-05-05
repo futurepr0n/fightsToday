@@ -212,10 +212,11 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(250, 255):
+    for x in range(273, 276):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
-        print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
+        print('<img src="%s"><br>' % (bellator_poster_url[x]), file=f)
+        #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
         ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
@@ -245,7 +246,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     # for z in range(0, 255):
     for z in range(0, 10):
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
-        print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
+        print('<img src="%s"><br>' % (bellator_event_poster_url[z]), file=f)
+        #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</li>', file=f)
 
@@ -652,20 +654,20 @@ for row in cur.fetchall():
 
 format_org = "Bellator"
 # Bellator query
-cur.execute("SELECT event_id, event_fight_card_url, event_date, event_name from wiki_mma_events where event_org = '%s'" % format_org)
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events where event_org = '%s'" % format_org)
 
 bellator_event_id = []
 bellator_event_fight_card_url = []
 bellator_event_date = []
 bellator_event_name = []
-bellator_event_fight_poster_url = 'https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg'
+bellator_event_fight_poster_url = []
 
 for row2 in cur.fetchall():
-    # bellator_event_fight_poster_url.append(row[0])
-    bellator_event_id.append(row2[0])
-    bellator_event_fight_card_url.append(row2[1])
-    bellator_event_date.append(row2[2])
-    bellator_event_name.append(row2[3])
+    bellator_event_fight_poster_url.append(row2[0])
+    bellator_event_id.append(row2[1])
+    bellator_event_fight_card_url.append(row2[2])
+    bellator_event_date.append(row2[3])
+    bellator_event_name.append(row2[4])
 
 if __name__ == "__main__":
     f = open("index.html", "a")

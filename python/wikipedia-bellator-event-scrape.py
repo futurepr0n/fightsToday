@@ -78,7 +78,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     event_id = event_id - 1
 
     # loop through all the rows
-    for loopid in range (2,row_len-22):
+    for loopid in range (3,row_len-22):
       print('***********************************************************************************************')
       db_e_en = ''.join(event_name[array_pos])
       db_e_fc = ''.join(event_fight_card_url[array_pos])
@@ -111,7 +111,7 @@ db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="ftte
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
-cur.execute("TRUNCATE wiki_mma_events")
+# cur.execute("TRUNCATE wiki_mma_events")
 # Scrape UFC Information
 # initialize our arrays. our Arrays.
 event_name = []

@@ -654,7 +654,7 @@ for row in cur.fetchall():
 
 
 # Bellator query
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events where event_org = 'Bellator'")
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'Bellator'")
 
 bellator_event_fight_poster_url = []
 bellator_event_id = []

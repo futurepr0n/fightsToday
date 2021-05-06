@@ -252,7 +252,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
-        if(bellator_event_fight_card_url == "https:"):
+        if(bellator_event_fight_card_url[z] == "https:"):
             print('<img src="http://fights.today/images/bellator_placeholder.png"><br>', file=f)
         else:
             print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)

@@ -652,9 +652,9 @@ for row in cur.fetchall():
     event_date.append(row[3])
     event_name.append(row[4])
 
-format_org = "Bellator"
+
 # Bellator query
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events where event_org = '%s'" % (format_org))
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events where event_org = 'Bellator'" % (format_org))
 
 bellator_event_fight_poster_url = []
 bellator_event_id = []

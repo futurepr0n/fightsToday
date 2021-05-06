@@ -142,7 +142,10 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     for x in range(PAST_EVENTS, TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
-        print('<img src="%s"><br>' % (poster_url[x]), file=f)
+        if(poster_url[x]=="https:"):
+            print('<img src="http://fights.today/images/ufc_placeholder.png"><br>', file=f)
+        else:
+            print('<img src="%s"><br>' % (poster_url[x]), file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
         ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
@@ -249,7 +252,10 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
-        print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)
+        if(bellator_event_fight_card_url == "https:"):
+            print('<img src="http://fights.today/images/bellator_placeholder.png"><br>', file=f)
+        else:
+            print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></li>', file=f)

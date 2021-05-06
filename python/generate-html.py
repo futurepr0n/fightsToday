@@ -253,7 +253,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></li>', file=f)
-        t-=1
+        z-=1
 
     print('''
                     </ul>

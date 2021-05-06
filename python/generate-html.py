@@ -247,8 +247,6 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     t = 273 - 1 
     length_of_loop2 = 2 - 3
     while t >= length_of_loop2:
-    # for z in range(0, 255):
-    #for z in range(0, 272):
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)

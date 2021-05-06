@@ -40,6 +40,7 @@ def dateify(s):
     s = re.sub(r"2018", '', s)
     s = re.sub(r"2019", '', s)
     s = re.sub(r"2020", '', s)
+    s = re.sub(r"2021", '', s)
 
     s = re.sub(r"Jan", '01', s)
     s = re.sub(r"Feb", '02', s)
@@ -645,7 +646,7 @@ cur = db.cursor()
 
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster ")
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'UFC' ")
 
 # initialize the arrays
 event_fight_poster_url = []

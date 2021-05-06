@@ -1,6 +1,6 @@
 def MY_CONTAINER
 node {
-/*    stage('Prepare node Build Environment') { // for display purposes
+    stage('Prepare node Build Environment') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/futurepr0n/fightsToday.git'
       // Set up the Python Environment and dependencies  
@@ -13,6 +13,7 @@ node {
       discordSend description: "Environment Prepared", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
  //     discordSend description: "Environment Prepared\n" + "Duration: " + currentBuild.durationString , footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
+   /*
   stage('Startup MySQL Docker Container') { // prep the db
       // Set up the Python Environment and dependencies  
       if (isUnix()) {

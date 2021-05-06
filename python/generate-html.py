@@ -224,6 +224,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         ## http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
         ## print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></td></tr><br>', file=f)
+        
 
     print('''
                         </p>
@@ -243,14 +244,18 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 ''', file=f)
 
 
+    t = 273 - 1 
+    length_of_loop2 = 2 - 3
+    while t >= length_of_loop2:
     # for z in range(0, 255):
-    for z in range(0, 272):
+    #for z in range(0, 272):
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></li>', file=f)
+        t-=1
 
     print('''
                     </ul>

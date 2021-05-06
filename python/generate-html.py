@@ -244,12 +244,13 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 
 
     # for z in range(0, 255):
-    for z in range(0, 10):
+    for z in range(0, 272):
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
+        print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
-        print('</li>', file=f)
+        print('</a></li>', file=f)
 
     print('''
                     </ul>

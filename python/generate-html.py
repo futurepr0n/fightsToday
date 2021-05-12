@@ -216,7 +216,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(273, 276):
+    for x in range(274, 277):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (bellator_event_fight_poster_url[x]), file=f)
@@ -248,8 +248,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 ''', file=f)
 
 
-    z = 273 - 1 
-    length_of_loop2 = 2 - 3
+    z = 274 - 1 
+    length_of_loop2 = 266
     while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
@@ -686,3 +686,62 @@ if __name__ == "__main__":
     main(event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name)
     f.close()
 
+##################
+""" 
+import datetime
+
+# date in yyyy/mm/dd format
+event_date1 = "September 9, 2010"
+event_date2 = "August 3, 2021"
+
+
+# using now() to get current time 
+current_time = datetime.datetime.now() 
+    
+# Printing attributes of now(). 
+print ("The attributes of now() are : ") 
+    
+print ("Year : ", end = "") 
+print (current_time.year) 
+    
+print ("Month : ", end = "") 
+print (current_time.month) 
+    
+print ("Day : ", end = "") 
+print (current_time.day) 
+
+
+
+
+d1 = datetime.datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
+d2 = datetime.datetime.strptime(event_date2, '%B %d, %Y').strftime("%d/%m/%Y")
+month_formatted = datetime.datetime.strptime(str(current_time.month), "%m").strftime("%m")
+
+
+  
+print("This is event_date_1 ", d1)
+print("This is event_date_2 ", d2)
+print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
+print("This is the month formatted", month_formatted )
+print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
+
+# LOGIC FOR Seeing if a date is is in the Past or Upcoming.
+event_date1_breakdown = d1.split("/")
+event_date1_breakdown_day = event_date1_breakdown[0]
+event_date1_breakdown_month = event_date1_breakdown[1]
+event_date1_breakdown_year = event_date1_breakdown[2]
+
+print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
+
+
+
+# Comparing the dates will return
+# either True or False
+print("d1 is greater than today: ", d1 > d2)
+print("d1 is less than d2 : ", d1 < d2)
+print("d1 is not equal to d2 : ", d1 != d2)
+print(d1)
+print(d2)
+
+
+ """

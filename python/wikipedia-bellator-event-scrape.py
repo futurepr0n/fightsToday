@@ -49,58 +49,60 @@ def loadEventsData (event_url, event_org):
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
 
-
       if ascii_event_name_string == '':  # Try the italic version
         # scrape the event name with italic /i  
         event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/i/a/text()'%(x))
         new_event_name_str = ''.join(event_name_array)
         ascii_event_name_string = smart_str(new_event_name_str)
-
         # scrape wikipedia ufc fight card url
         event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/i/a/@href'%(x))
         new_fight_card_url_str = ''.join(event_fight_card_url_array)
         ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
 
-          
-          if ascii_event_name_string == '': # Try the td 1 flavor
-            event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/text()'%(x))
+        if ascii_event_name_string == '': # Try the td 1 flavor
+          event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/text()'%(x))
+          new_event_name_str = ''.join(event_name_array)
+          ascii_event_name_string = smart_str(new_event_name_str)
+          # scrape wikipedia ufc fight card url
+          event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/@href'%(x))
+          new_fight_card_url_str = ''.join(event_fight_card_url_array)
+          ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
+
+          if ascii_event_name_string == '': # Try the td 1 flavor with italic
+            event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/text()'%(x))
             new_event_name_str = ''.join(event_name_array)
             ascii_event_name_string = smart_str(new_event_name_str)
-
             # scrape wikipedia ufc fight card url
-            event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/@href'%(x))
+            event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/@href'%(x))
             new_fight_card_url_str = ''.join(event_fight_card_url_array)
             ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
-
-            if ascii_event_name_string == '': # Try the td 1 flavor with italic
-              event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/text()'%(x))
-              new_event_name_str = ''.join(event_name_array)
-              ascii_event_name_string = smart_str(new_event_name_str)
-
-              # scrape wikipedia ufc fight card url
-              event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/@href'%(x))
-              new_fight_card_url_str = ''.join(event_fight_card_url_array)
-              ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
-
-            else:
-              event_name.append(ascii_event_name_string)
-
-              ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-              event_fight_card_url.append(ev_fc_wbst)
-          
-          else: 
             event_name.append(ascii_event_name_string)
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
             event_fight_card_url.append(ev_fc_wbst)
 
-        event_name.append(ascii_event_name_string)
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-        event_fight_card_url.append(ev_fc_wbst)
+          else:
+            event_name.append(ascii_event_name_string)
 
-      else:
-        event_name.append(ascii_event_name_string)
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-        event_fight_card_url.append(ev_fc_wbst)
+            ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+            event_fight_card_url.append(ev_fc_wbst)
+          
+          event_name.append(ascii_event_name_string)
+          ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+          event_fight_card_url.append(ev_fc_wbst)
+          
+        else: 
+          event_name.append(ascii_event_name_string)
+          ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+          event_fight_card_url.append(ev_fc_wbst)
+
+      event_name.append(ascii_event_name_string)
+      ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+      event_fight_card_url.append(ev_fc_wbst)
+      
+    else:
+      event_name.append(ascii_event_name_string)
+      ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+      event_fight_card_url.append(ev_fc_wbst)
       #######################################################################
 
       event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[3]/span/text()'%(x))
@@ -115,7 +117,7 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
       else:                      
                                      
-      event_date.append(ascii_event_date)
+        event_date.append(ascii_event_date)
 
 
     return row_len;

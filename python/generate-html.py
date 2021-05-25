@@ -688,7 +688,7 @@ if __name__ == "__main__":
 
 ##################
 """ 
-import datetime
+from datetime import datetime, date
 
 # date in yyyy/mm/dd format
 event_date1 = "September 9, 2010"
@@ -696,7 +696,7 @@ event_date2 = "August 3, 2021"
 
 
 # using now() to get current time 
-current_time = datetime.datetime.now() 
+current_time = datetime.now() 
     
 # Printing attributes of now(). 
 print ("The attributes of now() are : ") 
@@ -713,9 +713,9 @@ print (current_time.day)
 
 
 
-d1 = datetime.datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
-d2 = datetime.datetime.strptime(event_date2, '%B %d, %Y').strftime("%d/%m/%Y")
-month_formatted = datetime.datetime.strptime(str(current_time.month), "%m").strftime("%m")
+d1 = datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
+d2 = datetime.strptime(event_date2, '%B %d, %Y').strftime("%d/%m/%Y")
+month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
 
 
   
@@ -731,15 +731,27 @@ event_date1_breakdown_day = event_date1_breakdown[0]
 event_date1_breakdown_month = event_date1_breakdown[1]
 event_date1_breakdown_year = event_date1_breakdown[2]
 
+event_date2_breakdown = d2.split("/")
+event_date2_breakdown_day = event_date2_breakdown[0]
+event_date2_breakdown_month = event_date2_breakdown[1]
+event_date2_breakdown_year = event_date2_breakdown[2]
+
+compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
+compare_date_2 = date(int(event_date2_breakdown_year), int(event_date2_breakdown_month), int(event_date2_breakdown_day))
+compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+
 print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
-
-
 
 # Comparing the dates will return
 # either True or False
 print("d1 is greater than today: ", d1 > d2)
 print("d1 is less than d2 : ", d1 < d2)
 print("d1 is not equal to d2 : ", d1 != d2)
+print("compare date 1 is greater than today: ", compare_date_1 > compare_date_today)
+print("compare date 1 is less than today : ", compare_date_1 < compare_date_today)
+print("compare date 2 is greater than today: ", compare_date_2 > compare_date_today)
+print("compare date 2 is less than today : ", compare_date_2 < compare_date_today)
+print("compare date is not equal to d2 : ", d1 != d2)
 print(d1)
 print(d2)
 

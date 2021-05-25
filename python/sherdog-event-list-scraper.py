@@ -13,13 +13,14 @@ from pyquery import PyQuery as pq
 
 def loadData(event_url, event_org, thisflag):
     # set up the lxml, load url to scrape
-    page = requests.get('%s' % (event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % (event_url),headers=hdr)
     tree = html.fromstring(page.content)
 
     # set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_url), proxies={'http':'134.209.29.120:8080'})
+    d = pq(url='%s' % (event_url))
 
     # get the row length by querying the event table on table rows
     # p = d(".event tr")

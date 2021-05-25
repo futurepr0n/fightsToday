@@ -9,10 +9,15 @@ from django.utils.encoding import smart_str
 from lxml import html, etree
 from pyquery import PyQuery as pq
 
+header = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
+  "X-Requested-With": "XMLHttpRequest"
+}
+
 
 def loadData(event_url, event_org, thisflag):
     # set up the lxml, load url to scrape
-    page = requests.get('%s' % (event_url))
+    page = requests.get('%s' % (event_url),headers=header)
     tree = html.fromstring(page.content)
 
     # set up PyQuery section, load the url to scrape

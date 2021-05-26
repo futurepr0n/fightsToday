@@ -86,18 +86,22 @@ def loadEventsData (event_url, event_org):
             new_fight_card_url_str = ''.join(event_fight_card_url_array)
             ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
             print('Event URL: \t\t %s' % ascii_fight_card_url_string)
+            print('I am appending the event Name in the Block that means I found it in td1 italicized')
             event_name.append(ascii_event_name_string)
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
             event_fight_card_url.append(ev_fc_wbst)
           else:
+            print('I am appending the event Name in the Else Block that means I found it in td1')
             event_name.append(ascii_event_name_string)
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
             event_fight_card_url.append(ev_fc_wbst)
-        else: 
+        else:
+          print('I am appending the event Name in the Else Block that means I found it in td2 italicized') 
           event_name.append(ascii_event_name_string)
           ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
           event_fight_card_url.append(ev_fc_wbst)
       else:
+        print('I am appending the event Name in the Else Block that means I found it in td2')
         event_name.append(ascii_event_name_string)
         ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
         event_fight_card_url.append(ev_fc_wbst)

@@ -112,18 +112,19 @@ def loadEventsData (event_url, event_org):
       event_fight_card_url.append(ev_fc_wbst)
       #######################################################################
 
-      event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[3]/span/text()'%(x))
+    event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[3]/span/text()'%(x))
+    new_event_date = ''.join(event_date_array)
+    ascii_event_date = smart_str(new_event_date)
+
+    if ascii_event_date == '':
+      event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/span/text()'%(x))
       new_event_date = ''.join(event_date_array)
       ascii_event_date = smart_str(new_event_date)
-
-      if ascii_event_date == '':
-        event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/span/text()'%(x))
-        new_event_date = ''.join(event_date_array)
-        ascii_event_date = smart_str(new_event_date)
-        event_date.append(ascii_event_date)
-      else:                      
-        event_date.append(ascii_event_date)
-      print('Event Date: \t', ascii_event_date)
+      event_date.append(ascii_event_date)
+    else:                      
+      event_date.append(ascii_event_date)
+    
+    print('Event Date: \t', ascii_event_date)
      
     return row_len;
 

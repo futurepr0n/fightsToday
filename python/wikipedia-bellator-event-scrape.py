@@ -38,16 +38,18 @@ def loadEventsData (event_url, event_org):
     #run through every row in the table
     for x in range (2, row_len+1):
 
-      ############### Scrape entire Wiki Table ######################################
-      # scrape the event name
+      print('############### Scrape entire Wiki Table ######################################')
+      print('# scrape the event name')
+      print('td[2]? ')
       event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/a/text()'%(x))
       new_event_name_str = ''.join(event_name_array)
       ascii_event_name_string = smart_str(new_event_name_str)
-
-      # scrape wikipedia ufc fight card url
+      print('event td[2]: %s ...' % ascii_event_name_string)
+      print('# scrape wikipedia ufc fight card url ')
       event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/a/@href'%(x))
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
+      print('Event URL: \t\t %s' % ascii_fight_card_url_string)
 
       if ascii_event_name_string == '':  # Try the italic version
         # scrape the event name with italic /i  
@@ -111,11 +113,8 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
       else:                      
         event_date.append(ascii_event_date)
-
-      print('Adding event: %s ...' % ascii_event_name_string)
       print('Event Date: \t', ascii_event_date)
-      print('Event URL: \t\t %s' % ascii_fight_card_url_string)
-
+     
     return row_len;
 
 def insertRows (row_len, prev_row_ptr, array_pos):

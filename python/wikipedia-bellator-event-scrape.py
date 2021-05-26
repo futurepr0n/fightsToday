@@ -93,17 +93,10 @@ def loadEventsData (event_url, event_org):
             event_name.append(ascii_event_name_string)
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
             event_fight_card_url.append(ev_fc_wbst)
-        
-          event_name.append(ascii_event_name_string)
-          ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-          event_fight_card_url.append(ev_fc_wbst)
         else: 
           event_name.append(ascii_event_name_string)
           ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
           event_fight_card_url.append(ev_fc_wbst)
-        event_name.append(ascii_event_name_string)
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-        event_fight_card_url.append(ev_fc_wbst)
       else:
         event_name.append(ascii_event_name_string)
         ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)

@@ -43,24 +43,29 @@ def loadData(event_url, event_org, thisflag):
         g_event_name.append(event_name_array)
 
         # scrape event month
-        event_month_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/span/span[1]/text()' % (vtabnm,x))
+        event_month_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[1]/text()' % (vtabnm,x))
+
         g_event_month.append(event_month_array)
 
         # scrape event day
-        event_day_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/span/span[2]/text()' % (vtabnm,x))
+        event_day_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[2]/text()' % (vtabnm,x))
+
         g_event_day.append(event_day_array)
 
         # scrape event year
-        event_year_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/span/span[3]/text()' % (vtabnm,x))
+        event_year_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[3]/text()' % (vtabnm,x))
+
         g_event_year.append(event_year_array)
 
         # scrape event fight card URL
         event_fight_card_url_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[2]/a/@href' % (vtabnm,x))
+                                                 
         ev_fc_wbst = 'http://www.sherdog.com', ''.join(event_fight_card_url_array)
         g_event_fight_card_url.append(ev_fc_wbst)
 
         # scrape event location
         event_location_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[3]/text()' % (vtabnm,x))
+        
         newstr = ''.join(event_location_array)
         asccii_string = smart_str(newstr)
         g_event_location.append(asccii_string)
@@ -131,6 +136,26 @@ prev_row_ptr = 0
 array_pos = 0
 ufc_total_events = 0
 bellator_total_events = 0
+
+print("*********************************************")
+print("UFC Section Scrape Page 7...")
+print("*********************************************")
+# set the event organization to UFC
+g_event_org = 'UFC'
+# set the event url to sherdog ufc section
+# event_url = 'http://www.sherdog.com/organizations/Ultimate-Fighting-Championship-2'
+g_event_url = 'http://www.sherdog.com/organizations/Ultimate-Fighting-Championship-2/recent-events/7'
+# reset the event id
+g_event_id = 0
+
+ufc_row_len = loadData(g_event_url, g_event_org, 1)
+ufc_total_events = ufc_total_events + ufc_row_len
+print(" ---- Inserts ----")
+
+# insertRows(ufc_row_len, prev_row_ptr, array_pos)
+insertRows(ufc_row_len, ufc_total_events, prev_row_ptr, array_pos)
+
+prev_row_ptr = ufc_row_len + prev_row_ptr - 1
 
 print("*********************************************")
 print("UFC Section Scrape Page 6...")

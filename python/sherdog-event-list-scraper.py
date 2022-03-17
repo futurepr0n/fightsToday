@@ -28,47 +28,74 @@ def loadData(event_url, event_org, thisflag):
         print("Setting Scrape to RECENT TAB")
         vtabnm = 'recent_tab'
         p = d("#recent_tab tr")
+        row_len = len(p)
+        for x in range(2, row_len + 1):
+            # scrape ufc event name
+            event_name_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[2]/a/span/text()' % (vtabnm,x))
+            # event_parse = re.sub('[-.]', '', event_name_array)
+            g_event_name.append(event_name_array)
+
+            # scrape event month
+            event_month_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[1]/text()' % (vtabnm,x))
+
+            g_event_month.append(event_month_array)
+
+            # scrape event day
+            event_day_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[2]/text()' % (vtabnm,x))
+
+            g_event_day.append(event_day_array)
+
+            # scrape event year
+            event_year_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[3]/text()' % (vtabnm,x))
+
+            g_event_year.append(event_year_array)
+
+            # scrape event fight card URL
+            event_fight_card_url_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[2]/a/@href' % (vtabnm,x))
+                                                 
+            ev_fc_wbst = 'http://www.sherdog.com', ''.join(event_fight_card_url_array)
+            g_event_fight_card_url.append(ev_fc_wbst)
+
+            # scrape event location
+            event_location_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[3]/text()' % (vtabnm,x))
+        
+            newstr = ''.join(event_location_array)
+            asccii_string = smart_str(newstr)
+            g_event_location.append(asccii_string)
     else:
         print("Setting Scrape to UPCOMING TAB")
         vtabnm = 'upcoming_tab'
         p = d("#upcoming_tab tr")
-    # set the row length
-    row_len = len(p)
+        row_len = len(p)
+        # run through every row in the table
+        for x in range(2, row_len + 1):
+            # scrape ufc event name
+            event_name_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[2]/a/span/text()' % (vtabnm,x))
+            # event_parse = re.sub('[-.]', '', event_name_array)
+            g_event_name.append(event_name_array)
 
-    # run through every row in the table
-    for x in range(2, row_len + 1):
-        # scrape ufc event name
-        event_name_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[2]/a/span/text()' % (vtabnm,x))
-        # event_parse = re.sub('[-.]', '', event_name_array)
-        g_event_name.append(event_name_array)
+            # scrape event month
+            event_month_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[1]/div/div[1]/text()' % (vtabnm,x))
+            g_event_month.append(event_month_array)
+            # scrape event day
+            event_day_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[1]/div/div[2]/text()' % (vtabnm,x))
+            g_event_day.append(event_day_array)
 
-        # scrape event month
-        event_month_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[1]/text()' % (vtabnm,x))
+            # scrape event year
+            event_year_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[1]/div/div[3]/text()' % (vtabnm,x))
+            g_event_year.append(event_year_array)
 
-        g_event_month.append(event_month_array)
+            # scrape event fight card URL
+            event_fight_card_url_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[2]/a/@href' % (vtabnm,x))
+            ev_fc_wbst = 'http://www.sherdog.com', ''.join(event_fight_card_url_array)
+            g_event_fight_card_url.append(ev_fc_wbst)
 
-        # scrape event day
-        event_day_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[2]/text()' % (vtabnm,x))
+            # scrape event location
+            event_location_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[3]/text()' % (vtabnm,x))
+            newstr = ''.join(event_location_array)
+            asccii_string = smart_str(newstr)
+            g_event_location.append(asccii_string)
 
-        g_event_day.append(event_day_array)
-
-        # scrape event year
-        event_year_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[1]/div/div[3]/text()' % (vtabnm,x))
-
-        g_event_year.append(event_year_array)
-
-        # scrape event fight card URL
-        event_fight_card_url_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[2]/a/@href' % (vtabnm,x))
-                                                 
-        ev_fc_wbst = 'http://www.sherdog.com', ''.join(event_fight_card_url_array)
-        g_event_fight_card_url.append(ev_fc_wbst)
-
-        # scrape event location
-        event_location_array = tree.xpath('//*[@id="%s"]/table/tr[%i]/td[3]/text()' % (vtabnm,x))
-        
-        newstr = ''.join(event_location_array)
-        asccii_string = smart_str(newstr)
-        g_event_location.append(asccii_string)
     return row_len;
 
 

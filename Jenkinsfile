@@ -29,7 +29,7 @@ node {
       if (isUnix()) {
          sleep(35)
          retry(5){
-            sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
+            sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -h 127.0.0.1 -P 3308 -u root --password=fttesting'
          }
              
          }else{

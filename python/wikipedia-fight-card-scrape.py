@@ -37,7 +37,8 @@ def scrapeEvent(event_url, event_org):
 #                     db="mark5463_ft_prod", 
 #                     charset="utf8")  # name of the data base
 
-db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
+# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
+db = MySQLdb.connect(user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 #  you must create a Cursor object. It will let
 #  you execute all the queries you need
 cur = db.cursor()
@@ -217,7 +218,8 @@ fighterloop = len(g_fighter_one)
 #                     passwd="fttesting",  # your password
 #                     db="mark5463_ft_prod",
 #                     charset="utf8")  # name of the data base
-db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
+# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
+db = MySQLdb.connect(user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 
 #  you must create a Cursor object. It will let

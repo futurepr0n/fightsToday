@@ -142,7 +142,8 @@ def insertRows(row_len, total_event, prev_row_ptr, array_pos):
 # Database Connection
 # db = MySQLdb.connect(host="markpereira.com", user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod")
 # db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
-db = MySQLdb.connect(user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
+db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
+#db = MySQLdb.connect(host="172.17.0.1", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()

@@ -637,7 +637,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 # Database Connection
 # db = MySQLdb.connect(host="markpereira.com", user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod")
 #db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
-db = MySQLdb.connect(user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
+
+db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()

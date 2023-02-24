@@ -71,7 +71,7 @@ def loadData(event_url, event_org, thisflag):
         for x in range(2, row_len + 1):
             # scrape ufc event name
             event_name_array = tree.xpath('//*[@id="%s"]/div[1]/table/tr[%i]/td[2]/a/span/text()' % (vtabnm,x))
-                                           //*[@id="recent_tab"]/table/tbody/tr[2]/td[2]/a/span
+                
             # event_parse = re.sub('[-.]', '', event_name_array)
             g_event_name.append(event_name_array)
 

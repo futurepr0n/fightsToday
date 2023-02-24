@@ -128,28 +128,28 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     # set up the array
     # scrape main event event name
-    main_event_fighter_one_array = tree.xpath('/html/body/div[4]/div[3]/section[1]/div[2]/div[2]/div/div[1]/h3/a/span/text()')
-
+    main_event_fighter_one_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[1]/div[2]/div[2]/div/div[1]/h3/a/span/text()')
+   
     newstr = ''.join(main_event_fighter_one_array)
     asccii_string = smart_str(newstr)
     # print("Main event fighter one name: ", asccii_string)
     g_fighter_one.append(asccii_string)
 
-    main_event_fighter_one_url_array = tree.xpath('/html/body/div[4]/div[3]/section[1]/div[2]/div[2]/div/div[1]/h3/a/@href')
+    main_event_fighter_one_url_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[1]/div[2]/div[2]/div/div[1]/h3/a/@href')
     
     me_fgtr1_wbst_string = 'http://www.sherdog.com', ''.join(main_event_fighter_one_url_array)
     me_fgtr1_wbst = ''.join(me_fgtr1_wbst_string)
     # print("Main event fighter one website: ", me_fgtr1_wbst)
     g_fighter_one_url.append(me_fgtr1_wbst)
 
-    main_event_fighter_two_array = tree.xpath('/html/body/div[4]/div[3]/section[1]/div[2]/div[2]/div/div[3]/h3/a/span/text()')
+    main_event_fighter_two_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[1]/div[2]/div[2]/div/div[3]/h3/a/span/text()')
     
     newstr2 = ''.join(main_event_fighter_two_array)
     asccii_string2 = smart_str(newstr2)
     # print("main event fighter 2 name: ", asccii_string2)
     g_fighter_two.append(asccii_string2)
 
-    main_event_fighter_two_url_array = tree.xpath('/html/body/div[4]/div[3]/section[1]/div[2]/div[2]/div/div[3]/h3/a/@href')
+    main_event_fighter_two_url_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[1]/div[2]/div[2]/div/div[3]/h3/a/@href')
     
     me_fgtr2_wbst_string = 'http://www.sherdog.com', ''.join(main_event_fighter_two_url_array)
     me_fgtr2_wbst = ''.join(me_fgtr2_wbst_string)
@@ -166,7 +166,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     for z in range(2, row_len):
         # scrape fighter one name
-        fighter_one_array = tree.xpath('/html/body/div[4]/div[3]/section[2]/div/table/tbody/tr[%i]/td[2]/div/div/a/span/text()' % (z))
+        fighter_one_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[2]/div/table/tbody/tr[%i]/td[2]/div/div/a/span/text()' % (z))
 
         newstr3 = ''.join(fighter_one_array)
         asccii_string3 = smart_str(newstr3)
@@ -174,7 +174,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fighter_one.append(asccii_string3)
 
         # scrape fighter one URL
-        fighter_one_url_array = tree.xpath('/html/body/div[4]/div[3]/section[2]/div/table/tbody/tr[%i]/td[2]/div/div/a/@href' % (z))
+        fighter_one_url_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[2]/div/table/tbody/tr[%i]/td[2]/div/div/a/@href' % (z))
  
         # fgtr1_wbst = 'http://www.sherdog.com', ''.join(fighter_one_url_array)
         fgtr1_wbst_string = 'http://www.sherdog.com', ''.join(fighter_one_url_array)
@@ -183,7 +183,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fighter_one_url.append(fgtr1_wbst)
 
         # scrape fighter two name
-        fighter_two_array = tree.xpath('/html/body/div[4]/div[3]/section[2]/div/table/tbody/tr[%i]/td[4]/div/div/a/span/text()' % (z))
+        fighter_two_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[2]/div/table/tbody/tr[%i]/td[4]/div/div/a/span/text()' % (z))
 
         newstr4 = ''.join(fighter_two_array)
         asccii_string4 = smart_str(newstr4)
@@ -191,7 +191,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fighter_two.append(asccii_string4)
 
         # scrape fighter two URL
-        fighter_two_url_array = tree.xpath('/html/body/div[4]/div[3]/section[2]/div/table/tbody/tr[%i]/td[4]/div/div/a/@href' % (z))
+        fighter_two_url_array = tree.xpath('/html/body/div[4]/div[3]/div[1]/section[2]/div/table/tbody/tr[%i]/td[4]/div/div/a/@href' % (z))
 
         fgtr2_wbst_string = 'http://www.sherdog.com', ''.join(fighter_two_url_array)
         fgtr2_wbst = ''.join(fgtr2_wbst_string)

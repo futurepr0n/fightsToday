@@ -127,7 +127,7 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
 
     event_month = dt.month
-    event_day = dt.year
+    event_day = dt.day
     event_year = dt.year
 
 

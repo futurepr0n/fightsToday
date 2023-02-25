@@ -1,6 +1,7 @@
 from lxml import html, etree
 from ics import Calendar, Event
 import io
+import datetime
 from django.utils.encoding import smart_str, smart_text
 from pyquery import PyQuery as pq
 import requests
@@ -115,10 +116,17 @@ def month_end_converter(day,mth):
     return endmth;
 
 
-def createEvents(event_day, event_fight_card_url, event_location, event_month, event_name, event_org, event_year):
+def createEvents(event_date, event_fight_card_url,event_name, event_org):
     print('+++++++++++++++++++++++++++++')
     e = Event()
     e.name = event_name
+
+    dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
+
+    event_month = dt.month
+    event_day = dt.year
+    event_year = dt.year
+
 
     newMonth = month_converter(event_month)
     newDay = day_converter(event_day)
@@ -139,6 +147,7 @@ def createEvents(event_day, event_fight_card_url, event_location, event_month, e
     return;
 
 
+
 # Database Connection
 #db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
 #                     user="mark5463_ft_test",  # your username
@@ -156,34 +165,30 @@ cur = db.cursor()
 
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_day, event_fight_card_url, event_id, event_location, event_month, event_name, event_org, event_year FROM sd_mma_events")
+cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id FROM wiki_mma_events")
 
 # initialize the arrays
-event_day = []
-event_fight_card_url = []
-event_id = []
-event_location = []
-event_month = []
 event_name = []
+event_id = []
+event_fight_card_url = []
 event_org = []
-event_year = []
+event_date = []
+wiki_event_id = []
 
 MMACalendar = Calendar()
 
 # fight poster specific arrays
 # fight_card_poster = []
-fight_card_poster_url = []
+#fight_card_poster_url = []
 
 # load our arrays with all of our event data.
 for row in cur.fetchall():
-    event_day.append(row[0])
-    event_fight_card_url.append(row[1])
-    event_id.append(row[2])
-    event_location.append(row[3])
-    event_month.append(row[4])
-    event_name.append(row[5])
-    event_org.append(row[6])
-    event_year.append(row[7])
+    event_name.append(row[0])
+    event_id.append(row[1])
+    event_fight_card_url.append(row[2])
+    event_org.append(row[3])
+    event_date.append(row[4])
+    wiki_event_id.append(row[5])
 
 x_range = len(event_name)
 
@@ -191,8 +196,7 @@ x_range = len(event_name)
 for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
 
-    createEvents(event_day[x], event_fight_card_url[x], event_location[x], event_month[x], event_name[x], event_org[x],
-                 event_year[x])
+    createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x])
 
     # time.sleep(5)
 

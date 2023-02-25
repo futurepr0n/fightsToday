@@ -116,10 +116,13 @@ def month_end_converter(day,mth):
     return endmth;
 
 
-def createEvents(event_date, event_fight_card_url,event_name, event_org):
+def createEvents(event_date, event_fight_card_url, event_name, event_org):
     print('+++++++++++++++++++++++++++++')
+    print('Event Date: ')
+    print(event_date)
     e = Event()
     e.name = event_name
+    
 
     dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
 

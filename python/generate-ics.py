@@ -124,6 +124,10 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     print(event_fight_card_url)
     print('Event Name: ')
     print(event_name)
+    if event_name == "Bellator 3":
+        return;
+        
+        
     print('Event org: ')
     print(event_org)
     e = Event()

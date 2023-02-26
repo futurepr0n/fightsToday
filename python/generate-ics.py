@@ -120,6 +120,12 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     print('+++++++++++++++++++++++++++++')
     print('Event Date: ')
     print(event_date)
+    print('Event_fight_card_url: ')
+    print(event_fight_card_url)
+    print('Event Name: ')
+    print(event_name)
+    print('Event org: ')
+    print(event_org)
     e = Event()
     e.name = event_name
     
@@ -165,7 +171,7 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     #e.location = event_location
 
     MMACalendar.events.add(e)
-    print(MMACalendar.events)
+    #print(MMACalendar.events)
     return;
 
 

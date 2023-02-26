@@ -148,9 +148,10 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     
     if newMonth == '12' and newDay == '31': 
         print("This is the special block")
-        event_year_special = event_year + 1
+        event_year_special = int(event_year) + 1
+        strEventYearSpecial = str(event_year_special)
         e.begin = "%s-%s-%s 22:00" % (event_year, newMonth, newDay)
-        e.end = "%s-%s-%s 03:59" % (event_year_special, newMonthEnd, newDayEnd)
+        e.end = "%s-%s-%s 03:59" % (strEventYearSpecial, newMonthEnd, newDayEnd)
     else:
         print("this is the normal block")
         e.begin = "%s-%s-%s 22:00" % (event_year, newMonth, newDay)

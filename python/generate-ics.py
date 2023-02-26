@@ -130,9 +130,9 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     print(dt.day)
     print(dt.year)
     
-    event_month = dt.month
-    event_day = dt.day
-    event_year = dt.year
+    event_month = str(dt.month)
+    event_day = str(dt.day)
+    event_year = str(dt.year)
 
 
     newMonth = month_converter(event_month)

@@ -146,7 +146,11 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     
     print("Do some logic to determine end of year being on Dec 31, if so then we must make the event end on Jan 1 of a new year")
     
-    if newMonth == '12' and newDay == '31': 
+    intMonth = int(newMonth)
+    intDay = int(newDay)
+    
+    
+    if intMonth == '12' and intDay == '31': 
         print("This is the special block")
         event_year_special = int(event_year) + 1
         strEventYearSpecial = str(event_year_special)

@@ -147,7 +147,7 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     e.begin = "%s-%s-%s 22:00" % (event_year, newMonth, newDay)
     e.end = "%s-%s-%s 03:59" % (event_year, newMonthEnd, newDayEnd)
     e.url = event_fight_card_url
-    e.location = event_location
+    #e.location = event_location
 
     MMACalendar.events.add(e)
     print(MMACalendar.events)

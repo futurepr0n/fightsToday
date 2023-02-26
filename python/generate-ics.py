@@ -150,7 +150,7 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     intDay = int(newDay)
     
     
-    if intMonth == '12' and intDay == '31': 
+    if intMonth == 12 and intDay == 31: 
         print("This is the special block")
         event_year_special = int(event_year) + 1
         strEventYearSpecial = str(event_year_special)

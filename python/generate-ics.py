@@ -150,7 +150,7 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
         event_year_special = event_year + 1
         e.begin = "%s-%s-%s 22:00" % (event_year, newMonth, newDay)
         e.end = "%s-%s-%s 03:59" % (event_year_special, newMonthEnd, newDayEnd)
-    else
+    else:
         e.begin = "%s-%s-%s 22:00" % (event_year, newMonth, newDay)
         e.end = "%s-%s-%s 03:59" % (event_year, newMonthEnd, newDayEnd)
         

@@ -138,8 +138,10 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     
     try:
         dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
-    except ValueError:
+    except "ValueError: time data '' does not match format '%B %d, %Y'":
         dt = datetime.datetime.strptime(event_date, "%b %d, %Y")
+    except "ValueError: time data '' does not match format '%b %d, %Y'":
+        dt = datetime.datetime.strptime(event_date, "%d %B %Y")
     
     print(dt.month)
     print(dt.day)

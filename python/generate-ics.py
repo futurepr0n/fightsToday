@@ -136,9 +136,11 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     e = Event()
     e.name = event_name
     
-
-    dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
-
+    try:
+        dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
+    except ValueError:
+        dt = datetime.datetime.strptime(event_date, "%b %d, %Y")
+    
     print(dt.month)
     print(dt.day)
     print(dt.year)

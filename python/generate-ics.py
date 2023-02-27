@@ -136,11 +136,14 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     e = Event()
     e.name = event_name
     
+    if event_date == "":
+        return
+    
     try:
         dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
-    except "ValueError: time data '' does not match format '%B %d, %Y'":
+    except ValueError:
         dt = datetime.datetime.strptime(event_date, "%b %d, %Y")
-    except "ValueError: time data '' does not match format '%b %d, %Y'":
+    except ValueError: 
         dt = datetime.datetime.strptime(event_date, "%d %B %Y")
     
     print(dt.month)

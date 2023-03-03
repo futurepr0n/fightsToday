@@ -11,7 +11,6 @@ from datetime import datetime, date
 import requests
 import MySQLdb
 
-
 bellator_pe_num = 0
 bellator_se_num = 0
 bellator_te_num = 0 
@@ -184,12 +183,14 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
       # Comparing the dates will return
       # either True or False
-      if compare_date_1 > compare_date_today is True:
+      try compare_date_1 > compare_date_today is True:
         bellator_se_num = bellator_se_num + 1
-      else:
+        print(bellator_se_num)
+      except:
         bellator_pe_num = bellator_pe_num + 1
-      print(d1)
+        print(bellator_pe_num)
       bellator_te_num = bellator_te_num + 1
+      print(bellator_te_num)
     prev_row_ptr = prev_row_ptr + row_len
 
 

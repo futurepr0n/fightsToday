@@ -189,7 +189,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       else:
         bellator_pe_num =+ 1
         print(bellator_pe_num)
-      bellator_te_num = bellator_te_num + 1
+      bellator_te_num =+ 1
       print(bellator_te_num)
     prev_row_ptr = prev_row_ptr + row_len
 

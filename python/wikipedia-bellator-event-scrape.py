@@ -244,7 +244,7 @@ outF_pe.close()
 se_string = "SCHED_EVENTS = %i" %(bellator_se_num)
 sched_events = [se_string]
 
-outF_se = open("python/bellatorschedevents.py", "w")
+outF_se = open("python/bellator_schedevents.py", "w")
 
 for line in sched_events:
   print(line, file=outF_se)

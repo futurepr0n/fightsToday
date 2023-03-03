@@ -16,7 +16,9 @@ import MySQLdb
 from pastevents import *
 from schedevents import * 
 from totalevents import *
-
+from bellator_pastevents import *
+from bellator_schedevents import * 
+from bellator_totalevents import *
 
 
 def urlify(s):
@@ -41,6 +43,8 @@ def dateify(s):
     s = re.sub(r"2019", '', s)
     s = re.sub(r"2020", '', s)
     s = re.sub(r"2021", '', s)
+    s = re.sub(r"2022", '', s)
+    s = re.sub(r"2023", '', s)
 
     s = re.sub(r"Jan", '01', s)
     s = re.sub(r"Feb", '02', s)
@@ -128,7 +132,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Upcoming UFC Events</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Check out these featured upcoming events</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-lg-12 col-md-12">
@@ -164,7 +168,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         <section class="page-section" id="portfolio">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Past UFC Events</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Discover results from the latest bouts</h3>
             </div>
             <div id="demo-flat" class="demo">
                 <div id="flat">
@@ -205,7 +209,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Upcoming Bellator Events</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Next up from Bellator</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-lg-12 col-md-12">
@@ -216,7 +220,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(274, 277):
+    for x in range(BELLATOR_PAST_EVENTS, BELLATOR_TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s"><br>' % (bellator_event_fight_poster_url[x]), file=f)
@@ -240,7 +244,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Past Bellator Events</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Check out these historic results</h3>
             </div>
             <div id="demo-flat" class="demo">
                 <div id="flat2">
@@ -248,8 +252,8 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 ''', file=f)
 
 
-    z = 274 - 1 
-    length_of_loop2 = 266
+    z = BELLATOR_PAST_EVENTS - 1 
+    length_of_loop2 = BELLATOR_PAST_EVENTS - BELLATOR_SCHED_EVENTS
     while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)

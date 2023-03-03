@@ -157,7 +157,11 @@ def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_n
       event_id = event_id - 1
       print('Check the dates for past and scheduled events')
       #setting event_date1 so we can compare
-      event_date1 = db_e_fd
+      if db_e_en == "Bellator 3"
+        event_date1 = "April 17, 2009"
+      else: 
+        event_date1 = db_e_fd
+      
       #getting current time
       current_time = datetime.now()
       print('The attributes of now() are: ')

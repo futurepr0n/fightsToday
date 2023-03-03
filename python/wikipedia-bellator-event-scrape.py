@@ -1,14 +1,20 @@
 ##################
-# FILE HAS BEEN TESTED SUCCESSFULLY
-# this file is ready for prod
+# FILE HAS not been TESTED SUCCESSFULLY
+# this is attempting to add logic to the bellator side
 #
 
 from lxml import html, etree
 import io
 from django.utils.encoding import smart_str, smart_text
 from pyquery import PyQuery as pq
+from datetime import datetime, date
 import requests
 import MySQLdb
+
+
+bellator_pe_num = 0
+bellator_se_num = 0
+bellator_te_num = 0 
 
 def loadEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
@@ -150,7 +156,45 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
       event_id = event_id - 1
+      print('Check the dates for past and scheduled events')
+      #setting event_date1 so we can compare
+      event_date1 = db_e_fd
+      #getting current time
+      current_time = datetime.now()
+      print('The attributes of now() are: ')
+      print ("Year : ", end = "")
+      print (current_time.year) 
+      print ("Month : ", end = "")
+      print (current_time.month)
+      print ("Day : ", end = "") 
+      print (current_time.day)
+      d1 = datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
+      month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
+      print("This is event_date_1 ", d1)
+      print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
+      print("This is the month formatted", month_formatted )
+      print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
+      #LOGIC FOR Seeing if a date is is in the Past or Upcoming.
+      event_date1_breakdown = d1.split("/")
+      event_date1_breakdown_day = event_date1_breakdown[0]
+      event_date1_breakdown_month = event_date1_breakdown[1]
+      event_date1_breakdown_year = event_date1_breakdown[2]
+      compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
+      compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+      print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
+      # Comparing the dates will return
+      # either True or False
+      print("d1 is greater than today: ", d1 > d2)
+      print("d1 is less than d2 : ", d1 < d2)
+      print("d1 is not equal to d2 : ", d1 != d2)
+      if compare_date_1 > compare_date_today
+        bellator_se_num = bellator_se_num + 1
+      else
+        bellator_pe_num = bellator_pe_num + 1
+      print(d1)
+      bellator_te_num = bellator_te_num + 1
     prev_row_ptr = prev_row_ptr + row_len
+
 
     return;
 
@@ -185,3 +229,37 @@ insertRows(bellator_row_len, prev_row_ptr, array_pos)
 
 # set the prev_row_ptr
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
+
+# Creating the Files for autonomous runs *****
+pe_string = "PAST_EVENTS = %i" %(bellator_pe_num)
+past_events = [pe_string]
+ 
+outF_pe = open("python/bellator_pastevents.py", "w")
+
+for line in past_events:
+  print(line, file=outF_pe)
+  #print >>outF_pe, line
+outF_pe.close()
+
+se_string = "SCHED_EVENTS = %i" %(bellator_se_num)
+sched_events = [se_string]
+
+outF_se = open("python/bellatorschedevents.py", "w")
+
+for line in sched_events:
+  print(line, file=outF_se)
+  #print >>outF_se, line
+outF_se.close()
+
+print("The SE NUM = %i" %(bellator_se_num))
+print("The PE NUM = %i" %(bellator_pe_num))
+te_string = "TOTAL_EVENTS = %i" %(bellator_te_num)
+te_string = "TOTAL_EVENTS = %i" %(belator_te_num)
+total_events = [te_string]
+print("The TE num = %i" %(bellator_te_num))
+outF_te = open("python/bellator_totalevents.py", "w")
+
+for line in total_events:
+  print(line, file=outF_te)
+  # print >>outF_te, line
+outF_te.close()

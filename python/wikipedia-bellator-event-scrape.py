@@ -131,6 +131,9 @@ def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_n
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
     event_id = event_id - 1
+    global bellator_pe_num
+    global bellator_se_num
+    global bellator_te_num
 
     # loop through all the rows
     for loopid in range (3,row_len-22):

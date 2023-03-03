@@ -231,7 +231,7 @@ insertRows(bellator_row_len, prev_row_ptr, array_pos)
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
 
 # Creating the Files for autonomous runs *****
-pe_string = "PAST_EVENTS = %i" %(bellator_pe_num)
+pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
 past_events = [pe_string]
  
 outF_pe = open("python/bellator_pastevents.py", "w")
@@ -241,7 +241,7 @@ for line in past_events:
   #print >>outF_pe, line
 outF_pe.close()
 
-se_string = "SCHED_EVENTS = %i" %(bellator_se_num)
+se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
 sched_events = [se_string]
 
 outF_se = open("python/bellator_schedevents.py", "w")
@@ -253,8 +253,7 @@ outF_se.close()
 
 print("The SE NUM = %i" %(bellator_se_num))
 print("The PE NUM = %i" %(bellator_pe_num))
-te_string = "TOTAL_EVENTS = %i" %(bellator_te_num)
-te_string = "TOTAL_EVENTS = %i" %(belator_te_num)
+te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
 total_events = [te_string]
 print("The TE num = %i" %(bellator_te_num))
 outF_te = open("python/bellator_totalevents.py", "w")

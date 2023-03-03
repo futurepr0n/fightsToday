@@ -162,6 +162,8 @@ def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_n
       else: 
         event_date1 = db_e_fd
       
+      if db_e_en == "":
+        return;
       #getting current time
       current_time = datetime.now()
       print('The attributes of now() are: ')

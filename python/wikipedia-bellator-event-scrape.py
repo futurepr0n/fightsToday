@@ -124,7 +124,7 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
       print('Event Date: \t', ascii_event_date)
      
-    return row_len-22;
+    return row_len-31;
 
 def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position
@@ -134,7 +134,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     
 
     # loop through all the rows
-    for loopid in range (3,row_len-22):
+    for loopid in range (1,row_len):
       print('***********************************************************************************************')
       db_e_en = ''.join(event_name[array_pos])
       db_e_fc = ''.join(event_fight_card_url[array_pos])
@@ -179,7 +179,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
     array_pos = array_pos + prev_row_ptr
     
     # loop through all the rows
-    for loopid in range (3,row_len-22):
+    for loopid in range (1,row_len):
       print('***********************************************************************************************')
       db_e_en = ''.join(event_name[array_pos])
       db_e_fc = ''.join(event_fight_card_url[array_pos])

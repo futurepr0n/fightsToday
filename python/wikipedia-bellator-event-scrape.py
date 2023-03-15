@@ -186,7 +186,6 @@ def countEvents (row_len, prev_row_ptr, array_pos):
       print('Event Org: \t\t %s' % event_org)
       print('Event Date: \t', db_e_fd)
       print('Event URL: \t\t %s' % db_e_fc)
-      print('Event Unique ID: \t ', w_e_id)
       print('***********************************************************************************************')
       # print (query) # only necessary to print the query for debug
       # print('***********************************************************************************************')  

@@ -247,17 +247,21 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
         bellator_pe = bellator_pe + 1
       else:
         print("this event is this year - more investigation")
-        if int(today_date1_breakdown_month) <= int(event_date1_breakdown_month):
+        if int(today_date1_breakdown_month) > int(event_date1_breakdown_month):
             print("This event took place earlier this year")
             bellator_pe = bellator_pe + 1
             print("there are " + str(bellator_pe) + " past events")
         else:
             print("more investigation required into the day")
-            if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
+            if int(today_date1_breakdown_month) < int(event_date1_breakdown_month):
+               bellator_se = bellator_se + 1
+               print("this event happens later this year")
+            else:
+              if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
                 print("this event takes place earlier this month, there are this many past events")
                 bellator_pe = bellator_pe + 1
                 print(bellator_pe)
-            else:
+              else:
                 print("This event is coming up in the future, scheduled events increase")
                 bellator_se = bellator_se + 1
                 print(bellator_se)

@@ -126,7 +126,7 @@ def loadEventsData (event_url, event_org):
      
     return row_len;
 
-def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_num, bellator_te_num):
+def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
@@ -156,6 +156,42 @@ def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_n
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
       event_id = event_id - 1
+      print('Check the dates for past and scheduled events')
+      #setting event_date1 so we can compare
+      if db_e_en == "Bellator 3":
+        event_date1 = "April 17, 2009"
+      else: 
+        event_date1 = db_e_fd
+      
+      if db_e_en == "":
+        return;
+
+    prev_row_ptr = prev_row_ptr + row_len
+
+
+    return;
+
+# Do the Event Organization and writing to files
+def countEvents (row_len, prev_row_ptr, array_pos):
+    # set the array position
+    array_pos = array_pos + prev_row_ptr
+    
+    # loop through all the rows
+    for loopid in range (3,row_len-22):
+      print('***********************************************************************************************')
+      db_e_en = ''.join(event_name[array_pos])
+      db_e_fc = ''.join(event_fight_card_url[array_pos])
+      db_e_fd = ''.join(event_date[array_pos])
+      print('Adding event: %s ...' % db_e_en)
+      print('Event Org: \t\t %s' % event_org)
+      print('Event Date: \t', db_e_fd)
+      print('Event URL: \t\t %s' % db_e_fc)
+      print('Event Unique ID: \t ', w_e_id)
+      print('***********************************************************************************************')
+      # print (query) # only necessary to print the query for debug
+      # print('***********************************************************************************************')  
+      print('Success!...')
+      print('***********************************************************************************************')
       print('Check the dates for past and scheduled events')
       #setting event_date1 so we can compare
       if db_e_en == "Bellator 3":
@@ -207,6 +243,38 @@ def insertRows (row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_n
       bellator_te_num =+ 1
       print(bellator_te_num)
     prev_row_ptr = prev_row_ptr + row_len
+    # Creating the Files for autonomous runs *****
+    pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
+    past_events = [pe_string]
+ 
+    outF_pe = open("python/bellator_pastevents.py", "w")
+
+    for line in past_events:
+      print(line, file=outF_pe)
+      #print >>outF_pe, line
+    outF_pe.close()
+
+    se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
+    sched_events = [se_string]
+
+    outF_se = open("python/bellator_schedevents.py", "w")
+
+    for line in sched_events:
+      print(line, file=outF_se)
+      #print >>outF_se, line
+    outF_se.close()
+
+    print("The SE NUM = %i" %(bellator_se_num))
+    print("The PE NUM = %i" %(bellator_pe_num))
+    te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
+    total_events = [te_string]
+    print("The TE num = %i" %(bellator_te_num))
+    outF_te = open("python/bellator_totalevents.py", "w")
+
+    for line in total_events:
+      print(line, file=outF_te)
+      # print >>outF_te, line
+    outF_te.close()
 
 
     return;
@@ -238,40 +306,9 @@ event_url = 'https://en.wikipedia.org/wiki/List_of_Bellator_MMA_events'
 event_id = 0
 print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
-insertRows(bellator_row_len, prev_row_ptr, array_pos, bellator_pe_num, bellator_se_num, bellator_te_num)
-
+bellator_countEvents_row_len = bellator_row_len
+insertRows(bellator_row_len, prev_row_ptr, array_pos)
+countEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
 
-# Creating the Files for autonomous runs *****
-pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
-past_events = [pe_string]
- 
-outF_pe = open("python/bellator_pastevents.py", "w")
-
-for line in past_events:
-  print(line, file=outF_pe)
-  #print >>outF_pe, line
-outF_pe.close()
-
-se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
-sched_events = [se_string]
-
-outF_se = open("python/bellator_schedevents.py", "w")
-
-for line in sched_events:
-  print(line, file=outF_se)
-  #print >>outF_se, line
-outF_se.close()
-
-print("The SE NUM = %i" %(bellator_se_num))
-print("The PE NUM = %i" %(bellator_pe_num))
-te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
-total_events = [te_string]
-print("The TE num = %i" %(bellator_te_num))
-outF_te = open("python/bellator_totalevents.py", "w")
-
-for line in total_events:
-  print(line, file=outF_te)
-  # print >>outF_te, line
-outF_te.close()

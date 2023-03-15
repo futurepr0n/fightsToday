@@ -222,7 +222,10 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
       # Comparing the dates will return
       # either True or False
-      print("comparing: " + compare_date_1 + " with " + compare_date_today)
+      print("comparing: "
+      print(compare_date_1)
+      print(" with ")
+      print(compare_date_today)
       try:
         if compare_date_1 > compare_date_today is True:
             print("this date is scheduled upcoming")

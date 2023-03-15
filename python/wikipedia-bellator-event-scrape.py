@@ -174,6 +174,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
 # Do the Event Organization and writing to files
 def countPastEvents (row_len, prev_row_ptr, array_pos):
     bellator_te = 0
+    bellator_pe = 0
     # set the array position
     array_pos = array_pos + prev_row_ptr
     
@@ -221,6 +222,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
       # Comparing the dates will return
       # either True or False
+      print("comparing: " + compare_date_1 + " with " + compare_date_today)
       try:
         if compare_date_1 > compare_date_today is True:
             print("this date is scheduled upcoming")
@@ -233,6 +235,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       print("The Total Events number should increase")
       print(bellator_te)
     prev_row_ptr = prev_row_ptr + row_len
+    print("Total Events is " + bellator_te + " And past events is " + bellator_pe)
     # Creating the Files for autonomous runs *****
     ###pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
     ###past_events = [pe_string]

@@ -172,7 +172,103 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     return;
 
 # Do the Event Organization and writing to files
-def countEvents (row_len, prev_row_ptr, array_pos):
+def countPastEvents (row_len, prev_row_ptr, array_pos):
+    # set the array position
+    array_pos = array_pos + prev_row_ptr
+    
+    # loop through all the rows
+    for loopid in range (3,row_len-22):
+      print('***********************************************************************************************')
+      db_e_en = ''.join(event_name[array_pos])
+      db_e_fc = ''.join(event_fight_card_url[array_pos])
+      db_e_fd = ''.join(event_date[array_pos])
+      print('Event Name: %s ...' % db_e_en)
+      print('Event Org: \t\t %s' % event_org)
+      print('Event Date: \t', db_e_fd)
+      print('***********************************************************************************************')
+      print('Check the dates for past and scheduled events')
+      #setting event_date1 so we can compare
+      if db_e_en == "Bellator 3":
+        event_date1 = "April 17, 2009"
+      else: 
+        event_date1 = db_e_fd
+      
+      if db_e_en == "":
+        return;
+      #getting current time
+      current_time = datetime.now()
+      print('The attributes of now() are: ')
+      print ("Year : ", end = "")
+      print (current_time.year) 
+      print ("Month : ", end = "")
+      print (current_time.month)
+      print ("Day : ", end = "") 
+      print (current_time.day)
+      d1 = datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
+      month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
+      print("This is event_date_1 ", d1)
+      print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
+      print("This is the month formatted", month_formatted )
+      print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
+      #LOGIC FOR Seeing if a date is is in the Past or Upcoming.
+      event_date1_breakdown = d1.split("/")
+      event_date1_breakdown_day = event_date1_breakdown[0]
+      event_date1_breakdown_month = event_date1_breakdown[1]
+      event_date1_breakdown_year = event_date1_breakdown[2]
+      compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
+      compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+      print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
+      # Comparing the dates will return
+      # either True or False
+      try:
+        if compare_date_1 > compare_date_today is True:
+            print("this date is scheduled upcoming")
+        else:
+            print("this date is past")
+            bellator_pe = bellator_pe + 1
+      except:
+            print("this date triggered except")
+      bellator_te = bellator_te + 1
+      print("The Total Events number should increase")
+      print(bellator_te)
+    prev_row_ptr = prev_row_ptr + row_len
+    # Creating the Files for autonomous runs *****
+    ###pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
+    ###past_events = [pe_string]
+ 
+    ###outF_pe = open("python/bellator_pastevents.py", "w")
+
+    ###for line in past_events:
+    ###  print(line, file=outF_pe)
+    ###  #print >>outF_pe, line
+    ###outF_pe.close()
+
+    ###se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
+    ###sched_events = [se_string]
+
+    ###outF_se = open("python/bellator_schedevents.py", "w")
+
+    ###for line in sched_events:
+    ###  print(line, file=outF_se)
+    ###  #print >>outF_se, line
+    ###outF_se.close()
+
+    ###print("The SE NUM = %i" %(bellator_se_num))
+    ###print("The PE NUM = %i" %(bellator_pe_num))
+    ###te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
+    ###total_events = [te_string]
+    ###print("The TE num = %i" %(bellator_te_num))
+    ###outF_te = open("python/bellator_totalevents.py", "w")
+
+    ###for line in total_events:
+    ###  print(line, file=outF_te)
+    ###  # print >>outF_te, line
+    ###outF_te.close()
+
+
+    return bellator_pe;
+
+""" def countScheduledEvents (row_len, prev_row_ptr, array_pos):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     
@@ -269,6 +365,102 @@ def countEvents (row_len, prev_row_ptr, array_pos):
 
     return;
 
+def countTotalEvents (row_len, prev_row_ptr, array_pos):
+    # set the array position
+    array_pos = array_pos + prev_row_ptr
+    
+    # loop through all the rows
+    for loopid in range (3,row_len-22):
+      print('***********************************************************************************************')
+      db_e_en = ''.join(event_name[array_pos])
+      db_e_fc = ''.join(event_fight_card_url[array_pos])
+      db_e_fd = ''.join(event_date[array_pos])
+      print('Event Name: %s ...' % db_e_en)
+      print('Event Org: \t\t %s' % event_org)
+      print('Event Date: \t', db_e_fd)
+      print('***********************************************************************************************')
+      print('Check the dates for past and scheduled events')
+      #setting event_date1 so we can compare
+      if db_e_en == "Bellator 3":
+        event_date1 = "April 17, 2009"
+      else: 
+        event_date1 = db_e_fd
+      
+      if db_e_en == "":
+        return;
+      #getting current time
+      current_time = datetime.now()
+      print('The attributes of now() are: ')
+      print ("Year : ", end = "")
+      print (current_time.year) 
+      print ("Month : ", end = "")
+      print (current_time.month)
+      print ("Day : ", end = "") 
+      print (current_time.day)
+      d1 = datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
+      month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
+      print("This is event_date_1 ", d1)
+      print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
+      print("This is the month formatted", month_formatted )
+      print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
+      #LOGIC FOR Seeing if a date is is in the Past or Upcoming.
+      event_date1_breakdown = d1.split("/")
+      event_date1_breakdown_day = event_date1_breakdown[0]
+      event_date1_breakdown_month = event_date1_breakdown[1]
+      event_date1_breakdown_year = event_date1_breakdown[2]
+      compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
+      compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+      print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
+      # Comparing the dates will return
+      # either True or False
+      try:
+        if compare_date_1 > compare_date_today is True:
+            bellator_se_num =+ 1
+            print(bellator_se_num)
+        else:
+            bellator_pe_num =+ 1
+            print(bellator_pe_num)
+      except:
+            bellator_pe_num =+ 1
+            print(bellator_pe_num)
+      bellator_te_num =+ 1
+      print(bellator_te_num)
+    prev_row_ptr = prev_row_ptr + row_len
+    # Creating the Files for autonomous runs *****
+    pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
+    past_events = [pe_string]
+ 
+    outF_pe = open("python/bellator_pastevents.py", "w")
+
+    for line in past_events:
+      print(line, file=outF_pe)
+      #print >>outF_pe, line
+    outF_pe.close()
+
+    se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
+    sched_events = [se_string]
+
+    outF_se = open("python/bellator_schedevents.py", "w")
+
+    for line in sched_events:
+      print(line, file=outF_se)
+      #print >>outF_se, line
+    outF_se.close()
+
+    print("The SE NUM = %i" %(bellator_se_num))
+    print("The PE NUM = %i" %(bellator_pe_num))
+    te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
+    total_events = [te_string]
+    print("The TE num = %i" %(bellator_te_num))
+    outF_te = open("python/bellator_totalevents.py", "w")
+
+    for line in total_events:
+      print(line, file=outF_te)
+      # print >>outF_te, line
+    outF_te.close()
+
+
+    return; """
 # Database Connection
 #db = MySQLdb.connect(host="markpereira.com", user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod")
 #db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
@@ -298,7 +490,8 @@ print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
-countEvents(bellator_countEvents_row_len,0,0)
+bellator_pe_num = countPastEvents(bellator_countEvents_row_len,0,0)
+#countScheduledEvents(bellator_countEvents_row_len,0,0)
+#countTotalEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
-

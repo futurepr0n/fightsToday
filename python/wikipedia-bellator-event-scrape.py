@@ -41,7 +41,7 @@ def loadEventsData (event_url, event_org):
     row_len = len(p)
 
     #run through every row in the table
-    for x in range (2, row_len-30):
+    for x in range (2, row_len-32):
 
       print('############### Scrape entire Wiki Table ######################################')
       print('# scrape the event name')
@@ -167,6 +167,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
         return;
 
     prev_row_ptr = prev_row_ptr + row_len
+    print(str(prev_row_ptr)
 
 
     return;
@@ -177,6 +178,12 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
     bellator_pe = 0
     # set the array position
     array_pos = array_pos + prev_row_ptr
+    print("row length is: ")
+    print(row_len)
+    print("prev row ptr is: ")
+    print(prev_row_ptr)
+    print("array Pos is: ")
+    print(array_pos)
     
     # loop through all the rows
     for loopid in range (1,row_len):
@@ -194,9 +201,6 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
         event_date1 = "April 17, 2009"
       else: 
         event_date1 = db_e_fd
-      
-      if db_e_en == "":
-        return;
       #getting current time
       current_time = datetime.now()
       print('The attributes of now() are: ')
@@ -250,7 +254,6 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
             else:
                 print("This event is coming up in the future")
                                                
-      
       bellator_te = bellator_te + 1
       print("The Total Events number should increase")
       print(bellator_te)

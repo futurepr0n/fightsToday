@@ -222,7 +222,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
       # Comparing the dates will return
       # either True or False
-      print("comparing: "
+      print("comparing: ")
       print(compare_date_1)
       print(" with ")
       print(compare_date_today)

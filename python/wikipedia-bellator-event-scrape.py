@@ -257,6 +257,8 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       bellator_te = bellator_te + 1
       print("The Total Events number should increase")
       print(bellator_te)
+      array_pos = (array_pos) + 1
+        
     prev_row_ptr = prev_row_ptr + row_len
     print("Total Events is " + str(bellator_te) + " And past events is " + str(bellator_pe))
     # Creating the Files for autonomous runs *****

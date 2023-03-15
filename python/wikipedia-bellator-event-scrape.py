@@ -167,7 +167,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
         return;
 
     prev_row_ptr = prev_row_ptr + row_len
-    print(str(prev_row_ptr)
+    print(str(prev_row_ptr))
 
 
     return;

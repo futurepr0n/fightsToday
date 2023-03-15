@@ -41,7 +41,7 @@ def loadEventsData (event_url, event_org):
     row_len = len(p)
 
     #run through every row in the table
-    for x in range (2, row_len-32):
+    for x in range (2, row_len-31):
 
       print('############### Scrape entire Wiki Table ######################################')
       print('# scrape the event name')

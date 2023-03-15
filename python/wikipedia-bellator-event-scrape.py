@@ -176,6 +176,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
 def countPastEvents (row_len, prev_row_ptr, array_pos):
     bellator_te = 0
     bellator_pe = 0
+    bellator_se = 0
     # set the array position
     array_pos = array_pos + prev_row_ptr
     print("row length is: ")
@@ -243,16 +244,19 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       print(today_date1_breakdown_year)
       if int(today_date1_breakdown_year) > int(event_date1_breakdown_year):
         print("This event is in the past")
+        bellator_pe = bellator_pe + 1
       else:
         print("this event is this year - more investigation")
         if int(today_date1_breakdown_month) > int(event_date1_breakdown_month):
             print("This event took place earlier this year")
+            bellator_pe = bellator_pe + 1
         else:
             print("more investigation required into the day")
             if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
                 print("this event takes place earlier this month")
             else:
                 print("This event is coming up in the future")
+                bellator_se = bellator_se + 1
                                                
       bellator_te = bellator_te + 1
       print("The Total Events number should increase")
@@ -262,40 +266,40 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
     prev_row_ptr = prev_row_ptr + row_len
     print("Total Events is " + str(bellator_te) + " And past events is " + str(bellator_pe))
     # Creating the Files for autonomous runs *****
-    ###pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe_num)
-    ###past_events = [pe_string]
+    pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe)
+    past_events = [pe_string]
  
-    ###outF_pe = open("python/bellator_pastevents.py", "w")
+    outF_pe = open("python/bellator_pastevents.py", "w")
 
-    ###for line in past_events:
-    ###  print(line, file=outF_pe)
-    ###  #print >>outF_pe, line
-    ###outF_pe.close()
+    for line in past_events:
+      print(line, file=outF_pe)
+      #print >>outF_pe, line
+    outF_pe.close()
 
-    ###se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se_num)
-    ###sched_events = [se_string]
+    se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se)
+    sched_events = [se_string]
 
-    ###outF_se = open("python/bellator_schedevents.py", "w")
+    outF_se = open("python/bellator_schedevents.py", "w")
 
-    ###for line in sched_events:
-    ###  print(line, file=outF_se)
-    ###  #print >>outF_se, line
-    ###outF_se.close()
+    for line in sched_events:
+      print(line, file=outF_se)
+      #print >>outF_se, line
+    outF_se.close()
 
     ###print("The SE NUM = %i" %(bellator_se_num))
     ###print("The PE NUM = %i" %(bellator_pe_num))
-    ###te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te_num)
-    ###total_events = [te_string]
+    te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te)
+    total_events = [te_string]
     ###print("The TE num = %i" %(bellator_te_num))
-    ###outF_te = open("python/bellator_totalevents.py", "w")
+    outF_te = open("python/bellator_totalevents.py", "w")
 
-    ###for line in total_events:
-    ###  print(line, file=outF_te)
+    for line in total_events:
+      print(line, file=outF_te)
     ###  # print >>outF_te, line
-    ###outF_te.close()
+    outF_te.close()
 
 
-    return bellator_pe;
+    return;
 
 """ def countScheduledEvents (row_len, prev_row_ptr, array_pos):
     # set the array position
@@ -522,7 +526,7 @@ print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
-bellator_pe_num = countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)
+countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)
 #countScheduledEvents(bellator_countEvents_row_len,0,0)
 #countTotalEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr

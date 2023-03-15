@@ -41,7 +41,7 @@ def loadEventsData (event_url, event_org):
     row_len = len(p)
 
     #run through every row in the table
-    for x in range (2, row_len+1):
+    for x in range (2, row_len-32):
 
       print('############### Scrape entire Wiki Table ######################################')
       print('# scrape the event name')
@@ -210,30 +210,47 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
       month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
       print("This is event_date_1 ", d1)
       print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
+      
       print("This is the month formatted", month_formatted )
       print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
       #LOGIC FOR Seeing if a date is is in the Past or Upcoming.
+       
+      
+      cd1 = "%s/%s/%s"%(current_time.day,month_formatted,current_time.year)
       event_date1_breakdown = d1.split("/")
       event_date1_breakdown_day = event_date1_breakdown[0]
       event_date1_breakdown_month = event_date1_breakdown[1]
       event_date1_breakdown_year = event_date1_breakdown[2]
       compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
       compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+    
+      todays_date1_breakdown = cd1.split("/")
+      today_date1_breakdown_day =  todays_date1_breakdown[0] 
+      today_date1_breakdown_month =  todays_date1_breakdown[1]  
+      today_date1_breakdown_year =  todays_date1_breakdown[2]
+    
       print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
+      print(today_date1_breakdown_day, today_date1_breakdown_month, today_date1_breakdown_year)
       # Comparing the dates will return
       # either True or False
-      print("comparing: ")
-      print(compare_date_1)
-      print(" with ")
-      print(compare_date_today)
-      try:
-        if compare_date_1 > compare_date_today is True:
-            print("this date is scheduled upcoming")
+      print("comparing the years first, the event date year took place : ")
+      print(event_date1_breakdown_year)
+      print("todays year is ")
+      print(today_date1_breakdown_year)
+      if int(today_date1_breakdown_year) > int(event_date1_breakdown_year):
+        print("This event is in the past")
+      else:
+        print("this event is this year - more investigation")
+        if int(today_date1_breakdown_month) > int(event_date1_breakdown_month):
+            print("This event took place earlier this year")
         else:
-            print("this date is past")
-            bellator_pe = bellator_pe + 1
-      except:
-            print("this date triggered except")
+            print("more investigation required into the day")
+            if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
+                print("this event takes place earlier this month")
+            else:
+                print("This event is coming up in the future")
+                                               
+      
       bellator_te = bellator_te + 1
       print("The Total Events number should increase")
       print(bellator_te)

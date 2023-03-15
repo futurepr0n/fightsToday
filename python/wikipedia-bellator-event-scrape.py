@@ -172,7 +172,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     return;
 
 # Do the Event Organization and writing to files
-def countEvents (row_len, prev_row_ptr, array_pos,bellator_se_num,bellator_pe_num,bellator_te_num):
+def countEvents (row_len, prev_row_ptr, array_pos):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     
@@ -182,14 +182,9 @@ def countEvents (row_len, prev_row_ptr, array_pos,bellator_se_num,bellator_pe_nu
       db_e_en = ''.join(event_name[array_pos])
       db_e_fc = ''.join(event_fight_card_url[array_pos])
       db_e_fd = ''.join(event_date[array_pos])
-      print('Adding event: %s ...' % db_e_en)
+      print('Event Name: %s ...' % db_e_en)
       print('Event Org: \t\t %s' % event_org)
       print('Event Date: \t', db_e_fd)
-      print('Event URL: \t\t %s' % db_e_fc)
-      print('***********************************************************************************************')
-      # print (query) # only necessary to print the query for debug
-      # print('***********************************************************************************************')  
-      print('Success!...')
       print('***********************************************************************************************')
       print('Check the dates for past and scheduled events')
       #setting event_date1 so we can compare
@@ -303,7 +298,7 @@ print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
-countEvents(bellator_countEvents_row_len,0,0,bellator_se_num,bellator_pe_num,bellator_te_num)
+countEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
 

@@ -173,6 +173,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
 
 # Do the Event Organization and writing to files
 def countPastEvents (row_len, prev_row_ptr, array_pos):
+    bellator_te = 0
     # set the array position
     array_pos = array_pos + prev_row_ptr
     

@@ -255,7 +255,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
             if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
                 print("this event takes place earlier this month")
             else:
-                print("This event is coming up in the future")
+                print("This event is coming up in the future, scheduled events increase")
                 bellator_se = bellator_se + 1
                                                
       bellator_te = bellator_te + 1

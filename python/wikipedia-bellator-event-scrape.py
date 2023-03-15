@@ -480,6 +480,9 @@ event_date = []
 prev_row_ptr = 0
 array_pos = 0
 
+new_prev_ptr = 0
+new_array_pos = 0
+
 print("********************************************************")
 print("* List of Bellator Events Wikipedia Page URL Scrape... *")
 print("********************************************************")
@@ -491,7 +494,7 @@ print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
-bellator_pe_num = countPastEvents(bellator_countEvents_row_len,0,0)
+bellator_pe_num = countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)
 #countScheduledEvents(bellator_countEvents_row_len,0,0)
 #countTotalEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr

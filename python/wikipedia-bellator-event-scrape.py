@@ -247,7 +247,7 @@ def countPastEvents (row_len, prev_row_ptr, array_pos):
         bellator_pe = bellator_pe + 1
       else:
         print("this event is this year - more investigation")
-        if int(today_date1_breakdown_month) > int(event_date1_breakdown_month):
+        if int(today_date1_breakdown_month) < int(event_date1_breakdown_month):
             print("This event took place earlier this year")
             bellator_pe = bellator_pe + 1
         else:

@@ -227,18 +227,14 @@ def countEvents (row_len, prev_row_ptr, array_pos):
       # either True or False
       try:
         if compare_date_1 > compare_date_today is True:
-            bellator_se_num
             bellator_se_num =+ 1
             print(bellator_se_num)
         else:
-            bellator_pe_num
             bellator_pe_num =+ 1
             print(bellator_pe_num)
       except:
-            bellator_pe_num
             bellator_pe_num =+ 1
             print(bellator_pe_num)
-      bellator_te_num
       bellator_te_num =+ 1
       print(bellator_te_num)
     prev_row_ptr = prev_row_ptr + row_len

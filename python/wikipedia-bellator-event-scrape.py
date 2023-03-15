@@ -124,7 +124,7 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
       print('Event Date: \t', ascii_event_date)
      
-    return row_len;
+    return row_len-22;
 
 def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position

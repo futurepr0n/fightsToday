@@ -113,9 +113,20 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorup">Upcoming Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorpast">Past Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/">My Picks</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/ical/">iCal</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#more">More</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                        <?php
+                            session_start();
+                            if (isset($_SESSION['username'])) {
+                                // User is logged in
+                                $username = $_SESSION['username'];
+                                echo '<li class="nav-item">' . $username . ' Logged in, <a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/logout.php">logout</a></li>';
+                            } else {
+                            // User is not logged in
+                            echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/test-auth/">Login</a></li>';
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -281,42 +292,42 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
             </script>
             </div>
             </section>
-        <!-- About-->
-        <section class="page-section" id="about">
+         <!-- More -->
+        <section class="page-section" id="more">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">More</h2>
+                    <h3 class="section-subheading text-muted"> Learn about what else we have to offer.</h3>
                 </div>
                 <ul class="timeline">
                     <li>
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>2009-2011</h4>
-                                <h4 class="subheading">Our Humble Beginnings</h4>
+                                <h4>My Picks</h4>
+                                <h4 class="subheading">Track your fighting IQ</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">We're constantly evolving and you can join us and play along hassle free! All thats required is to use one of our third party authentication methods and use your already existing account to log your picks! We don't ever send communications to our users and we do not store or use your information in any way. Please see our <a href="https://fights.today/tos>Terms of Service</a> for more.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>March 2011</h4>
-                                <h4 class="subheading">An Agency is Born</h4>
+                                <h4>iCal</h4>
+                                <h4 class="subheading">Never miss a fight again!</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">Easily add fights.Today's iCal link as a subscription in your cell phone to stay up to date with all upcoming events! Supporting any app that can use iCal. More information check out the iCal section</p></div>
                         </div>
                     </li>
                     <li>
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>December 2012</h4>
-                                <h4 class="subheading">Transition to Full Service</h4>
+                                <h4>Community</h4>
+                                <h4 class="subheading">See what your fellow fight fans are discussing</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">Coming soon - News, Social Media and Community Discussions </p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
@@ -332,11 +343,11 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                     <li class="timeline-inverted">
                         <div class="timeline-image">
                             <h4>
-                                Be Part
+                                What are
                                 <br />
-                                Of Our
+                                The Fights
                                 <br />
-                                Story!
+                                Today!
                             </h4>
                         </div>
                     </li>
@@ -348,7 +359,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Really just one guy who is a big fan of the sport </h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">

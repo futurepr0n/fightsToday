@@ -112,7 +112,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Past UFC Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorup">Upcoming Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorpast">Past Bellator Events</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/">My Pick</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/">My Picks</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
@@ -123,7 +123,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">Welcome to fightsToday!</div>
+                <div class="masthead-subheading">Welcome to fights.Today!</div>
                 <div class="masthead-heading text-uppercase">A way to see what fights are happening today.</div>
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
             </div>
@@ -427,9 +427,9 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+                    <div class="col-lg-4 text-lg-left">Copyright © fights.Today 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/fights_Today"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
                     </div>

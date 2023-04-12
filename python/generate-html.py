@@ -1,5 +1,5 @@
 ##################
-# FILE HAS BEEN TESTED not SUCCESSFULLY
+# FILE HAS BEEN TESTED SUCCESSFULLY
 #
 
 from lxml import html, etree

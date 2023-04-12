@@ -6,7 +6,7 @@ node {
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
           sh 'pipenv --python 3.7 install -r requirements.txt --deploy --skip-lock'
-          sh 'rm -rf index.html'
+          sh 'rm -rf index.php'
       } else {
           //put windows command here
       }        

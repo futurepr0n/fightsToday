@@ -700,7 +700,7 @@ for row2 in cur.fetchall():
     bellator_event_name.append(row2[4])
 
 if __name__ == "__main__":
-    f = open("index.html", "a")
+    f = open("index.php", "a")
     main(event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name)
     f.close()
 

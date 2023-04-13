@@ -307,7 +307,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                                 <h4>My Picks</h4>
                                 <h4 class="subheading">Track your fighting IQ</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">We're constantly evolving and you can join us and play along hassle free! All thats required is to use one of our third party authentication methods and use your already existing account to log your picks! We don't ever send communications to our users and we do not store or use your information in any way. Please see our <a href="https://fights.today/tos>Terms of Service</a> for more.</p></div>
+                            <div class="timeline-body"><p class="text-muted">We're constantly evolving and you can join us and play along hassle free! All thats required is to use one of our third party authentication methods and use your already existing account to log your picks! We don't ever send communications to our users and we do not store or use your information in any way. Please see our <a href="https://fights.today/tos">Terms of Service</a> for more.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">

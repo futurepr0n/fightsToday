@@ -214,14 +214,14 @@ fighterloop = len(g_fighter_one)
 # print "the fighter loop variable:"
 # print fighterloop
 
-#db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
-#                     user="mark5463_ft_test",  # your username
-#                     passwd="fttesting",  # your password
-#                     db="mark5463_ft_prod",
-#                     charset="utf8")  # name of the data base
-# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
+db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
+                     user="mark5463_ft_test",  # your username
+                     passwd="fttesting",  # your password
+                     db="mark5463_ft_prod",
+                     charset="utf8")  # name of the data base
+#db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
 
-db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
+#db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 
 #  you must create a Cursor object. It will let

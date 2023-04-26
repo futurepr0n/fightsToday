@@ -110,7 +110,10 @@ for x in range(0, x_range - 1):  # prev 0, 533
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s' % (event_main_event_url))
     # --get the row length by querying the event table on table rows
-    p = d("#mw-content-text table tr")
+    #p = d("#mw-content-text table tr")
+    
+    # New Row Length Code HERE
+    p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
     # p = d(".content table tr")
     # --set the row length
     # row_len = len(p)

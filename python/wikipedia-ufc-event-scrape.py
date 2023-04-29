@@ -91,7 +91,9 @@ def loadPastEventsData (event_url, event_org):
       #event_date_array = tree.xpath('//*[@id="Past_events"]/table[2]/tr[%i]/td[3]/span[2]/text()'%(x))
       event_date_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[3]/span/text()'%(x))
       event_date.append(event_date_array)
-      event_past.append('true')
+      ep_b = True
+      db_ep_int = int(ep_b)
+      event_past.append(db_ep_int)
 
 
     return row_len;
@@ -179,7 +181,10 @@ def loadUpcomingEventsData (event_url, event_org):
         event_date.append(ascii_string3)
       else:
         event_date.append(ascii_string3)
-        event_past.append('false')
+        
+      ep_b = False
+      db_ep_int = int(ep_b)
+      event_past.append(db_ep_int)    
 
     return row_len;
 
@@ -204,6 +209,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       db_e_fd = ''.join(event_date[array_pos])
       w_e_id = event_org + str(event_id)
       db_e_p = ''.join(event_past[array_pos])
+      db_int_ep = int(db_e_p)
       print('Adding event: %s ...' % db_e_en)
       print('Event ID: \t\t %i ' % event_id)
       print('Event Org: \t\t %s' % event_org)
@@ -211,7 +217,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('Event URL: \t\t %s' % db_e_fc)
       print('Event Unique ID: \t ', w_e_id)
       print('***********************************************************************************************')
-      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")"%(db_e_en, event_id, db_e_fc, event_org,db_e_fd, w_e_id,db_e_p)
+      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")"%(db_e_en, event_id, db_e_fc, event_org,db_e_fd, w_e_id,db_int_ep)
       # print (query) # only need to print during debug
       print('***********************************************************************************************')
       print('Query Executing...')

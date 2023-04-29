@@ -1,5 +1,5 @@
 ##################
-# FILE HAS BEEN TESTED SUCCESSFULLY
+# FILE is in testing
 #
 
 from lxml import html, etree
@@ -83,6 +83,7 @@ g_fight_card_org = []
 # fight card specific arrays
 g_fight_card_event_name = []
 g_fight_card_event_url = []
+g_fight_card_event_id = []
 
 x_range = len(g_event_name)
 
@@ -95,10 +96,12 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     this_event_name = g_event_name[x]
     this_event_org = g_event_org[x]
+    this_event_id = g_event_id[x]
 
     g_fight_card_event_name.append(this_event_name)
     g_fight_card_event_url.append(event_main_event_url)
     g_fight_card_org.append(this_event_org)
+    g_fight_card_event_id.append(this_event_id)
 
     # time.sleep(5)
     # debug info
@@ -116,8 +119,10 @@ for x in range(0, x_range - 1):  # prev 0, 533
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
     # p = d(".content table tr")
     # --set the row length
-    # row_len = len(p)
-    row_len = 15
+    row_len = len(p)
+    
+    #Previously this was set to a static number, but now we are able to grab it
+    #row_len = 15
 
     # debug info
     #print("this is the row length:")
@@ -125,57 +130,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     #print("---------------------")
 
     # set up the array
-    # scrape main event event name
-    main_event_fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[2]/td[2]/a/text()')
-
-    newstr = ''.join(main_event_fighter_one_array)
-    asccii_string = smart_str(newstr)
-
-    # debug info
-    #print("fighter one name:")
-    #print(asccii_string)
-    #print("---------------------")
-
-    g_fighter_one.append(asccii_string)
-
-    main_event_fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[2]/td[2]/a/@href')
-
-    me_fgtr1_wbst = 'https://en.wikipedia.org', ''.join(main_event_fighter_one_url_array)
-
-    # debug info
-    #print("fighter one website: ")
-    #print(me_fgtr1_wbst)
-    #print("---------------------")
-    g_fighter_one_url.append(me_fgtr1_wbst)
-
-    main_event_fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[2]/td[4]/a/text()')
-
-    newstr2 = ''.join(main_event_fighter_two_array)
-    asccii_string2 = smart_str(newstr2)
-
-    # debug info
-    #print("fighter 2 name: ")
-    #print(asccii_string2)
-    #print("---------------------")
-
-    g_fighter_two.append(asccii_string2)
-
-    main_event_fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[2]/td[4]/a/@href')
-
-    me_fgtr2_wbst = 'https://en.wikipedia.org', ''.join(main_event_fighter_two_url_array)
-
-    # debug info
-    print('***********************************************************************************************')
-    print("Event Name: ", this_event_name)
-    print("MAIN EVENT fighter one name: ", asccii_string, "\tfighter two name: \t", asccii_string2)
-    print("fighter 1 website", me_fgtr1_wbst, "fighter 2 website", me_fgtr2_wbst)
-    print("Event URL: ", event_main_event_url)
-    print("This is the fighter org", this_event_org)
-    #print("fighter 2 website:")
-    #print(me_fgtr2_wbst)
-    #print("---------------------")
-
-    g_fighter_two_url.append(me_fgtr2_wbst)
+    
     ###### WORKING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     for z in range(2, row_len):
@@ -243,6 +198,7 @@ for y in range(0, fighterloop - 1):
     e_f2_url = ''.join(g_fighter_two_url[y])
     e_fc_url = ''.join(g_fight_card_event_url[y])
     e_org = ''.join(g_fight_card_org[y])
+    e_ei = ''.join(g_fight_card_event_id[y])
     print('Adding event: %s ...' % e_name)
     print('Fighter One: \t\t %s ' % e_f1)
     print('Fighter One URL: \t\t %s' % e_f1_url)
@@ -250,9 +206,10 @@ for y in range(0, fighterloop - 1):
     print('Fighter Two URL: \t\t %s' % e_f2_url)
     print('Event URL: \t\t %s' % e_fc_url)
     print('Event Org: \t\t %s' % e_org)
-    print('***********************************************************************************************')
+    print('Event ID: \t\t %s' % e_ei)
+    print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

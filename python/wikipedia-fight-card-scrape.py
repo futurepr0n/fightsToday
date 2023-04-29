@@ -54,6 +54,7 @@ g_event_fight_card_url = []
 g_event_date = []
 g_event_fight_poster_url = []
 g_event_org = []
+g_event_past = []
 
 
 
@@ -65,6 +66,7 @@ for row in cur.fetchall():
     g_event_name.append(row[3])
     g_event_date.append(row[4])
     g_event_org.append(row[5])
+    g_event_past.append(row[6])
     print('***********************************************************************************************')
     print('Loading event Name: \t\t\t %s ...' % row[3])
     print('Loading event Poster URL: \t\t\t %s ...' % row[0])
@@ -72,6 +74,7 @@ for row in cur.fetchall():
     print('Loading event Org: \t\t %s' % row[5])
     print('Loading event Date: \t\t', row[4])
     print('Loading event URL: \t\t %s' % row[2])
+    print('Loading event past data: \t\t %s' % row[6])
     print('***********************************************************************************************')
 
 # set up the fighter arrays
@@ -84,6 +87,7 @@ g_fight_card_org = []
 g_fight_card_event_name = []
 g_fight_card_event_url = []
 g_fight_card_event_id = []
+g_fight_card_event_past = []
 
 x_range = len(g_event_name)
 
@@ -97,11 +101,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
     this_event_name = g_event_name[x]
     this_event_org = g_event_org[x]
     this_event_id = g_event_id[x]
+    this_event_past = g_event_past[x]
 
     g_fight_card_event_name.append(this_event_name)
     g_fight_card_event_url.append(event_main_event_url)
     g_fight_card_org.append(this_event_org)
     g_fight_card_event_id.append(this_event_id)
+    g_fight_card_event_past.append(this_event_past)
 
     # time.sleep(5)
     # debug info
@@ -199,6 +205,7 @@ for y in range(0, fighterloop - 1):
     e_fc_url = ''.join(g_fight_card_event_url[y])
     e_org = ''.join(g_fight_card_org[y])
     e_ei = ''.join(g_fight_card_event_id[y])
+    e_ep = ''.join(g_fight_card_event_past[y])
     print('Adding event: %s ...' % e_name)
     print('Fighter One: \t\t %s ' % e_f1)
     print('Fighter One URL: \t\t %s' % e_f1_url)
@@ -207,9 +214,10 @@ for y in range(0, fighterloop - 1):
     print('Event URL: \t\t %s' % e_fc_url)
     print('Event Org: \t\t %s' % e_org)
     print('Event ID: \t\t %s' % e_ei)
+    print('Event past: \t\t %s' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, e_ep)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

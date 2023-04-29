@@ -206,6 +206,7 @@ for y in range(0, fighterloop - 1):
     e_org = ''.join(g_fight_card_org[y])
     e_ei = ''.join(g_fight_card_event_id[y])
     e_ep = ''.join(g_fight_card_event_past[y])
+    db_ep_int = int(e_ep)
     print('Adding event: %s ...' % e_name)
     print('Fighter One: \t\t %s ' % e_f1)
     print('Fighter One URL: \t\t %s' % e_f1_url)
@@ -214,10 +215,10 @@ for y in range(0, fighterloop - 1):
     print('Event URL: \t\t %s' % e_fc_url)
     print('Event Org: \t\t %s' % e_org)
     print('Event ID: \t\t %s' % e_ei)
-    print('Event past: \t\t %s' % e_ep)
+    print('Event past: \t\t %i' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, e_ep)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, db_ep_int)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

@@ -68,7 +68,8 @@ CREATE TABLE `wiki_mma_events` (
   `event_fight_card_url` varchar(300) NOT NULL,
   `event_org` varchar(200) NOT NULL,
   `event_date` varchar(50) NOT NULL,
-  `wiki_event_id` varchar(100) NOT NULL
+  `wiki_event_id` varchar(100) NOT NULL,
+  `event_past` boolean NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

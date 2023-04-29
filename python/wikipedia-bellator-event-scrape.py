@@ -140,7 +140,8 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       db_e_fc = ''.join(event_fight_card_url[array_pos])
       db_e_fd = ''.join(event_date[array_pos])
       w_e_id = event_org + str(event_id)
-      db_ep = 'true'
+      db_ep = True
+      db_ep_int = int(db_ep)
       print('Adding event: %s ...' % db_e_en)
       print('Event ID: \t\t %i ' % event_id)
       print('Event Org: \t\t %s' % event_org)
@@ -148,7 +149,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('Event URL: \t\t %s' % db_e_fc)
       print('Event Unique ID: \t ', w_e_id)
       print('***********************************************************************************************')
-      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")" % (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep)
+      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%i\")" % (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
       # print (query) # only necessary to print the query for debug
       # print('***********************************************************************************************')
       print('Query Executed...')

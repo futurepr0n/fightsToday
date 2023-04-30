@@ -188,7 +188,7 @@ def loadUpcomingEventsData (event_url, event_org):
 
     return row_len;
 
-def insertRows (row_len, prev_row_ptr, array_pos):
+def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     # event_id = row_len - 1
@@ -208,7 +208,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       # db_e_lc = ''.join(event_location[array_pos])
       db_e_fd = ''.join(event_date[array_pos])
       w_e_id = event_org + str(event_id)
-      db_e_p = ''.join(event_past[array_pos])
+      db_e_p = pe_b
       db_int_ep = int(db_e_p)
       print('Adding event: %s ...' % db_e_en)
       print('Event ID: \t\t %i ' % event_id)
@@ -269,13 +269,13 @@ event_id = 0
 ufc_row_len = loadPastEventsData(event_url, event_org)
 pe2_num = ufc_row_len-1
 print(" ---- Inserts ----")
-insertRows(ufc_row_len, prev_row_ptr, array_pos)
+insertRows(ufc_row_len, prev_row_ptr, array_pos, True)
 
 #set the prev_row_ptrgth pointer
 prev_row_ptr = ufc_row_len + prev_row_ptr - 1
 
 
-ufc_row_len2 = loadUpcomingEventsData(event_url, event_org)
+ufc_row_len2 = loadUpcomingEventsData(event_url, event_org, False)
 se2_num = ufc_row_len2-1
 print(" ---- Inserts ----")
 insertRows(ufc_row_len2, prev_row_ptr, array_pos)

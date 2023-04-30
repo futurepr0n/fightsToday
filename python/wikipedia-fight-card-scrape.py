@@ -221,7 +221,7 @@ for y in range(0, fighterloop - 1):
     print('Event past: \t\t %i' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%i\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, e_wei db_ep_int)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%i\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, e_wei, db_ep_int)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

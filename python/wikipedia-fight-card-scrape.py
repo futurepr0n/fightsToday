@@ -88,7 +88,7 @@ g_fight_card_event_name = []
 g_fight_card_event_url = []
 #g_fight_card_event_id = []
 g_fight_card_event_past = []
-g_wiki_event_id = []
+g_fight_card_wiki_event_id = []
 
 x_range = len(g_event_name)
 
@@ -103,12 +103,14 @@ for x in range(0, x_range - 1):  # prev 0, 533
     this_event_org = g_event_org[x]
     this_event_id = g_event_id[x]
     this_event_past = g_event_past[x]
+    this_wiki_event_id = g_wiki_event_id[x]
 
     g_fight_card_event_name.append(this_event_name)
     g_fight_card_event_url.append(event_main_event_url)
     g_fight_card_org.append(this_event_org)
     #g_fight_card_event_id.append(this_event_id)
     g_fight_card_event_past.append(this_event_past)
+    g_fight_card_wiki_event_id.append(this_wiki_event_id)
 
     # time.sleep(5)
     # debug info
@@ -169,7 +171,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fight_card_event_name.append(this_event_name)
         g_fight_card_event_url.append(event_main_event_url)
         g_fight_card_org.append(this_event_org)
-        #g_fight_card_event_id.append(this_event_id)
+        g_fight_card_wiki_event_id.append(this_wiki_event_id)
 
 
 
@@ -205,8 +207,8 @@ for y in range(0, fighterloop - 1):
     e_f2_url = ''.join(g_fighter_two_url[y])
     e_fc_url = ''.join(g_fight_card_event_url[y])
     e_org = ''.join(g_fight_card_org[y])
-    #e_ei = ''.join(g_fight_card_event_id[y])
-    e_wei = ''.join(g_wiki_event_id[y])
+    # e_ei = ''.join(g_fight_card_event_id[y])
+    e_wei = ''.join(g_fight_card_wiki_event_id[y])
     e_ep = ''.join(g_fight_card_event_past[y])
     db_ep_int = int(e_ep)
     print('Adding event: %s ...' % e_name)
@@ -221,7 +223,7 @@ for y in range(0, fighterloop - 1):
     print('Event past: \t\t %i' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

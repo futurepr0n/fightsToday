@@ -109,7 +109,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     g_fight_card_event_url.append(event_main_event_url)
     g_fight_card_org.append(this_event_org)
     #g_fight_card_event_id.append(this_event_id)
-    g_fight_card_event_past.append(this_event_past)
+    g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
 
     # time.sleep(5)
@@ -172,6 +172,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fight_card_event_url.append(event_main_event_url)
         g_fight_card_org.append(this_event_org)
         g_fight_card_wiki_event_id.append(this_wiki_event_id)
+        g_fight_card_event_past.append(str(this_event_past))
 
 
 

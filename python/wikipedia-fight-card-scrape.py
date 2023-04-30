@@ -45,7 +45,7 @@ db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, event_past  FROM wiki_mma_events")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events")
 
 # initialize the arrays
 g_event_name = []
@@ -53,6 +53,7 @@ g_event_id = []
 g_event_fight_card_url = []
 g_event_date = []
 g_event_org = []
+g_wiki_event_id = []
 g_event_past = []
 
 
@@ -64,14 +65,16 @@ for row in cur.fetchall():
     g_event_name.append(row[2])
     g_event_date.append(row[3])
     g_event_org.append(row[4])
-    g_event_past.append(row[5])
+    g_wiki_event_id.append(row[5])
+    g_event_past.append(row[6])
     print('***********************************************************************************************')
     print('Loading event Name: \t\t\t %s ...' % row[2])
-    print('Loading event ID: \t\t %s ' % row[0])
+    print('Loading event ID: \t\t %i ' % row[0])
     print('Loading event Org: \t\t %s' % row[4])
     print('Loading event Date: \t\t', row[3])
     print('Loading event URL: \t\t %s' % row[1])
-    print('Loading event past data: \t\t %i' % row[5])
+    print('Loading wiki event ID: \t\t %s' % row[5])
+    print('Loading event past data: \t\t %i' % row[6])
     print('***********************************************************************************************')
 
 # set up the fighter arrays
@@ -85,6 +88,7 @@ g_fight_card_event_name = []
 g_fight_card_event_url = []
 g_fight_card_event_id = []
 g_fight_card_event_past = []
+g_wiki_event_id = []
 
 x_range = len(g_event_name)
 
@@ -201,7 +205,8 @@ for y in range(0, fighterloop - 1):
     e_f2_url = ''.join(g_fighter_two_url[y])
     e_fc_url = ''.join(g_fight_card_event_url[y])
     e_org = ''.join(g_fight_card_org[y])
-    e_ei = g_fight_card_event_id[y]
+    e_ei = ''.join(g_fight_card_event_id[y])
+    e_wei = ''.join(g_wiki_event_id[y])
     e_ep = ''.join(g_fight_card_event_past[y])
     db_ep_int = int(e_ep)
     print('Adding event: %s ...' % e_name)
@@ -211,11 +216,12 @@ for y in range(0, fighterloop - 1):
     print('Fighter Two URL: \t\t %s' % e_f2_url)
     print('Event URL: \t\t %s' % e_fc_url)
     print('Event Org: \t\t %s' % e_org)
-    print('Event ID: \t\t %s' % e_ei)
+    print('Event ID: \t\t %i' % e_ei)
+    print('Event wiki id: \t\t %s' % e_wei)
     print('Event past: \t\t %i' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, db_ep_int)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, event_id, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%i\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_ei, e_wei db_ep_int)
     # print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

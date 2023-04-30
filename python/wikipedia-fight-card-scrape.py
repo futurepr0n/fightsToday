@@ -201,7 +201,7 @@ for y in range(0, fighterloop - 1):
     e_f2_url = ''.join(g_fighter_two_url[y])
     e_fc_url = ''.join(g_fight_card_event_url[y])
     e_org = ''.join(g_fight_card_org[y])
-    e_ei = ''.join(g_fight_card_event_id[y])
+    e_ei = g_fight_card_event_id[y]
     e_ep = ''.join(g_fight_card_event_past[y])
     db_ep_int = int(e_ep)
     print('Adding event: %s ...' % e_name)

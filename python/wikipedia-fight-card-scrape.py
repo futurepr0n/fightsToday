@@ -221,7 +221,7 @@ for y in range(0, fighterloop - 1):
     print('Event Org: \t\t %s' % e_org)
     #print('Event ID: \t\t %i' % e_ei)
     print('Event wiki id: \t\t %s' % e_wei)
-    print('Event past: \t\t %i' % e_ep)
+    print('Event past: \t\t %i' % db_ep_int)
     print('**********************************************************************************************')
     # print('Query ...')
     query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int)

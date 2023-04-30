@@ -45,14 +45,13 @@ db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT * FROM wiki_mma_events_poster")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, event_past  FROM wiki_mma_events")
 
 # initialize the arrays
 g_event_name = []
 g_event_id = []
 g_event_fight_card_url = []
 g_event_date = []
-g_event_fight_poster_url = []
 g_event_org = []
 g_event_past = []
 
@@ -60,21 +59,19 @@ g_event_past = []
 
 # load our arrays with all of our event data.
 for row in cur.fetchall():
-    g_event_fight_poster_url.append(row[0])
-    g_event_id.append(row[1])
-    g_event_fight_card_url.append(row[2])
-    g_event_name.append(row[3])
-    g_event_date.append(row[4])
-    g_event_org.append(row[5])
-    g_event_past.append(row[6])
+    g_event_id.append(row[0])
+    g_event_fight_card_url.append(row[1])
+    g_event_name.append(row[2])
+    g_event_date.append(row[3])
+    g_event_org.append(row[4])
+    g_event_past.append(row[5])
     print('***********************************************************************************************')
-    print('Loading event Name: \t\t\t %s ...' % row[3])
-    print('Loading event Poster URL: \t\t\t %s ...' % row[0])
-    print('Loading event ID: \t\t %s ' % row[1])
-    print('Loading event Org: \t\t %s' % row[5])
-    print('Loading event Date: \t\t', row[4])
-    print('Loading event URL: \t\t %s' % row[2])
-    print('Loading event past data: \t\t %s' % row[6])
+    print('Loading event Name: \t\t\t %s ...' % row[2])
+    print('Loading event ID: \t\t %s ' % row[0])
+    print('Loading event Org: \t\t %s' % row[4])
+    print('Loading event Date: \t\t', row[3])
+    print('Loading event URL: \t\t %s' % row[1])
+    print('Loading event past data: \t\t %i' % row[5])
     print('***********************************************************************************************')
 
 # set up the fighter arrays

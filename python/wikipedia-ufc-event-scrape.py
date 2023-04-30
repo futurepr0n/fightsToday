@@ -275,10 +275,10 @@ insertRows(ufc_row_len, prev_row_ptr, array_pos, True)
 prev_row_ptr = ufc_row_len + prev_row_ptr - 1
 
 
-ufc_row_len2 = loadUpcomingEventsData(event_url, event_org, False)
+ufc_row_len2 = loadUpcomingEventsData(event_url, event_org)
 se2_num = ufc_row_len2-1
 print(" ---- Inserts ----")
-insertRows(ufc_row_len2, prev_row_ptr, array_pos)
+insertRows(ufc_row_len2, prev_row_ptr, array_pos, False)
 
 # Creating the Files for autonomous runs *****
 

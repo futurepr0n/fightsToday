@@ -215,12 +215,12 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
       print('Event Org: \t\t %s' % event_org)
       print('Event Date: \t', db_e_fd)
       print('Event URL: \t\t %s' % db_e_fc)
-      print('Event Unique ID: \t %s', w_e_id)
-      print('Event in the past?:\t %s', str(db_e_p))
-      print('Event in the past as integer?: \t %i', db_int_ep)
+      print('Event Unique ID: \t', w_e_id)
+      print('Event in the past?:\t', str(db_e_p))
+      print('Event in the past as integer?: \t', db_int_ep)
       print('***********************************************************************************************')
       query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%i\")"%(db_e_en, event_id, db_e_fc, event_org,db_e_fd, w_e_id,db_int_ep)
-      # print (query) # only need to print during debug
+      print (query) # only need to print during debug
       print('***********************************************************************************************')
       print('Query Executing...')
       cur.execute(query)

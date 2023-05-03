@@ -180,9 +180,12 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fight_card_event_past.append(str(this_event_past))
         print(str(this_event_past))
 
+print('This is the length of g_fighter_one ', len(g_fighter_one))
+print('This is the length of g_event_name ', len(g_event_name))
 
+#fighterloop = len(g_fighter_one)
+fighterloop = len(g_event_name)
 
-fighterloop = len(g_fighter_one)
 
 # print "the length of fighter array is also"
 # print "the fighter loop variable:"

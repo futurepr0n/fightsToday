@@ -143,25 +143,29 @@ for x in range(0, x_range - 1):  # prev 0, 533
     
     ###### WORKING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    for z in range(2, row_len):
+    for z in range(3, row_len):
         # print("Z is = to: ")
         # print(z)
         # scrape fighter one name
-        fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))
-        newstr3 = ''.join(fighter_one_array)
+        # fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))
+        fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))
+        newstr3 = ''.join(fighter_one_array) 
         asccii_string3 = smart_str(newstr3)
         g_fighter_one.append(asccii_string3)
         # scrape fighter one URL
-        fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
+        # fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
+        fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
         fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
         g_fighter_one_url.append(fgtr1_wbst)
         # scrape fighter two name
-        fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[4]/a/text()' % (z))
+        # fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[4]/a/text()' % (z))
+        fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()' % (z))
         newstr4 = ''.join(fighter_two_array)
         asccii_string4 = smart_str(newstr4)
         g_fighter_two.append(asccii_string4)
         # scrape fighter two URL
-        fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
+        #fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
+        fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
         fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
         g_fighter_two_url.append(fgtr2_wbst)
 
@@ -227,7 +231,7 @@ for y in range(0, fighterloop - 1):
     print('Event past string: \t %s' % e_ep)
     print('**********************************************************************************************')
     # print('Query ...')
-    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", \"%i\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int)
+    query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i)" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int)
     print (query) #only necessary for debugging
     ## Query not needed after first load
     print('Query Executed...')

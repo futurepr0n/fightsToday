@@ -86,7 +86,7 @@ g_fight_card_org = []
 # fight card specific arrays
 g_fight_card_event_name = []
 g_fight_card_event_url = []
-#g_fight_card_event_id = []
+g_fight_card_event_id = []
 g_fight_card_event_past = []
 g_fight_card_wiki_event_id = []
 

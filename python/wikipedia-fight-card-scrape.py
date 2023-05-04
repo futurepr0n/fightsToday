@@ -188,7 +188,7 @@ print('This is the amount of events past total ', len(g_fight_card_event_past))
 
 
 #fighterloop = len(g_fighter_one)
-fighterloop = len(g_event_name)
+fighterloop = len(g_fight_card_event_past)
 
 
 # print "the length of fighter array is also"

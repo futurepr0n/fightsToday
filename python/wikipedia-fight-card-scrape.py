@@ -94,7 +94,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
-    row_len = len(p)
+    row_len = len(p) + 1
     
 
 
@@ -124,7 +124,10 @@ for x in range(0, x_range - 1):  # prev 0, 533
         ascii_fight_time = smart_str(new_fight_time_string)        
         fight_notes_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[8]/a/text()' % (z))
         new_fight_notes_string = ''.join(fight_notes_array)
-        ascii_fight_notes = smart_str(new_fight_notes_string)        
+        ascii_fight_notes = smart_str(new_fight_notes_string)
+        fight_weightclass_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/a/text()' % (z))
+        new_fight_weightclass_string = ''.join(fight_weightclass_array)
+        ascii_fight_weightclass = smart_str(new_fight_weightclass_string)        
         g_fight_card_event_name.append(this_event_name)
         g_fight_card_event_url.append(event_main_event_url)
         g_fight_card_org.append(this_event_org)
@@ -141,6 +144,6 @@ for x in range(0, x_range - 1):  # prev 0, 533
         e_wei = ''.join(this_wiki_event_id)
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
-        query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, notes, time, round) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", %i)" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_notes,ascii_fight_time,int(ascii_fight_round))
+        query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, notes, time, round) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", %i)" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_notes,ascii_fight_time, ascii_fight_round, ascii_fight_weightclass)
         cur.execute(query)
 

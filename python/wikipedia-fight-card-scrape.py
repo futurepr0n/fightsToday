@@ -62,6 +62,11 @@ g_fight_card_wiki_event_id = []
 
 x_range = len(g_event_name)
 
+db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
+cur = db.cursor()
+cur.execute("TRUNCATE wiki_mma_fight_cards")
+
+
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range - 1):  # prev 0, 533
     # bring in the url information
@@ -91,11 +96,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     row_len = len(p)
     
-    db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
 
-    cur = db.cursor()
-
-    cur.execute("TRUNCATE wiki_mma_fight_cards")
 
     for z in range(3, row_len):
         fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))

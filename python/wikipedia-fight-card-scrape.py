@@ -149,6 +149,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         
         
         # Try and get the fighter
+        '''
         fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))
         newstr3 = ''.join(fighter_one_array) 
         asccii_string3 = smart_str(newstr3)
@@ -170,6 +171,28 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 g_fighter_one.append(asccii_string3)    
         else:
             g_fighter_one.append(asccii_string3)
+        '''
+        # Try and get the fighter
+        fighter_one_array = None
+        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]//tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/text()']:
+            fighter_one_array = tree.xpath(xpath % z)
+            if fighter_one_array:
+                break
+
+        if fighter_one_array:
+            newstr3 = ''.join(fighter_one_array) 
+            asccii_string3 = smart_str(newstr3)
+            g_fighter_one.append(asccii_string3)
+        else:
+            g_fighter_one.append('')
+
         fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
         fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
         g_fighter_one_url.append(fgtr1_wbst)

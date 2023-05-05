@@ -140,13 +140,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     row_len = len(p) + 1
     
-
+    if "https://en.wikipedia.org/wiki/The_Ultimate_Fighter" in event_main_event_url:
+            break
     
     
     for z in range(3, row_len):
         # Determine if this url contains the ultimate fighter or not
-        if "https://en.wikipedia.org/wiki/The_Ultimate_Fighter" in event_main_event_url:
-            break
+        
         
         # Try and get the fighter
         fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()' % (z))

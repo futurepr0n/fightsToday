@@ -160,7 +160,12 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/text()' % (z))
                 newstr3 = ''.join(fighter_one_array) 
                 asccii_string3 = smart_str(newstr3)
-                g_fighter_one.append(asccii_string3)
+                if asccii_string3 == '';
+                    fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/text()' % (z))
+                    newstr3 = ''.join(fighter_one_array) 
+                    asccii_string3 = smart_str(newstr3)
+                else:
+                    g_fighter_one.append(asccii_string3)
             else:
                 g_fighter_one.append(asccii_string3)    
         else:

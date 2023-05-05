@@ -172,11 +172,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
         newstr4 = ''.join(fighter_two_array)
         asccii_string4 = smart_str(newstr4)
         if asccii_string4 == '':
-            fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()' % (z))
+            fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()' % (z))
             newstr4 = ''.join(fighter_two_array) 
             asccii_string4 = smart_str(newstr4)
             if asccii_string4 == '':
-                fighter_one_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/text()' % (z))
+                fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/text()' % (z))
                 newstr4 = ''.join(fighter_two_array) 
                 asccii_string4 = smart_str(newstr4)
                 g_fighter_two.append(asccii_string4)

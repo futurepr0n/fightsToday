@@ -179,6 +179,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                       '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[2]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[2]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/a/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/a/text()',
@@ -197,6 +198,8 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
         fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
         g_fighter_one_url.append(fgtr1_wbst)
+        
+        '''
         fighter_two_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()' % (z))
         newstr4 = ''.join(fighter_two_array)
         asccii_string4 = smart_str(newstr4)
@@ -213,6 +216,29 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 g_fighter_two.append(asccii_string4)
         else:
             g_fighter_two.append(asccii_string4)
+        '''
+        fighter_two_array = None
+        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[4]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[4]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[4]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[4]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/text()']:
+            fighter_two_array = tree.xpath(xpath % z)
+            if fighter_two_array:
+                break
+
+        if fighter_two_array:
+            newstr4 = ''.join(fighter_two_array) 
+            asccii_string4 = smart_str(newstr4)
+            g_fighter_two.append(asccii_string4)
+        else:
+            g_fighter_two.append('')
+
         fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
         fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
         g_fighter_two_url.append(fgtr2_wbst)

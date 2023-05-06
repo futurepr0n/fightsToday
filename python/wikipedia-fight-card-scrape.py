@@ -94,9 +94,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
     row_len = len(p) + 1
      
     for z in range(3, row_len):
-        
-            if fighter_one_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
+    
+        if fighter_one_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/text()',
@@ -106,32 +106,32 @@ for x in range(0, x_range - 1):  # prev 0, 533
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/text()']:
-                    fighter_one_array = tree.xpath(xpath % z)
-                    if fighter_one_array:
-                        break
-
+                fighter_one_array = tree.xpath(xpath % z)
                 if fighter_one_array:
-                    newstr3 = ''.join(fighter_one_array) 
-                    asccii_string3 = smart_str(newstr3)
-                    g_fighter_one.append(asccii_string3)
-                else:
-                    g_fighter_one.append('')
-                # Try and get the fighter one url
-                fighter_one_url_array = None
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href',
+                    break
+
+            if fighter_one_array:
+                newstr3 = ''.join(fighter_one_array) 
+                asccii_string3 = smart_str(newstr3)
+                g_fighter_one.append(asccii_string3)
+            else:
+                g_fighter_one.append('')
+            # Try and get the fighter one url
+            fighter_one_url_array = None
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/a/@href']:
-                    fighter_one_url_array = tree.xpath(xpath % z)
-                    if fighter_one_url_array:
-                        break
-
+                fighter_one_url_array = tree.xpath(xpath % z)
                 if fighter_one_url_array:
-                    fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
-                    g_fighter_one_url.append(fgtr1_wbst)
-                else:
-                    fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
-                    g_fighter_one_url.append(fgtr1_wbst)
+                    break
+
+            if fighter_one_url_array:
+                fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+                g_fighter_one_url.append(fgtr1_wbst)
+            else:
+                fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+                g_fighter_one_url.append(fgtr1_wbst)
                 
             '''
             fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
@@ -139,8 +139,8 @@ for x in range(0, x_range - 1):  # prev 0, 533
             g_fighter_one_url.append(fgtr1_wbst)
             '''
 
-            if fighter_two_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
+        if fighter_two_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[4]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/a/text()',
@@ -150,101 +150,101 @@ for x in range(0, x_range - 1):  # prev 0, 533
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[4]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/text()']:
-                    fighter_two_array = tree.xpath(xpath % z)
-                    if fighter_two_array:
-                        break
-
+                fighter_two_array = tree.xpath(xpath % z)
                 if fighter_two_array:
-                    newstr4 = ''.join(fighter_two_array) 
-                    asccii_string4 = smart_str(newstr4)
-                    g_fighter_two.append(asccii_string4)
-                else:
-                    g_fighter_two.append('')
+                    break
+
+            if fighter_two_array:
+                newstr4 = ''.join(fighter_two_array) 
+                asccii_string4 = smart_str(newstr4)
+                g_fighter_two.append(asccii_string4)
+            else:
+                g_fighter_two.append('')
 
                 # Try and get the fighter two url
-                fighter_two_url_array = None
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href',
+            fighter_two_url_array = None
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/a/@href']:
-                    fighter_two_url_array = tree.xpath(xpath % z)
-                    if fighter_two_url_array:
-                        break
-
+                fighter_two_url_array = tree.xpath(xpath % z)
                 if fighter_two_url_array:
-                    fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
-                    g_fighter_two_url.append(fgtr2_wbst)
-                else:
-                    fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
-                    g_fighter_two_url.append(fgtr2_wbst)
+                    break
+
+            if fighter_two_url_array:
+                fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+                g_fighter_two_url.append(fgtr2_wbst)
+            else:
+                fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+                g_fighter_two_url.append(fgtr2_wbst)
             '''
             fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
             fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
             '''
-            if fight_method_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
+        if fight_method_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[5]/text()']:
-                    fight_method_array = tree.xpath(xpath % z)
-                    if fight_method_array:
-                        break
-
+                fight_method_array = tree.xpath(xpath % z)
                 if fight_method_array:
-                    new_fight_method_string = ''.join(fight_method_array)
-                    ascii_fight_method = smart_str(new_fight_method_string)
-                else:
-                    new_fight_method_string = ''
-                    ascii_fight_method = smart_str(new_fight_method_string)
+                    break
+
+            if fight_method_array:
+                new_fight_method_string = ''.join(fight_method_array)
+                ascii_fight_method = smart_str(new_fight_method_string)
+            else:
+                new_fight_method_string = ''
+                ascii_fight_method = smart_str(new_fight_method_string)
                 
             '''    
             fight_method_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()' % (z))
             new_fight_method_string = ''.join(fight_method_array)
             ascii_fight_method = smart_str(new_fight_method_string)
             '''
-            if fight_round_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()',
+        if fight_round_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[6]/text()']:
-                    fight_round_array = tree.xpath(xpath % z)
-                    if fight_round_array:
-                        break
-
+                fight_round_array = tree.xpath(xpath % z)
                 if fight_round_array:
-                    new_fight_round_string = ''.join(fight_round_array)
-                    ascii_fight_round = smart_str(new_fight_round_string)
-                else:
-                    new_fight_round_string = ''
-                    ascii_fight_round = smart_str(new_fight_round_string)
+                    break
+
+            if fight_round_array:
+                new_fight_round_string = ''.join(fight_round_array)
+                ascii_fight_round = smart_str(new_fight_round_string)
+            else:
+                new_fight_round_string = ''
+                ascii_fight_round = smart_str(new_fight_round_string)
             
             '''
             fight_round_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()' % (z))
             new_fight_round_string = ''.join(fight_round_array)
             ascii_fight_round = smart_str(new_fight_round_string)
             '''
-            if fight_time_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()',
+        if fight_time_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[7]/text()']:
-                    fight_time_array = tree.xpath(xpath % z)
-                    if fight_time_array:
-                        break
-
+                fight_time_array = tree.xpath(xpath % z)
                 if fight_time_array:
-                    new_fight_time_string = ''.join(fight_time_array)
-                    ascii_fight_time = smart_str(new_fight_time_string)
-                else:
-                    new_fight_time_string = ''
-                    ascii_fight_time = smart_str(new_fight_time_string)
+                    break
+
+            if fight_time_array:
+                new_fight_time_string = ''.join(fight_time_array)
+                ascii_fight_time = smart_str(new_fight_time_string)
+            else:
+                new_fight_time_string = ''
+                ascii_fight_time = smart_str(new_fight_time_string)
                     
             '''
             fight_time_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()' % (z))
@@ -256,23 +256,23 @@ for x in range(0, x_range - 1):  # prev 0, 533
             ascii_fight_notes = smart_str(new_fight_notes_string)
             '''
 
-            if fight_weightclass_array == '':
-                for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
+        if fight_weightclass_array == '':
+            for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[1]/text()']:
-                    fight_weightclass_array = tree.xpath(xpath % z)
-                    if fight_weightclass_array:
-                        break
-
+                fight_weightclass_array = tree.xpath(xpath % z)
                 if fight_weightclass_array:
-                    new_fight_weightclass_string = ''.join(fight_weightclass_array)
-                    ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
-                else:
-                    new_fight_weightclass_string = ''
-                    ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+                    break
+
+            if fight_weightclass_array:
+                new_fight_weightclass_string = ''.join(fight_weightclass_array)
+                ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            else:
+                new_fight_weightclass_string = ''
+                ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
             
             '''    
             fight_weightclass_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()' % (z))
@@ -280,26 +280,26 @@ for x in range(0, x_range - 1):  # prev 0, 533
             ascii_fight_weightclass = smart_str(new_fight_weightclass_string)        
             '''
         
-            g_fight_card_event_name.append(this_event_name)
-            g_fight_card_event_url.append(event_main_event_url)
-            g_fight_card_org.append(this_event_org)
-            g_fight_card_wiki_event_id.append(this_wiki_event_id)
-            g_fight_card_event_past.append(str(this_event_past))
-            e_name = ''.join(this_event_name)
-            e_f1 = ''.join(asccii_string3)
-            e_f1_url = ''.join(fgtr1_wbst)
-            e_f2 = ''.join(asccii_string4)
-            e_f2_url = ''.join(fgtr2_wbst)
-            e_fc_url = ''.join(event_main_event_url)
-            e_org = ''.join(this_event_org)
-            # e_ei = ''.join(g_fight_card_event_id[y])
-            e_wei = ''.join(this_wiki_event_id)
-            e_ep = ''.join(str(this_event_past))
-            db_ep_int = int(e_ep)
-            if e_f1 and e_f2 and ascii_fight_weightclass:
-                query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, notes, time, round, weightclass) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_notes,ascii_fight_time, ascii_fight_round, ascii_fight_weightclass)
-                cur.execute(query)
-            else:
-                print("Not all required variables have a value. Skipping database insertion.")
+        g_fight_card_event_name.append(this_event_name)
+        g_fight_card_event_url.append(event_main_event_url)
+        g_fight_card_org.append(this_event_org)
+        g_fight_card_wiki_event_id.append(this_wiki_event_id)
+        g_fight_card_event_past.append(str(this_event_past))
+        e_name = ''.join(this_event_name)
+        e_f1 = ''.join(asccii_string3)
+        e_f1_url = ''.join(fgtr1_wbst)
+        e_f2 = ''.join(asccii_string4)
+        e_f2_url = ''.join(fgtr2_wbst)
+        e_fc_url = ''.join(event_main_event_url)
+        e_org = ''.join(this_event_org)
+         # e_ei = ''.join(g_fight_card_event_id[y])
+        e_wei = ''.join(this_wiki_event_id)
+        e_ep = ''.join(str(this_event_past))
+        db_ep_int = int(e_ep)
+        if e_f1 and e_f2 and ascii_fight_weightclass:
+            query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, notes, time, round, weightclass) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_notes,ascii_fight_time, ascii_fight_round, ascii_fight_weightclass)
+            cur.execute(query)
+        else:
+            print("Not all required variables have a value. Skipping database insertion.")
 
     

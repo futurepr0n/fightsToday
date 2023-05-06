@@ -238,7 +238,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
 
         
-            if fighter_one_array == :
+            if fighter_one_array == '':
                 for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[2]/text()',

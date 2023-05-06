@@ -97,7 +97,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
      
     for z in range(3, row_len):
         # Determine if this url contains the ultimate fighter or not
-        if "https://en.wikipedia.org/wiki/The_Ultimate_Fighter" in event_main_event_url:
+        if "The_Ultimate_Fighter" in g_fight_card_event_url:
             fighter_one_array = None
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[2]/a/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[2]/text()',
@@ -106,6 +106,8 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[2]/text()']:
                 fighter_one_array = tree.xpath(xpath % z)
                 if fighter_one_array:
+                    print('The fighter_one found xpath was:')
+                    print(str(xpath))
                     break
 
             if fighter_one_array:

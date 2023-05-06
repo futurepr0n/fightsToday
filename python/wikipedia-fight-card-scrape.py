@@ -108,6 +108,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 if fighter_one_array:
                     print('The fighter_one found xpath was:')
                     print(str(xpath))
+                    print(fighter_one_array)
                     break
 
             if fighter_one_array:
@@ -139,6 +140,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/text()']:
                 fighter_two_array = tree.xpath(xpath % z)
                 if fighter_two_array:
+                    print('The fighter_two found xpath was:')
+                    print(str(xpath))
+                    print(fighter_two_array)
                     break
 
             if fighter_two_array:

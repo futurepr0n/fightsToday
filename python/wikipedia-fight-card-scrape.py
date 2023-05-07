@@ -182,7 +182,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
             '''
-        fighter_method_array = None
+        fight_method_array = None
         if fight_method_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[5]/text()',

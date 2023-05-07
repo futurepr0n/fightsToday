@@ -307,7 +307,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
         if e_f1 and e_f2 and ascii_fight_weightclass:
-            query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, notes, time, round, weightclass) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_notes,ascii_fight_time, ascii_fight_round, ascii_fight_weightclass)
+            query = "INSERT INTO wiki_mma_fight_cards (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass) VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\", \"%s\", \"%s\", \"%s\", %i, \"%s\", \"%s\", \"%s\", \"%s\")" % (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method,ascii_fight_time, ascii_fight_round, ascii_fight_weightclass)
             print(query)
             cur.execute(query)
         else:

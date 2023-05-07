@@ -138,7 +138,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
             g_fighter_one_url.append(fgtr1_wbst)
             '''
-
+        fighter_two_array = None
         if fighter_two_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()',

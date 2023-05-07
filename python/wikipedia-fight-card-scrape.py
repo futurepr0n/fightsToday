@@ -182,6 +182,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
             '''
+        fighter_method_array = None
         if fight_method_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[5]/text()',
@@ -205,6 +206,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             new_fight_method_string = ''.join(fight_method_array)
             ascii_fight_method = smart_str(new_fight_method_string)
             '''
+        fight_round_array = None
         if fight_round_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[6]/text()',
@@ -228,6 +230,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             new_fight_round_string = ''.join(fight_round_array)
             ascii_fight_round = smart_str(new_fight_round_string)
             '''
+        fight_time_array = None
         if fight_time_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[7]/text()',
@@ -255,7 +258,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             new_fight_notes_string = ''.join(fight_notes_array)
             ascii_fight_notes = smart_str(new_fight_notes_string)
             '''
-
+        fight_weightclass_array = None
         if fight_weightclass_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',

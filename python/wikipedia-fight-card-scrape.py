@@ -94,7 +94,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     row_len = len(p) + 1
      
     for z in range(3, row_len):
-    
+        fighter_one_array = None
         if fighter_one_array == '':
             for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/text()',

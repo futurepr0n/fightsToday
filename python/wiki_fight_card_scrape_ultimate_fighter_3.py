@@ -245,9 +245,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
             ascii_fight_time = smart_str(new_fight_time_string)
                 
 
-        #fight_notes_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[8]/text()' % ((table_mod, z)))
-        #new_fight_notes_string = ''.join(fight_notes_array)
-        #ascii_fight_notes = smart_str(new_fight_notes_string)
+        fight_notes_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[8]/text()' % ((table_mod, z)))
+        new_fight_notes_string = ''.join(fight_notes_array)
+        ascii_fight_notes = smart_str(new_fight_notes_string)
             
         fight_weightclass_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[1]/text()',

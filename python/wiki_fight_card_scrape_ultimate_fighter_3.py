@@ -159,11 +159,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
             g_fighter_one_url.append(fgtr1_wbst)
             
         fighter_two_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[4]/a/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[4]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[4]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/a/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/text()']:
+        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[%i]/body/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/text()']:
             fighter_two_array = tree.xpath(xpath % (table_mod, z))
             if fighter_two_array:
                 break

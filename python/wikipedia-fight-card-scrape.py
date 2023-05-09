@@ -65,7 +65,7 @@ db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="f
 cur = db.cursor()
 
 # This loops for every entry of event in the database to build our fight card information
-for x in range(0, x_range - 1):  # prev 0, 533
+for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     event_main_event_url = g_event_fight_card_url[x]
     page = requests.get('%s' % (event_main_event_url))

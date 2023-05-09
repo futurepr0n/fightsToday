@@ -91,8 +91,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
-    row_len = len(p) + 1
-     
+    #row_len = len(p) + 1
+    row_len = 30
+    
     for z in range(3, row_len):
         #asccii_string3 = ''
         #fgtr1_wbst = ''

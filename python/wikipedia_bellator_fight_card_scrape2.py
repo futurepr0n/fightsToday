@@ -25,7 +25,7 @@ db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%\_om\_Bellator\_MMA%'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator_MMA_in%%'")
 
 # initialize the arrays
 g_event_name = []

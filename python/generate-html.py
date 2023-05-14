@@ -317,7 +317,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                                 <h4>iCal</h4>
                                 <h4 class="subheading">Never miss a fight again!</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Easily add fights.Today's iCal link as a subscription in your cell phone to stay up to date with all upcoming events! Supporting any app that can use iCal. More information check out the iCal section</p></div>
+                            <div class="timeline-body"><p class="text-muted">Easily add fights.Today's iCal link as a subscription in your cell phone to stay up to date with all upcoming events! Supporting any app that can use iCal. More information check out the <a href="https://fights.today/ical/">iCal section</a>.</p></div>
                         </div>
                     </li>
                     <li>
@@ -327,17 +327,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                                 <h4>Community</h4>
                                 <h4 class="subheading">See what your fellow fight fans are discussing</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Coming soon - News, Social Media and Community Discussions </p></div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="" /></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4>July 2014</h4>
-                                <h4 class="subheading">Phase Two Expansion</h4>
-                            </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">Coming soon - News, <a href="https://fights.today/socials/">Social Media</a> and Community Discussions </p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">

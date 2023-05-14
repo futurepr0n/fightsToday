@@ -59,8 +59,28 @@ SELECT
     WHEN method LIKE 'TKO%' THEN 'TKO'
     ELSE 'Other'
   END AS method_type,
-  COUNT(*) AS frequency,
-  FORMAT(COUNT(*) / (SELECT COUNT(*) FROM mark5463_ft_prod.wiki_mma_fight_cards WHERE (fighter_one = 'Amanda Nunes' OR fighter_two = 'Amanda Nunes') AND method <> '') * 100, 2) AS percentage
+  -- COUNT(*) AS frequency,
+  FORMAT(COUNT(*) / (SELECT COUNT(*) FROM mark5463_ft_prod.wiki_mma_fight_cards WHERE event_past = 1 AND (fighter_one = 'Amanda Nunes' OR fighter_two = 'Amanda Nunes') AND method <> '') * 100, 2) AS percentage
+FROM mark5463_ft_prod.wiki_mma_fight_cards
+WHERE fighter_one = 'Amanda Nunes' AND method != ''
+GROUP BY method_type
+HAVING method_type != 'Other';
+
+
+
+
+
+SELECT
+  CASE
+    WHEN method LIKE 'Decision (unanimous)%' THEN 'Decision (Unanimous)'
+    WHEN method LIKE 'Decision (split)%' THEN 'Decision (Split)'
+    WHEN method LIKE 'KO%' THEN 'KO'
+    WHEN method LIKE 'Submission%' THEN 'Submission'
+    WHEN method LIKE 'TKO%' THEN 'TKO'
+    ELSE 'Other'
+  END AS method_type,
+  -- COUNT(*) AS frequency,
+  FORMAT(COUNT(*) / (SELECT COUNT(*) FROM mark5463_ft_prod.wiki_mma_fight_cards WHERE event_past = 1 AND (fighter_one = 'Amanda Nunes') AND method <> '') * 100, 2) AS percentage
 FROM mark5463_ft_prod.wiki_mma_fight_cards
 WHERE fighter_one = 'Amanda Nunes' AND method != ''
 GROUP BY method_type

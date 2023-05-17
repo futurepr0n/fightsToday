@@ -79,7 +79,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="At Fights Today you get the latest stats, news, and analysis on MMA fights, upcoming events, and past events. Our website is dedicated to providing fans with the most comprehensive coverage of the MMA world, including fighter profiles, event previews, and more. Stay up-to-date with all the latest MMA action by adding out ical Calendar. You can also log in with your favorite social media platform, including Reddit, Google, Discord, or Twitter, to vote on upcoming fights, play trivia, and track your points and stats as you compete against other users from around the world. Stay connected with the MMA community by viewing current social media feeds and post from your favorite subreddits."/>
+        <meta name="description" content="Fights Today latest news, social media, stats and analysis of upcoming & past events. Profiles, event previews, and more. Add our ical subscription Calendar. Log in to play trivia, make picks track your stats and compete against others."/>
         <meta name="author" content="" />
         <title>fights.Today</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />

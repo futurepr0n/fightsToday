@@ -264,10 +264,9 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
 ''', file=f)
 
 
-    # z = BELLATOR_PAST_EVENTS - 1 
-    z = BELLATOR_PAST_EVENTS
+    z = BELLATOR_PAST_EVENTS - 1 
     length_of_loop2 = BELLATOR_PAST_EVENTS - BELLATOR_SCHED_EVENTS
-    while z >= 0:
+    while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         if(bellator_event_fight_poster_url[z] == "https:"):

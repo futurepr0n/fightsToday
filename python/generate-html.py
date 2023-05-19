@@ -74,14 +74,17 @@ def dateify(s):
 
 def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name):
 
-    print('''<!DOCTYPE html>
+    print('''<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html lang="en" class="no-js">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Fights Today latest news, social media, stats and analysis of upcoming & past events. Profiles, event previews, and more. Add our ical subscription Calendar. Log in to play trivia, make picks track your stats and compete against others."/>
+        <meta name="description" content="Fights Today upcoming & past events. Bellator & UFC Event previews. Stats, trivia, ical subscription Calendar. Log in track your stats & compete."/>
         <meta name="author" content="" />
-        <title>fights.Today</title>
+        <title>fights.Today - Upcoming UFC Bellator MMA Events; Make Predictions, Play Trivia. Subscribe to our iCal</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
@@ -117,7 +120,6 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/socials/">Socials</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#more">More</a></li>
                         <?php
-                            session_start();
                             if (isset($_SESSION['username'])) {
                                 // User is logged in
                                 $username = $_SESSION['username'];
@@ -160,9 +162,9 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         if(poster_url[x]=="https:"):
-            print('<img src="http://fights.today/images/ufc_placeholder.png"><br>', file=f)
+            print('<img src="http://fights.today/images/ufc_placeholder.png alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
         else:
-            print('<img src="%s"><br>' % (poster_url[x]), file=f)
+            print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
         ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
@@ -196,7 +198,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         print('<a href="%s" class="Button Block">' %(fight_card_url[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
-        print('<img src="%s">' % (poster_url[i]), file=f)
+        print('<img src="%s"alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
         print('</a></li>', file=f)
         i -= 1
         # print '<img src="images/Small_Wikipedia_logo.png">'
@@ -235,7 +237,7 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
     for x in range(BELLATOR_PAST_EVENTS, BELLATOR_TOTAL_EVENTS):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
-        print('<img src="%s"><br>' % (bellator_event_fight_poster_url[x]), file=f)
+        print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
@@ -270,9 +272,9 @@ def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         if(bellator_event_fight_poster_url[z] == "https:"):
-            print('<img src="http://fights.today/images/bellator_placeholder.png"><br>', file=f)
+            print('<img src="http://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[x]), file=f)
         else:
-            print('<img src="%s"><br>' % (bellator_event_fight_poster_url[z]), file=f)
+            print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></li>', file=f)

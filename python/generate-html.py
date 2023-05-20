@@ -132,6 +132,7 @@ session_start();
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorup">Upcoming Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorpast">Past Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/test-vote/">My Picks</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/trivia/">Trivia</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/ical/">iCal</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/socials/">Socials</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#more">More</a></li>
@@ -178,7 +179,7 @@ session_start();
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
         if(poster_url[x]=="https:"):
-            print('<img src="http://fights.today/images/ufc_placeholder.png alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
+            print('<img src="http://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
         else:
             print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
         # str1 = urlify(event_name[x])
@@ -214,7 +215,7 @@ session_start();
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         print('<a href="%s" class="Button Block">' %(fight_card_url[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
-        print('<img src="%s"alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
+        print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
         print('</a></li>', file=f)
         i -= 1
         # print '<img src="images/Small_Wikipedia_logo.png">'

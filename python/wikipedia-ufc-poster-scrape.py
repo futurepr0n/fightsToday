@@ -57,7 +57,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
 #                      db="mark5463_ft_prod") # name of the data base
 
 # db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod", charset="utf8")
-db = MySQLdb.connect(host="192.168.1.69", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
+db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()

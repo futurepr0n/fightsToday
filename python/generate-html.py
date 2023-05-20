@@ -215,7 +215,7 @@ session_start();
         print('<li data-flip-title="%s">' % (event_name[i]), file=f)
         print('<a href="%s" class="Button Block">' %(fight_card_url[i]), file=f)
         # print('<tr><td><a href="%s">' % (fight_card_url[i]), file=f)
-        print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
+        print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[i], event_name[i]), file=f)
         print('</a></li>', file=f)
         i -= 1
         # print '<img src="images/Small_Wikipedia_logo.png">'
@@ -251,7 +251,7 @@ session_start();
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range(BELLATOR_PAST_EVENTS, BELLATOR_TOTAL_EVENTS):
+    for x in range((BELLATOR_PAST_EVENTS + 1), (BELLATOR_TOTAL_EVENTS + 1)):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
@@ -283,15 +283,15 @@ session_start();
 ''', file=f)
 
 
-    z = BELLATOR_PAST_EVENTS - 1 
+    z = BELLATOR_PAST_EVENTS
     length_of_loop2 = BELLATOR_PAST_EVENTS - BELLATOR_SCHED_EVENTS
-    while z >= length_of_loop2:
+    while z >= 0:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         if(bellator_event_fight_poster_url[z] == "https:"):
-            print('<img src="http://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[x]), file=f)
+            print('<img src="http://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[z]), file=f)
         else:
-            print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
+            print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[z],bellator_event_name[z]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
         # print '<img src="images/Small_Wikipedia_logo.png">'
         print('</a></li>', file=f)

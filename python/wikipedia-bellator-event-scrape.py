@@ -155,6 +155,8 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       else: 
         event_date1 = db_e_fd
       
+      if db_e_en == "":
+        return;
 
       event_date_str = event_date1
       today_date = datetime.now()
@@ -176,8 +178,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       array_pos = (array_pos) + 1
       event_id = event_id - 1
       
-      if db_e_en == "":
-        return;
+      
 
     prev_row_ptr = prev_row_ptr + row_len
     print("the prev row ptr is")

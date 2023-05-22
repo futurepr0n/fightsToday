@@ -151,8 +151,8 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('***********************************************************************************************')
       event_date_str = db_e_fd
       today_date = datetime.now()
-      event_date = datetime.strptime(event_date_str, "%B %d, %Y")
-      if event_date > today_date:
+      event_date_compare = datetime.strptime(event_date_str, "%B %d, %Y")
+      if event_date_compare > today_date:
           db_ep = False
           db_ep_int = int(db_ep)
       else:

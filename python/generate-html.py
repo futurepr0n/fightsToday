@@ -251,7 +251,7 @@ session_start();
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range((BELLATOR_PAST_EVENTS + 1), (BELLATOR_TOTAL_EVENTS + 1)):
+    for x in range((BELLATOR_PAST_EVENTS), (BELLATOR_TOTAL_EVENTS)):
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)

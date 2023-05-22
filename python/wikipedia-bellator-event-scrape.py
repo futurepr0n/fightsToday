@@ -149,7 +149,14 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('Event URL: \t\t %s' % db_e_fc)
       print('Event Unique ID: \t ', w_e_id)
       print('***********************************************************************************************')
-      event_date_str = db_e_fd
+      #setting event_date1 so we can compare
+      if db_e_en == "Bellator 3":
+        event_date1 = "April 17, 2009"
+      else: 
+        event_date1 = db_e_fd
+      
+
+      event_date_str = event_date1
       today_date = datetime.now()
       event_date_compare = datetime.strptime(event_date_str, "%B %d, %Y")
       if event_date_compare > today_date:
@@ -158,6 +165,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       else:
           db_ep = True
           db_ep_int = int(db_ep)
+          
       query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%i\")" % (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
       # print (query) # only necessary to print the query for debug
       # print('***********************************************************************************************')
@@ -167,11 +175,6 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
       event_id = event_id - 1
-      #setting event_date1 so we can compare
-      if db_e_en == "Bellator 3":
-        event_date1 = "April 17, 2009"
-      else: 
-        event_date1 = db_e_fd
       
       if db_e_en == "":
         return;

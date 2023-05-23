@@ -283,7 +283,7 @@ session_start();
 ''', file=f)
 
 
-    z = BELLATOR_PAST_EVENTS
+    z = BELLATOR_PAST_EVENTS - 1
     length_of_loop2 = BELLATOR_PAST_EVENTS - BELLATOR_SCHED_EVENTS
     while z >= 0:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)

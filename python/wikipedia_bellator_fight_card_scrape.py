@@ -20,8 +20,13 @@ def scrapeEvent(event_url, event_org):
     row_len = len(p)
 
     return;
+# local docker mysql
+#db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
-db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
+#production like database
+db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
+
+
 cur = db.cursor()
 
 # This section will query the database and return all data in the table

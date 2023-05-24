@@ -179,7 +179,7 @@ session_start();
         event_container_string = event_name[x]
         modified_string = event_container_string.replace(" ", "_")
         print('<div class="event-container" id="%s">' % (modified_string), file=f)
-        print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
+        print('<tr><th><h2>%s</h2></th></tr><br>' % (event_name[x]), file=f)
         print('<div class="event-section">', file=f)
         if(poster_url[x]=="https:"):
             print('<img src="http://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
@@ -194,6 +194,7 @@ session_start();
         print('</td></tr><br>', file=f)
         print('</div>', file=f)
         print('</div>', file=f)
+        print('<p>', file=f)
 
 
 
@@ -262,7 +263,7 @@ session_start();
         event_container_string = bellator_event_name[x]
         modified_string = event_container_string.replace(" ", "_")
         print('<div class="event-container" id="%s">' % (modified_string), file=f)
-        print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
+        print('<tr><th><h2>%s</h2></th></tr><br>' % (bellator_event_name[x]), file=f)
         print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
         print('<div class="event-section">', file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
@@ -275,6 +276,7 @@ session_start();
         print('</td></tr><br>', file=f)
         print('</div>', file=f)
         print('</div>', file=f)
+        print('<p>', file=f)
 
     print('''
                         </p>

@@ -176,8 +176,11 @@ session_start();
     # nrows = len(poster_url)
 
     for x in range(PAST_EVENTS, TOTAL_EVENTS):
+        event_container_string = event_name[x]
+        modified_string = event_container_string.replace(" ", "_")
+        print('<div class="event-container" id="%s">' % (modified_string), file=f)
         print('<tr><th >%s</th></tr><br>' % (event_name[x]), file=f)
-        print('<tr><td><a href="%s">' % (fight_card_url[x]), file=f)
+        print('<div class="event-section">', file=f)
         if(poster_url[x]=="https:"):
             print('<img src="http://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
         else:
@@ -188,7 +191,11 @@ session_start();
         # print('<p>%s %s %s ' % (str1, str2, str2), file=f)
         ## http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
         ## print '<img src="images/Small_Wikipedia_logo.png">'
-        print('</a></td></tr><br>', file=f)
+        print('</td></tr><br>', file=f)
+        print('</div>', file=f)
+        print('</div>', file=f)
+
+
 
     print('''
                   </p>
@@ -247,14 +254,17 @@ session_start();
                         <div class="features_ara">
                         <p>''', file=f)
 
-    # This section needs to produce the Past UFC Events
+    # This section needs to produce the Bellator Upcoming Events
     #############################################################
     # nrows = len(poster_url)
 
     for x in range((BELLATOR_PAST_EVENTS), (BELLATOR_TOTAL_EVENTS)):
+        event_container_string = bellator_event_name[x]
+        modified_string = event_container_string.replace(" ", "_")
+        print('<div class="event-container" id="%s">' % (modified_string), file=f)
         print('<tr><th >%s</th></tr><br>' % (bellator_event_name[x]), file=f)
-        print('<tr><td><a href="%s">' % (bellator_event_fight_card_url[x]), file=f)
         print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[x],bellator_event_name[x]), file=f)
+        print('<div class="event-section">', file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg"><br>', file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])
@@ -262,8 +272,9 @@ session_start();
         # print('<p>%s %s %s ' % (str1, str2, str2), file=f)
         ## http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
         ## print '<img src="images/Small_Wikipedia_logo.png">'
-        print('</a></td></tr><br>', file=f)
-        
+        print('</td></tr><br>', file=f)
+        print('</div>', file=f)
+        print('</div>', file=f)
 
     print('''
                         </p>
@@ -308,6 +319,53 @@ session_start();
                     start: 'left'
                     
                 });
+            </script>
+            <script>// Get all container elements with class "container"
+            // Get all container elements with class "event-container"
+            const containers = document.querySelectorAll('.event-container');
+
+            // Create a mapping to store original content for each container
+            const originalContentMap = {};
+
+            // Iterate over each container
+            containers.forEach(container => {
+            // Store the original content for each container
+            originalContentMap[container.id] = container.querySelector('.event-section').innerHTML;
+
+            // Add click event to each container
+            container.addEventListener('click', function(event) {
+                const clickedContainer = event.currentTarget;
+                const eventSection = clickedContainer.querySelector('.event-section');
+                const isContentVisible = (eventSection.innerHTML !== originalContentMap[clickedContainer.id]);
+
+                if (isContentVisible) {
+                // Revert to the original content
+                eventSection.innerHTML = originalContentMap[clickedContainer.id];
+                } else {
+                // Fetch the event data from the PHP file
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Parse the JSON response
+                        const response = JSON.parse(xhr.responseText);
+                        // Update the event section with the extracted HTML
+                        eventSection.innerHTML = response.html;
+                    } else {
+                        console.error('Error:', xhr.status);
+                    }
+                    }
+                };
+
+                // Get the container ID and send it to get_event_data.php as a parameter
+                const eventName = clickedContainer.id.replace(/_/g, ' '); // Replace underscores with spaces
+                const url = `get_event_data.php?eventName=${encodeURIComponent(eventName)}`;
+                xhr.open('GET', url, true);
+                xhr.send();
+                }
+            });
+            });
+
             </script>
             </div>
             </section>

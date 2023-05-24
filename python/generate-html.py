@@ -163,7 +163,7 @@ session_start();
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Upcoming UFC Events</h2>
-                    <h3 class="section-subheading text-muted">Check out these featured upcoming events</h3>
+                    <h3 class="section-subheading text-muted">Check out these featured upcoming events. Click or tap the poster to view the Fight Card</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-lg-12 col-md-12">

@@ -182,7 +182,7 @@ session_start();
         print('<tr><th><h2>%s</h2></th></tr><br>' % (event_name[x]), file=f)
         print('<div class="event-section">', file=f)
         if(poster_url[x]=="https:"):
-            print('<img src="http://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
+            print('<img src="https://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
         else:
             print('<img src="%s" alt="UFC event poster for %s"><br>' % (poster_url[x], event_name[x]), file=f)
         # str1 = urlify(event_name[x])
@@ -302,7 +302,7 @@ session_start();
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
         print('<a href="%s" class="Button Block">' %(bellator_event_fight_card_url[z]), file=f)
         if(bellator_event_fight_poster_url[z] == "https:"):
-            print('<img src="http://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[z]), file=f)
+            print('<img src="https://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[z]), file=f)
         else:
             print('<img src="%s" alt="Bellator event poster for %s"><br>' % (bellator_event_fight_poster_url[z],bellator_event_name[z]), file=f)
         #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)

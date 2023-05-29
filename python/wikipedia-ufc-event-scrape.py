@@ -218,12 +218,35 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
       print('Event Unique ID: \t', w_e_id)
       print('Event in the past?:\t', str(db_e_p))
       print('Event in the past as integer?: \t', db_int_ep)
-      print('***********************************************************************************************')
-      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%i\")"%(db_e_en, event_id, db_e_fc, event_org,db_e_fd, w_e_id,db_int_ep)
-      print (query) # only need to print during debug
-      print('***********************************************************************************************')
-      print('Query Executing...')
-      cur.execute(query)
+
+      # Check if the row already exists in the table
+      query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
+      cur.execute(query_select, (w_e_id,))
+      existing_row = cur.fetchone()
+      
+      if existing_row:
+          # Update the existing row
+          query_update = """
+              UPDATE wiki_mma_events
+              SET event_name = %s,
+                  event_id = %s,
+                  event_fight_card_url = %s,
+                  event_org = %s,
+                  event_date = %s,
+                  event_past = %s
+              WHERE wiki_event_id = %s
+          """
+          values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_int_ep, w_e_id)
+          cur.execute(query_update, values_update)
+      else:
+          # Insert a new row
+          query_insert = """
+              INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past)
+              VALUES (%s, %s, %s, %s, %s, %s, %s)
+          """
+          values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_int_ep)
+          cur.execute(query_insert, values_insert)
+
       print('Success!...')
       print('***********************************************************************************************')
       # commenting out the query since we are loaded in the db right now

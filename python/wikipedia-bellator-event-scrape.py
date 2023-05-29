@@ -168,11 +168,33 @@ def insertRows (row_len, prev_row_ptr, array_pos):
           db_ep = True
           db_ep_int = int(db_ep)
           
-      query = "INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past) VALUES (\"%s\",%i,\"%s\",\"%s\",\"%s\",\"%s\",\"%i\")" % (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
-      # print (query) # only necessary to print the query for debug
-      # print('***********************************************************************************************')
-      print('Query Executed...')
-      cur.execute(query)
+      # Check if the row already exists in the table
+      query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
+      cur.execute(query_select, (w_e_id,))
+      existing_row = cur.fetchone()
+      
+      if existing_row:
+          # Update the existing row
+          query_update = """
+              UPDATE wiki_mma_events
+              SET event_name = %s,
+                  event_id = %s,
+                  event_fight_card_url = %s,
+                  event_org = %s,
+                  event_date = %s,
+                  event_past = %s
+              WHERE wiki_event_id = %s
+          """
+          values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_ep_int, w_e_id)
+          cur.execute(query_update, values_update)
+      else:
+          # Insert a new row
+          query_insert = """
+              INSERT INTO wiki_mma_events (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past)
+              VALUES (%s, %s, %s, %s, %s, %s, %s)
+          """
+          values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
+          cur.execute(query_insert, values_insert)
       print('Success!...')
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
@@ -529,7 +551,7 @@ db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="f
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
-cur.execute("TRUNCATE wiki_mma_events")
+#cur.execute("TRUNCATE wiki_mma_events")
 # Scrape UFC Information
 # initialize our arrays. our Arrays.
 event_name = []

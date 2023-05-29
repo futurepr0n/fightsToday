@@ -40,13 +40,26 @@ def loadPosterData (event_url):
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     print('+++++++++++++++++++++++++++++')
     db_e_poster_url = ''.join(poster_url)
+    w_e_p_i = event_org + str(event_id)
     print('Adding poster URL to the Database: ', db_e_poster_url)
     print('+++++++++++++++++++++++++++++')
     print('+++++++++++++++++++++++++++++')
-    query = "INSERT INTO wiki_mma_events_poster (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org) VALUES(\"%s\",%i, \"%s\", \"%s\", \"%s\", \"%s\")"%(db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org)
-    print(query)
-    # commenting out the query since we are loaded in the db right now
-    cur.execute(query)
+    query = """
+    INSERT INTO wiki_mma_events_poster
+    (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, wiki_event_poster_id)
+    VALUES
+    (%s, %s, %s, %s, %s, %s, %s)
+    ON DUPLICATE KEY UPDATE
+    event_fight_poster_url = VALUES(event_fight_poster_url),
+    event_fight_card_url = VALUES(event_fight_card_url),
+    event_date = VALUES(event_date),
+    event_name = VALUES(event_name),
+    event_org = VALUES(event_org)
+    """
+
+    values = (db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, w_e_p_i)
+
+    cur.execute(query, values)
 
     return;
 
@@ -68,7 +81,7 @@ db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="f
 cur = db.cursor()
 
 # This section will delete the information on the table, for a clean run.
-cur.execute("TRUNCATE wiki_mma_events_poster ")
+#cur.execute("TRUNCATE wiki_mma_events_poster ")
 
 # This section will query the database and return all data in the table
 cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'Bellator' ORDER BY event_id ASC")

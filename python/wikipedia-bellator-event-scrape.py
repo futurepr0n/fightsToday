@@ -529,7 +529,7 @@ db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="f
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
-# cur.execute("TRUNCATE wiki_mma_events")
+cur.execute("TRUNCATE wiki_mma_events")
 # Scrape UFC Information
 # initialize our arrays. our Arrays.
 event_name = []

@@ -69,6 +69,7 @@ x_range = len(g_event_name)
 
 db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
 cur = db.cursor()
+cur.execute("TRUNCATE wiki_mma_fight_cards")
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533

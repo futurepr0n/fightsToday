@@ -68,7 +68,7 @@ db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="f
 cur = db.cursor()
 
 # This section will delete the information on the table, for a clean run.
-#cur.execute("TRUNCATE wiki_mma_events_poster ")
+cur.execute("TRUNCATE wiki_mma_events_poster ")
 
 # This section will query the database and return all data in the table
 cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'Bellator' ORDER BY event_id ASC")

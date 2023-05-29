@@ -101,7 +101,7 @@ for x in range(0, x_range):  # prev 0, 533
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
     row_len = len(p) + 1
-     
+    fight_iterator = 1
     for z in range(3, row_len):
         #asccii_string3 = ''
         #fgtr1_wbst = ''
@@ -315,7 +315,7 @@ for x in range(0, x_range):  # prev 0, 533
         e_wei = ''.join(this_wiki_event_id)
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
-        w_fight_id = e_org + str(e_wei) + "Fight" + str(fight_iterator)
+        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards

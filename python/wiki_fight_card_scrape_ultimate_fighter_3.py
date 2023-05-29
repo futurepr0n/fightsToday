@@ -59,7 +59,6 @@ g_fight_card_event_id = []
 g_fight_card_event_past = []
 g_fight_card_wiki_event_id = []
 
-fight_iterator = 1
 
 x_range = len(g_event_name)
 
@@ -117,7 +116,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     else:
         table_mod = 3
  
-    
+    fight_iterator = 1
     for z in range(3, row_len):
         asccii_string3 = ''
         fgtr1_wbst = ''
@@ -282,7 +281,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         e_wei = ''.join(this_wiki_event_id)
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
-        w_fight_id = e_org + str(e_wei) + "Fight" + str(fight_iterator)
+        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_round and ascii_fight_time and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards

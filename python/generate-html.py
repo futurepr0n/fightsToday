@@ -94,6 +94,37 @@ session_start();
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            .event-section table {
+                border-collapse: separate;
+                border-spacing: 0;
+                width: 100%;
+            }
+
+            .event-section th,
+            .event-section td {
+                padding: 10px;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .event-section tr:not(:first-child) {
+                border-top: 2px solid #ddd;
+            }
+
+            .event-section tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .event-section tr:hover {
+                background-color: #e9e9e9;
+            }
+
+            .event-section th {
+                background-color: #333;
+                color: white;
+            }
+        </style>
         <link rel="stylesheet" href="css/demo.css"/>
         <link rel="stylesheet" href="css/jquery.flipster.min.css"/>
         <!-- Yandex.Metrika counter -->

@@ -95,6 +95,11 @@ session_start();
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <style>
+            .event-section {
+            max-width: 100%;
+            overflow-x: auto;
+            }
+
             .event-section table {
                 border-collapse: separate;
                 border-spacing: 0;

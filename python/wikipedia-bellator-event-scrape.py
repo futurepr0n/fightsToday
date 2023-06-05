@@ -10,6 +10,7 @@ from pyquery import PyQuery as pq
 from datetime import datetime, date
 import requests
 import MySQLdb
+import os
 
 bellator_pe_num = 0
 bellator_se_num = 0

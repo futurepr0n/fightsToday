@@ -25,7 +25,13 @@ def scrapeEvent(event_url, event_org):
 #db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 # prod like database
-db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
+db = MySQLdb.connect(
+    host=env.MYSQL_HOST,
+    user=env.MYSQL_USER,
+    passwd=env.MYSQL_PASSWORD,
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 
 
 cur = db.cursor()
@@ -68,7 +74,13 @@ g_fight_card_wiki_event_id = []
 
 x_range = len(g_event_name)
 
-db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
+db = MySQLdb.connect(
+    host=env.MYSQL_HOST,
+    user=env.MYSQL_USER,
+    passwd=env.MYSQL_PASSWORD,
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 cur = db.cursor()
 
 # This loops for every entry of event in the database to build our fight card information

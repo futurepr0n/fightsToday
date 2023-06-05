@@ -200,7 +200,13 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
 #remote mysql
 #db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 #prod
-db = MySQLdb.connect(host="markpereira.com",  user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod",charset="utf8") 
+db = MySQLdb.connect(
+    host=env.MYSQL_HOST,
+    user=env.MYSQL_USER,
+    passwd=env.MYSQL_PASSWORD,
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 
 
 # Cursor object. It will let you execute the queries

@@ -1,7 +1,7 @@
 import ftplib
 ftp_host = "ftp.markpereira.com"
-ftp_user = env.FightsTodayFTPID
-ftp_password = env.FightsTodayFTPPass
+ftp_user = os.environ['FTP_ID']
+ftp_password = os.environ['FTP_PASSWORD']
 session = ftplib.FTP(ftp_host, ftp_user, ftp_password)
 file = open('index.php','rb')                  # file to send
 session.storbinary('STOR index.php', file)     # send the file

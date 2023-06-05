@@ -5,6 +5,7 @@ from pyquery import PyQuery as pq
 import requests
 import MySQLdb
 import time
+import os
 
 def scrapeEvent(event_url, event_org):
 
@@ -22,9 +23,9 @@ def scrapeEvent(event_url, event_org):
     return;
 
 db = MySQLdb.connect(
-    host=env.MYSQL_HOST,
-    user=env.MYSQL_USER,
-    passwd=env.MYSQL_PASSWORD,
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
     db="mark5463_ft_prod",
     charset="utf8"
 )
@@ -70,9 +71,9 @@ g_fight_card_wiki_event_id = []
 x_range = len(g_event_name)
 
 db = MySQLdb.connect(
-    host=env.MYSQL_HOST,
-    user=env.MYSQL_USER,
-    passwd=env.MYSQL_PASSWORD,
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
     db="mark5463_ft_prod",
     charset="utf8"
 )

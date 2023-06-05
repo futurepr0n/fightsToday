@@ -10,6 +10,7 @@ from django.utils.encoding import smart_str, smart_text
 from pyquery import PyQuery as pq
 import requests
 import MySQLdb
+import os
 
 pe_num = 0
 se_num = 0
@@ -275,9 +276,9 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
 
 # Database Connection
 db = MySQLdb.connect(
-    host=env.MYSQL_HOST,
-    user=env.MYSQL_USER,
-    passwd=env.MYSQL_PASSWORD,
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
     db="mark5463_ft_prod",
     charset="utf8"
 )

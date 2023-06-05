@@ -10,6 +10,7 @@ from django.utils.encoding import smart_str, smart_text
 from pyquery import PyQuery as pq
 import requests
 import MySQLdb
+import os
 
 
 ##### The JQuery for "The Ultimate Fighter" Posters is:
@@ -65,9 +66,9 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
 
 
 db = MySQLdb.connect(
-    host=env.MYSQL_HOST,
-    user=env.MYSQL_USER,
-    passwd=env.MYSQL_PASSWORD,
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
     db="mark5463_ft_prod",
     charset="utf8"
 )

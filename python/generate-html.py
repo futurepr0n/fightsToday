@@ -216,7 +216,7 @@ session_start();
         modified_string = event_container_string.replace(" ", "_")
         print('<div class="event-container" id="%s">' % (modified_string), file=f)
         print('<tr><th><h2>%s</h2></th></tr><br>' % (event_name[x]), file=f)
-        print('<tr><th><h3>%s</h3></th></tr><br>' % (event_date[x]), file=f)
+        print('<tr><th><h6>%s</h6></th></tr><br>' % (event_date[x]), file=f)
         
         if(poster_url[x]=="https:"):
             print('<img src="https://fights.today/images/ufc_placeholder.png" alt="UFC event poster for %s"><br>' % (event_name[x]), file=f)
@@ -302,7 +302,7 @@ session_start();
         modified_string = event_container_string.replace(" ", "_")
         print('<div class="event-container" id="%s">' % (modified_string), file=f)
         print('<tr><th><h2>%s</h2></th></tr><br>' % (bellator_event_name[x]), file=f)
-        print('<tr><th><h3>%s</h3></th></tr><br>' % (bellator_event_date[x]), file=f)
+        print('<tr><th><h6>%s</h6></th></tr><br>' % (bellator_event_date[x]), file=f)
         
         if(bellator_event_fight_poster_url[x]=="https:"):
             print('<img src="https://fights.today/images/bellator_placeholder.png" alt="Bellator event poster for %s"><br>' % (bellator_event_name[x]), file=f)

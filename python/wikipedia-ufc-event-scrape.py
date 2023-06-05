@@ -142,9 +142,21 @@ def loadUpcomingEventsData (event_url, event_org):
     for x in range (2, row_len+1):
 
 
-      event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/text()'%(x))
-      newstr = ''.join(event_name_array)
-      asccii_string = smart_str(newstr)
+      event_name_array = None
+      for xpath in ['//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/text()',
+                      '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/span/text()',
+                      '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/span/text()']:
+            event_name_array = tree.xpath(xpath % x)
+            if event_name_array:
+              break
+
+      if event_name_array:
+        newstr = ''.join(event_name_array)
+        asccii_string = smart_str(newstr)
+        event_name.append(asccii_string)  
+      else:
+        event_name.append('UFC Event')  
 
       if asccii_string == '':
         event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/span/text()'%(x))

@@ -19,6 +19,7 @@ from totalevents import *
 from bellator_pastevents import *
 from bellator_schedevents import * 
 from bellator_totalevents import *
+import os
 
 
 def urlify(s):

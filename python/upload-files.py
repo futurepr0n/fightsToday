@@ -1,4 +1,5 @@
 import ftplib
+import os
 ftp_host = "ftp.markpereira.com"
 ftp_user = os.environ['FTP_ID']
 ftp_password = os.environ['FTP_PASSWORD']

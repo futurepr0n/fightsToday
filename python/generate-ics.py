@@ -6,6 +6,7 @@ from django.utils.encoding import smart_str, smart_text
 from pyquery import PyQuery as pq
 import requests
 import MySQLdb
+import os
 
 
 ##### The JQuery for "The Ultimate Fighter" Posters is:

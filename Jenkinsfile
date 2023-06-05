@@ -58,358 +58,131 @@ node {
 //         discordSend description: "Sherdog Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://cdn1-www-forums.sherdog.com/data/avatars/l/569/569875.jpg?1580282612", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    //}
    stage('Wikipedia Bellator Events Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia-bellator-event-scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia-bellator-event-scrape.py
-                     '''
-                  }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia-bellator-event-scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
+         //##discordSend description: "Wikipedia Bellator Events Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Bellator Events Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    stage('Wikipedia UFC Events Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia-ufc-event-scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia-ufc-event-scrape.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia-ufc-event-scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
+         //##discordSend description: "Wikipedia UFC Events Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia UFC Events Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    stage('Wikipedia Bellator Posters Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia-bellator-poster-scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia-bellator-poster-scrape.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia-bellator-poster-scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-   }
+         //##discordSend description: "Wikipedia Bellator Posters Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia UFC Posters Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+   }  
    stage('Wikipedia UFC Posters Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia-ufc-poster-scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia-ufc-poster-scrape.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia-ufc-poster-scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-   }
+         //##discordSend description: "Wikipedia UFC Posters Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia UFC Posters Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+   } 
    stage('Wikipedia Fight Cards Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia-fight-card-scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia-fight-card-scrape.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia-fight-card-scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
       }
-   }
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wiki_fight_card_scrape_ultimate_fighter.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-   }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+      } 
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape Part 2') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_2.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_2.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_2.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
       }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
-   }
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape Part 3') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_3.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_3.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wiki_fight_card_scrape_ultimate_fighter_3.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
-   }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+      }    
    stage('Wikipedia Bellator Fight Cards Scrape part 1') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia_bellator_fight_card_scrape.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia_bellator_fight_card_scrape.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia_bellator_fight_card_scrape.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
       }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
-   }
    stage('Wikipedia Bellator Fight Cards Scrape part 2') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/wikipedia_bellator_fight_card_scrape2.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/wikipedia_bellator_fight_card_scrape2.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/wikipedia_bellator_fight_card_scrape2.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
-   }
+         //##discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+      }     
    stage('Build HTML Page') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/generate-html.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/generate-html.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/generate-html.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+         //##discordSend description: "WebPage Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media3.giphy.com/media/l3vRfNA1p0rvhMSvS/200.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//        discordSend description: "WebPage Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media3.giphy.com/media/l3vRfNA1p0rvhMSvS/200.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    stage('Build ICS File') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export MYSQL_USER="${MYSQL_USER}"
-                           export MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-                           export MYSQL_HOST="${MYSQL_HOST}"
-                           pipenv run python python/generate-ics.py
-                     '''
-                  } else {
-                     bat '''
-                           set MYSQL_USER=%MYSQL_USER%
-                           set MYSQL_PASSWORD=%MYSQL_PASSWORD%
-                           set MYSQL_HOST=%MYSQL_HOST%
-                           pipenv run python python/generate-ics.py
-                     '''
-                  }
-               }
+      // Run the build
+         if (isUnix()) {
+            sh 'pipenv run python python/generate-ics.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
          }
-      }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+         //##discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    stage('Upload To Server') {
-      steps {
-         withCredentials([
-               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
-               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
-         ]) {
-               script {
-                  if (isUnix()) {
-                     sh '''
-                           export FightsTodayFTPID="${FightsTodayFTPID}"
-                           export FightsTodayFTPPass="${FightsTodayFTPPass}"
-                           pipenv run python python/generate-ics.py
-                     '''
-                  } else {
-                     bat '''
-                           set FightsTodayFTPID=%FightsTodayFTPID%
-                           set FightsTodayFTPPass=%FightsTodayFTPPass%
-                           pipenv run python python/upload-files.py
-                     '''
-                  }
-               }
-         }
-      }
-      //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+      sh 'pipenv run python python/upload-files.py'
+      //discordSend description: 'Everything looks great!', footer: '', image: 'https://media1.tenor.com/images/32457dbd5788a0b907d356ce16cbaba5/tenor.gif?itemid=4950041', link: 'env.BUILD_URL', result: 'SUCCESS', thumbnail: '', title: 'env.JOB_NAME', webhookURL: 'https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9'
+      //##discordSend description: "Jenkins Build", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult,image: "https://media1.tenor.com/images/32457dbd5788a0b907d356ce16cbaba5/tenor.gif?itemid=4950041", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//      discordSend description: "Jenkins Build", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult,image: "https://media1.tenor.com/images/32457dbd5788a0b907d356ce16cbaba5/tenor.gif?itemid=4950041", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+
    } 
    stage('Delete and Remove the MySQL Container') { // prep the db
       // Set up the Python Environment and dependencies  

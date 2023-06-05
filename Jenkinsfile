@@ -64,7 +64,6 @@ node {
                string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
                string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
-               script {
                   if (isUnix()) {
                      sh '''
                            export MYSQL_USER="${MYSQL_USER}"
@@ -80,11 +79,9 @@ node {
                            pipenv run python python/wikipedia-bellator-event-scrape.py
                      '''
                   }
-               }
          }
       }
    }
-
    stage('Wikipedia UFC Events Scrape') {
       steps {
          withCredentials([

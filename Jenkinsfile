@@ -68,7 +68,6 @@ node {
 // //         discordSend description: "Wikipedia Bellator Events Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
 //    }
    stage('Wikipedia Bellator Events Scrape') {
-      steps {
         withCredentials([
             string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
             string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
@@ -92,7 +91,6 @@ node {
                 }
             }
           }
-      }
    }
 
    stage('Wikipedia UFC Events Scrape') {

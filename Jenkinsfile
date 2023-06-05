@@ -60,9 +60,9 @@ node {
    stage('Wikipedia Bellator Events Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -88,9 +88,9 @@ node {
    stage('Wikipedia UFC Events Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -115,9 +115,9 @@ node {
    stage('Wikipedia Bellator Posters Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -142,9 +142,9 @@ node {
    stage('Wikipedia UFC Posters Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -169,9 +169,9 @@ node {
    stage('Wikipedia Fight Cards Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -196,9 +196,9 @@ node {
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -223,9 +223,9 @@ node {
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape Part 2') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -251,9 +251,9 @@ node {
    stage('Wikipedia Ultimate Fighter Fight Cards Scrape Part 3') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -279,9 +279,9 @@ node {
    stage('Wikipedia Bellator Fight Cards Scrape part 1') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -307,9 +307,9 @@ node {
    stage('Wikipedia Bellator Fight Cards Scrape part 2') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -335,9 +335,9 @@ node {
    stage('Build HTML Page') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -363,9 +363,9 @@ node {
    stage('Build ICS File') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {
@@ -391,9 +391,9 @@ node {
    stage('Upload To Server') {
       steps {
          withCredentials([
-               string(credentialsId: 'mysql-user', variable: 'MYSQL_USER'),
-               string(credentialsId: 'mysql-password', variable: 'MYSQL_PASSWORD'),
-               string(credentialsId: 'mysql-host', variable: 'MYSQL_HOST')
+               string(credentialsId: 'MYSQL_USER', variable: 'MYSQL_USER'),
+               string(credentialsId: 'MYSQL_PASSWORD', variable: 'MYSQL_PASSWORD'),
+               string(credentialsId: 'MYSQL_HOST', variable: 'MYSQL_HOST')
          ]) {
                script {
                   if (isUnix()) {

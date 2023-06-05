@@ -150,6 +150,13 @@ def loadUpcomingEventsData (event_url, event_org):
         newstr = ''.join(event_name_array)
         asccii_string = smart_str(newstr)
         event_name.append(asccii_string)
+
+        if asccii_string == '':
+          event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/text()'%(x))
+          newstr = ''.join(event_name_array)
+          asccii_string = smart_str(newstr)
+          event_name.append(asccii_string)
+      
       else:
         event_name.append(asccii_string)
 

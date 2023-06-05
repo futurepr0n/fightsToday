@@ -158,30 +158,6 @@ def loadUpcomingEventsData (event_url, event_org):
       else:
         event_name.append('UFC Event')  
 
-      if asccii_string == '':
-        event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/span/text()'%(x))
-        newstr = ''.join(event_name_array)
-        asccii_string = smart_str(newstr)
-        event_name.append(asccii_string)      
-      else:
-        event_name.append(asccii_string)
-
-      if asccii_string == '':
-          event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/text()'%(x))
-          newstr = ''.join(event_name_array)
-          asccii_string = smart_str(newstr)
-          event_name.append(asccii_string)
-      else:
-        event_name.append(asccii_string)
-      
-      if asccii_string == '':
-          event_name_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/span/text()'%(x))
-          newstr = ''.join(event_name_array)
-          asccii_string = smart_str(newstr)
-          event_name.append(asccii_string)
-      else:
-        event_name.append(asccii_string)
-
       # scrape wikipedia ufc fight card url
       event_fight_card_url_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/@href'%(x))
       newstr2 = ''.join(event_fight_card_url_array)

@@ -120,7 +120,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     #we are commenting it because we are just gonna use row_len = 30
     row_len = 30
 
-    table_len = len(p_tables)
+    #table_len = len(p_tables)
 
     event_to_table_mod = {
     'https://en.wikipedia.org/wiki/2009_in_Bellator_MMA#Bellator_1': 3,

@@ -114,11 +114,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
     #Testing Query the max number of Tables in the article page
-    p_tables = d('#mw-content-text > div.mw-parser-output > table')
+    #p_tables = d('#mw-content-text > div.mw-parser-output > table')
 
-    row_len = len(p) + 1
+    # row_len = len(p) + 1
     #we are commenting it because we are just gonna use row_len = 30
-    # row_len = 30
+    row_len = 30
 
     table_len = len(p_tables)
 

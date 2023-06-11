@@ -116,14 +116,14 @@ for x in range(0, x_range - 1):  # prev 0, 533
     
     fight_iterator = 1
     for z in range(3, row_len):
-        #asccii_string3 = ''
-        #fgtr1_wbst = ''
-        #asccii_string4 = ''
-        #fgtr2_wbst = ''
-        #ascii_fight_weightclass = ''
-        #ascii_fight_method = ''
-        #ascii_fight_time = ''
-        #ascii_fight_round = ''
+        asccii_string3 = ''
+        fgtr1_wbst = ''
+        asccii_string4 = ''
+        fgtr2_wbst = ''
+        ascii_fight_weightclass = ''
+        ascii_fight_method = ''
+        ascii_fight_time = ''
+        ascii_fight_round = ''
         
         
         fighter_one_array = None

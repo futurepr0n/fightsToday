@@ -128,7 +128,17 @@ for x in range(0, x_range - 1):  # prev 0, 533
                       '//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[2]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[2]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[2]/a/text()',
-                      '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[2]/text()']:
+                      '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[2]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[2]/a/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[2]/text()']:
             fighter_one_array = tree.xpath(xpath % z)
             if fighter_one_array:
                 break;
@@ -143,7 +153,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
         # Try and get the fighter one url
         fighter_one_url_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[2]/a/@href',
-                      '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[2]/a/@href']:
+                      '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[2]/a/@href',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[2]/a/@href',
+                      '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[2]/a/@href',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[2]/a/@href',
+                      '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[2]/a/@href']:
             fighter_one_url_array = tree.xpath(xpath % z)
             if fighter_one_url_array:
                 break
@@ -160,7 +174,17 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[4]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[4]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[4]/a/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[4]/text()']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[4]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/a/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/text()']:
             fighter_two_array = tree.xpath(xpath % z)
             if fighter_two_array:
                 break
@@ -175,7 +199,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
         # Try and get the fighter two url
         fighter_two_url_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[4]/a/@href',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[4]/a/@href']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[4]/a/@href',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[4]/a/@href',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[4]/a/@href',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[4]/a/@href',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[4]/a/@href']:
             fighter_two_url_array = tree.xpath(xpath % z)
             if fighter_two_url_array:
                 break
@@ -194,7 +222,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fight_method_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[5]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[5]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[5]/text()']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[5]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[5]/text()']:
             fight_method_array = tree.xpath(xpath % z)
             if fight_method_array:
                 break
@@ -214,7 +248,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fight_round_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[6]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[6]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[6]/text()']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[6]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[6]/text()']:
             fight_round_array = tree.xpath(xpath % z)
             if fight_round_array:
                 break
@@ -229,7 +269,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fight_time_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[7]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[7]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[7]/text()']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[7]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[7]/text()']:
             fight_time_array = tree.xpath(xpath % z)
             if fight_time_array:
                 break
@@ -249,7 +295,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
         fight_weightclass_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[%i]/td[1]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[5]/body/tr[%i]/td[1]/text()',
-                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[1]/text()']:
+                        '//*[@id="mw-content-text"]/div[1]/table[5]/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tbody/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/body/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[6]/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/body/tr[%i]/td[1]/text()',
+                        '//*[@id="mw-content-text"]/div[1]/table[7]/tr[%i]/td[1]/text()']:
             fight_weightclass_array = tree.xpath(xpath % z)
             if fight_weightclass_array:
                 break

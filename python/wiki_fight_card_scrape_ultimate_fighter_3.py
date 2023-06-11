@@ -6,7 +6,7 @@ import requests
 import MySQLdb
 import time
 import os
-
+#events not scraping clean yet
 def scrapeEvent(event_url, event_org):
 
     page = requests.get('%s' % (event_url))
@@ -118,13 +118,15 @@ for x in range(0, x_range - 1):  # prev 0, 533
     table_len = len(p_tables)
 
     event_to_table_mod = {
-    'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fox:_Evans_vs._Davis': 6,
-    'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_Sanchez_vs._Ellenberger': 8,
+    #'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fox:_Evans_vs._Davis': 6,
+    #'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_Sanchez_vs._Ellenberger': 8,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_The_Korean_Zombie_vs._Poirier': 10,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_FX:_Johnson_vs._McCall_2': 12,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_149:_Faber_vs._Bar%C3%A3o': 15,
-    'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_FX:_Belfort_vs._Bisping': 6,
-    'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_Fox:_Henderson_vs._Melendez': 8,
+    'http://en.wikipedia.org/wiki/2005_in_UFC#UFC_Ultimate_Fight_Night': 6,
+    'http://en.wikipedia.org/wiki/2000_in_UFC#UFC_27:_Ultimate_Bad_Boyz': 4,
+    #'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_FX:_Belfort_vs._Bisping': 6,
+    #'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_Fox:_Henderson_vs._Melendez': 8,
     }
 
     if event_main_event_url in event_to_table_mod:
@@ -304,6 +306,20 @@ for x in range(0, x_range - 1):  # prev 0, 533
                 (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass, wiki_fight_id)
                 VALUES
                 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ON DUPLICATE KEY UPDATE
+                event_name = VALUES(event_name),
+                fighter_one = VALUES(fighter_one),
+                fighter_one_url = VALUES(fighter_one_url),
+                fighter_two = VALUES(fighter_two),
+                fighter_two_url = VALUES(fighter_two_url),
+                event_url = VALUES(event_url),
+                event_org = VALUES(event_org),
+                wiki_event_id = VALUES(wiki_event_id),
+                event_past = VALUES(event_past),
+                method = VALUES(method),
+                time = VALUES(time),
+                round = VALUES(round),
+                weightclass = VALUES(weightclass)
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)

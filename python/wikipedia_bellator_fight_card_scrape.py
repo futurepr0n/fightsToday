@@ -369,6 +369,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                       '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[2]/text()']:
             fighter_one_array = tree.xpath(xpath % (table_mod, z))
             if fighter_one_array:
+                print(fighter_one_array)
                 break;
                     
 
@@ -378,12 +379,15 @@ for x in range(0, x_range - 1):  # prev 0, 533
             g_fighter_one.append(asccii_string3)
         else:
             g_fighter_one.append('')
+
+        
         # Try and get the fighter one url
         fighter_one_url_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[2]/a/@href',
                       '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[2]/a/@href']:
             fighter_one_url_array = tree.xpath(xpath % (table_mod, z))
             if fighter_one_url_array:
+                print(fighter_one_url_array)
                 break
 
         if fighter_one_url_array:
@@ -401,6 +405,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/text()']:
             fighter_two_array = tree.xpath(xpath % (table_mod, z))
             if fighter_two_array:
+                print(fighter_two_array)
                 break
 
         if fighter_two_array:
@@ -416,6 +421,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/a/@href']:
             fighter_two_url_array = tree.xpath(xpath % (table_mod, z))
             if fighter_two_url_array:
+                print(fighter_two_url_array)
                 break
 
         if fighter_two_url_array:
@@ -424,11 +430,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         else:
             fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
-            '''
-            fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
-            g_fighter_two_url.append(fgtr2_wbst)
-            '''
+       
         fight_method_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[5]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/body/tr[%i]/td[5]/text()',
@@ -444,11 +446,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             new_fight_method_string = ''
             ascii_fight_method = smart_str(new_fight_method_string)
             
-            '''    
-            fight_method_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()' % (z))
-            new_fight_method_string = ''.join(fight_method_array)
-            ascii_fight_method = smart_str(new_fight_method_string)
-            '''
+           
         fight_round_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[6]/text()',
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/body/tr[%i]/td[6]/text()',
@@ -480,9 +478,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
             ascii_fight_time = smart_str(new_fight_time_string)
                 
 
-        fight_notes_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[8]/text()' % ((table_mod, z)))
-        new_fight_notes_string = ''.join(fight_notes_array)
-        ascii_fight_notes = smart_str(new_fight_notes_string)
+        #fight_notes_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[8]/text()' % ((table_mod, z)))
+        #new_fight_notes_string = ''.join(fight_notes_array)
+        #ascii_fight_notes = smart_str(new_fight_notes_string)
             
         fight_weightclass_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[%i]/tbody/tr[%i]/td[1]/text()',
@@ -517,6 +515,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_time and ascii_fight_round and ascii_fight_weightclass:
+            print('I am going to insert a query')
             query = """
                 INSERT INTO wiki_mma_fight_cards
                 (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass, wiki_fight_id)
@@ -539,7 +538,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
-            print(query)
+            print(query, values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")

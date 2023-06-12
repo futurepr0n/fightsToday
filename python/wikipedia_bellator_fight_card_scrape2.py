@@ -38,7 +38,7 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator\_MMA\_in%%' AND event_fight_card_url NOT LIKE '%%Season%%'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator\_MMA\_in%%' AND event_fight_card_url NOT LIKE '%%Season%%' AND event_fight_card_url NOT LIKE '%%Summer\_Series%%'")
 
 # initialize the arrays
 g_event_name = []
@@ -87,7 +87,7 @@ cur = db.cursor()
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range - 1):  # prev 0, 533
     # bring in the url information
-    ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
+    time.sleep(2) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
     page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
@@ -352,10 +352,10 @@ for x in range(0, x_range - 1):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
-            print(query)
+            #print(query)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
-            print(e_name,e_f1,e_f2,ascii_fight_weightclass)
+            #print(e_name,e_f1,e_f2,ascii_fight_weightclass)
 
     

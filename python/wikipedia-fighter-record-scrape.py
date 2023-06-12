@@ -143,52 +143,77 @@ for x in range(0, x_range):  # prev 0, 533
         #Opponent
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[3]
 
+        ascii_method = ''
         #Method
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[4]
 
+        ascii_event = ''
         #Event
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[5]
 
+        ascii_date = ''
         # Date
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[6]
 
+        ascii_round = ''
         # Round
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[7]
 
+        ascii_time = ''
         # Time
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[8]
 
+        ascii_location = ''
         # Location
         # //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[9]
 
+        ascii_notes = ''
         # Notes
         #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[10]
         
 
+        ascii_pro_breakdown_caption = ''
         # Professional Record Breakdown
         #//*[@id="mw-content-text"]/div[1]/table[2]/caption
+        
+        ascii_pro_breakdown_matches = ''
         #Matches
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[1]/b
+       
+        ascii_pro_breakdown_wins = ''
         # Wins
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[2]/b
+
+        ascii_pro_breakdown_losses = ''
         #Losses
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[3]/b
+        
+        ascii_pro_breakdown_ko_caption = ''
         #By Knockout
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[1]/b
+        
+        ascii_pro_breakdown_wins_by_ko = ''
         # Wins by Knockout
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[2]
+        ascii_loss_by_ko = ''
         # Losses by Knockout
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[3]
+        ascii_win_by_sub = ''
         #By Submission
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[1]/b
+        ascii__by_sub = ''
         #Wins by Submission
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[2]
+        ascii_loss_by_sub = ''
         #Losses by submission
         # //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[3]
+        ascii_win_by_dec = ''
         #By Decision
         # //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[1]/b
+        ascii_ = ''
         #wins by decision
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[2]
+        ascii_ = ''
         #losses by decisison
         #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[3]
 

@@ -118,15 +118,15 @@ for x in range(0, x_range - 1):  # prev 0, 533
     table_len = len(p_tables)
 
     event_to_table_mod = {
-    #'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fox:_Evans_vs._Davis': 6,
-    #'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_Sanchez_vs._Ellenberger': 8,
+    'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fox:_Evans_vs._Davis': 6,
+    'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_Sanchez_vs._Ellenberger': 8,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_Fuel_TV:_The_Korean_Zombie_vs._Poirier': 10,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_on_FX:_Johnson_vs._McCall_2': 12,
     'https://en.wikipedia.org/wiki/2012_in_UFC#UFC_149:_Faber_vs._Bar%C3%A3o': 15,
     'http://en.wikipedia.org/wiki/2005_in_UFC#UFC_Ultimate_Fight_Night': 6,
     'http://en.wikipedia.org/wiki/2000_in_UFC#UFC_27:_Ultimate_Bad_Boyz': 4,
-    #'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_FX:_Belfort_vs._Bisping': 6,
-    #'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_Fox:_Henderson_vs._Melendez': 8,
+    'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_FX:_Belfort_vs._Bisping': 6,
+    'https://en.wikipedia.org/wiki/2013_in_UFC#UFC_on_Fox:_Henderson_vs._Melendez': 8,
     }
 
     if event_main_event_url in event_to_table_mod:

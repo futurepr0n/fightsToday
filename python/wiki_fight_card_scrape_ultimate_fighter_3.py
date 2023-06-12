@@ -33,7 +33,7 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%\_in\_UFC#UFC\_%' AND event_org = 'UFC'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%UFC\_on\_%' AND event_org = 'UFC' AND event_fight_card_url NOT LIKE '%\_in\_UFC#UFC\_%'")
 
 # initialize the arrays
 g_event_name = []

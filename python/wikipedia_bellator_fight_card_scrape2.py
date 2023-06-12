@@ -89,6 +89,9 @@ for x in range(0, x_range - 1):  # prev 0, 533
     # bring in the url information
     time.sleep(2) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
+    if 'in_Bellator_MMA' in event_main_event_url:
+        break
+    
     page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
 

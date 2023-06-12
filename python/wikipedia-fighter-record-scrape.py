@@ -111,53 +111,7 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     print(str(this_event_past))
 
-# Result
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[1]
-# Record
-# //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[2]
-#Opponent
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[3]
-#Method
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[4]
-#Event
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[5]
-# Date
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[6]
-# Round
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[7]
-# Time
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[8]
-# Location
-# //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[9]
-# Notes
-#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[10]
 
-# Professional Record Breakdown
-#//*[@id="mw-content-text"]/div[1]/table[2]/caption
-#Matches
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[1]/b
-# Wins
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[2]/b
-#Losses
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[3]/b
-#By Knockout
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[1]/b
-# Wins by Knockout
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[2]
-# Losses by Knockout
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[3]
-#By Submission
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[1]/b
-#Wins by Submission
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[2]
-#Losses by submission
-# //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[3]
-#By Decision
-# //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[1]/b
-#wins by decision
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[2]
-#losses by decisison
-#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[3]
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
@@ -176,6 +130,71 @@ for x in range(0, x_range):  # prev 0, 533
         #ascii_fight_method = ''
         #ascii_fight_time = ''
         #ascii_fight_round = ''
+
+        ascii_result = ''
+        # Result
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[1]
+
+        ascii_record = ''
+        # Record
+        # //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[2]
+
+        ascii_opponent = ''
+        #Opponent
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[3]
+
+        #Method
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[4]
+
+        #Event
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[5]
+
+        # Date
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[6]
+
+        # Round
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[7]
+
+        # Time
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[8]
+
+        # Location
+        # //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[9]
+
+        # Notes
+        #//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[10]
+        
+
+        # Professional Record Breakdown
+        #//*[@id="mw-content-text"]/div[1]/table[2]/caption
+        #Matches
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[1]/b
+        # Wins
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[2]/b
+        #Losses
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[3]/b
+        #By Knockout
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[1]/b
+        # Wins by Knockout
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[2]
+        # Losses by Knockout
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[3]
+        #By Submission
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[1]/b
+        #Wins by Submission
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[2]
+        #Losses by submission
+        # //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[3]
+        #By Decision
+        # //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[1]/b
+        #wins by decision
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[2]
+        #losses by decisison
+        #//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[3]
+
+
+
+
         
         
         fighter_one_array = None

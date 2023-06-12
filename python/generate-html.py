@@ -96,40 +96,102 @@ session_start();
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <style>
-            .event-section {
-            max-width: 100%;
-            overflow-x: auto;
-            }
+            
+             /* Modal styles */
+             .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 
-            .event-section table {
-                border-collapse: separate;
-                border-spacing: 0;
-                width: 100%;
-            }
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 1px;
+    border: 1px solid #888;
+    max-width: 800px;
+    max-height: 800px;
+    overflow: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-            .event-section th,
-            .event-section td {
-                padding: 10px;
-                text-align: left;
-                font-weight: bold;
-            }
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-            .event-section tr:not(:first-child) {
-                border-top: 2px solid #ddd;
-            }
+.close-modal:hover {
+  color: red;
+}
 
-            .event-section tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
 
-            .event-section tr:hover {
-                background-color: #e9e9e9;
-            }
+#modalContent table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
 
-            .event-section th {
-                background-color: #333;
-                color: white;
-            }
+    #modalContent th,
+    #modalContent td {
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #modalContent tr:not(:first-child) {
+        border-top: 2px solid #ddd;
+    }
+
+    #modalContent tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #modalContent tr:hover {
+        background-color: #e9e9e9;
+    }
+
+    #modalContent th {
+        background-color: #333;
+        color: white;
+    }
+
+    .table-format {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-format th,
+.table-format td {
+  /*border: 1px solid black;*/
+  padding: 0px;
+}
+
+.table-format th {
+  background-color: #f2f2f2;
+}
+
+
+.small-text {
+  font-size: 8px;
+}
+.table-format td:not(:nth-child(2)):not(:nth-child(3)) {
+  border-right: none;
+}
         </style>
         <link rel="stylesheet" href="css/demo.css"/>
         <link rel="stylesheet" href="css/jquery.flipster.min.css"/>
@@ -206,6 +268,13 @@ session_start();
                     <div class="col-lg-12 col-md-12">
                         <div class="features_ara">
                         <p>
+<!-- Modal HTML -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalContent"></div>
+    </div>
+</div>
 ''', file=f)
 
     ##This section needs to produce the Upcoming Events
@@ -366,51 +435,103 @@ session_start();
                     
                 });
             </script>
-            <script>// Get all container elements with class "container"
-            // Get all container elements with class "event-container"
-            const containers = document.querySelectorAll('.event-container');
+            <script>
+            // Get the modal and modal content elements
+const modal = document.getElementById("eventModal");
+const modalContent = document.querySelector("#eventModal .modal-content");
+const closeModalButton = document.querySelector("#eventModal .close-modal");
 
-            // Create a mapping to store original content for each container
-            const originalContentMap = {};
+// Function to open the modal and display the content
+function openModal(content) {
+  modal.style.display = "block";
+  modalContent.innerHTML = content;
+}
 
-            // Iterate over each container
-            containers.forEach(container => {
-            // Store the original content for each container
-            originalContentMap[container.id] = container.querySelector('.event-section').innerHTML;
+// Function to close the modal
+function closeModal() {
+  modal.style.display = "none";
+}
 
-            // Add click event to each container
-            container.addEventListener('click', function(event) {
-                const clickedContainer = event.currentTarget;
-                const eventSection = clickedContainer.querySelector('.event-section');
-                const isContentVisible = (eventSection.innerHTML !== originalContentMap[clickedContainer.id]);
+// Attach click event to the close button
+closeModalButton.addEventListener("click", closeModal);
 
-                if (isContentVisible) {
-                // Revert to the original content
-                eventSection.innerHTML = originalContentMap[clickedContainer.id];
-                } else {
-                // Fetch the event data from the PHP file
-                const xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Parse the JSON response
-                        const response = JSON.parse(xhr.responseText);
-                        // Update the event section with the extracted HTML
-                        eventSection.innerHTML = response.html;
-                    } else {
-                        console.error('Error:', xhr.status);
-                    }
-                    }
-                };
+// Attach click event to the window outside of the modal
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
 
-                // Get the container ID and send it to get_event_data.php as a parameter
-                const eventName = clickedContainer.id.replace(/_/g, ' '); // Replace underscores with spaces
-                const url = `get_event_data.php?eventName=${encodeURIComponent(eventName)}`;
-                xhr.open('GET', url, true);
-                xhr.send();
-                }
-            });
-            });
+
+
+
+
+let isModalClosed = false; // Flag to track if the modal was just closed
+
+// Create a mapping to store original content for each container
+const originalContentMap = {};
+
+// Get all container elements with class "event-container"
+const containers = document.querySelectorAll('.event-container');
+
+// Iterate over each container
+containers.forEach(container => {
+  // Check if event listener is already attached
+  if (!container.hasAttribute('data-event-listener')) {
+    // Store the original content for each container
+    originalContentMap[container.id] = container.innerHTML;
+
+    // Add click event to each container
+    container.addEventListener('click', toggleContent);
+
+    // Set attribute to mark that event listener is attached
+    container.setAttribute('data-event-listener', true);
+  }
+});
+
+function toggleContent(event) {
+  // Prevent event propagation
+  event.stopPropagation();
+  const clickedElement = event.target;
+
+  // Check if the clicked element is an <img> within an event-container
+  if (clickedElement.tagName === 'IMG' && clickedElement.closest('.event-container')) {
+    const clickedContainer = clickedElement.closest('.event-container');
+    const isContentVisible = (clickedContainer.innerHTML !== originalContentMap[clickedContainer.id]);
+
+    if (isContentVisible) {
+      // Revert to the original content
+      clickedContainer.innerHTML = originalContentMap[clickedContainer.id];
+    } else {
+      // Fetch the event data from the PHP file
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            // Parse the JSON response
+            const response = JSON.parse(xhr.responseText);
+            // Update the modal content with the extracted HTML
+            modalContent.innerHTML = response.html;
+            // Open the modal only if it was not just closed
+            if (!isModalClosed) {
+              openModal(response.html);
+            } else {
+              isModalClosed = false; // Reset the flag
+            }
+          } else {
+            console.error('Error:', xhr.status);
+          }
+        }
+      };
+
+      // Get the container ID and send it to get_event_data.php as a parameter
+      const eventName = clickedContainer.id.replace(/_/g, ' '); // Replace underscores with spaces
+      const url = `get_event_data.php?eventName=${encodeURIComponent(eventName)}`;
+      xhr.open('GET', url);
+      xhr.send();
+    }
+  }
+}
 
             </script>
             </div>

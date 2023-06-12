@@ -152,6 +152,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       print('***********************************************************************************************')
       #setting event_date1 so we can compare
       if db_e_en == "Bellator 3":
+        db_e_fd = "April 17, 2009"
         event_date1 = "April 17, 2009"
       else: 
         event_date1 = db_e_fd

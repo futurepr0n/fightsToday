@@ -37,43 +37,45 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%'")
+cur.execute("SELECT `fighter_url` FROM( SELECT DISTINCT `fighter_one_url` AS `fighter_url` FROM `wiki_mma_fight_cards` UNION SELECT DISTINCT `fighter_two_url` AS `fighter_url` FROM `wiki_mma_fight_cards`) AS subquery")
+
 
 # initialize the arrays
-g_event_name = []
-g_event_id = []
-g_event_fight_card_url = []
-g_event_date = []
-g_event_org = []
-g_wiki_event_id = []
-g_event_past = []
+g_fighter_url = []
+
 
 # load our arrays with all of our event data.
 for row in cur.fetchall():
-    g_event_id.append(row[0])
-    g_event_fight_card_url.append(row[1])
-    g_event_name.append(row[2])
-    g_event_date.append(row[3])
-    g_event_org.append(row[4])
-    g_wiki_event_id.append(row[5])
-    g_event_past.append(str(row[6]))
+    g_fighter_url.append(row[0])
+    
 
 # set up the fighter arrays
-g_fighter_one = []
-g_fighter_two = []
-g_fighter_one_url = []
-g_fighter_two_url = []
-g_fight_card_org = []
-# fight card specific arrays
-g_fight_card_event_name = []
-g_fight_card_event_url = []
-g_fight_card_event_id = []
-g_fight_card_event_past = []
-g_fight_card_wiki_event_id = []
+g_fight_rec_result = []
+g_fight_rec_record = []
+g_fight_rec_opponent = []
+g_fight_rec_method = []
+g_fight_rec_event = []
+g_fight_rec_date = []
+g_fight_rec_round = []
+g_fight_rec_tine = []
+g_fight_rec_location = []
+g_fight_rec_notes = []
+g_fight_rec_wiki_id = []
+g_fight_rec_event_past = []
+ 
+g_fight_rec_pro_breakdown_total_matches = []
+g_fight_rec_pro_breakdown_total_wins = []
+g_fight_rec_pro_breakdown_total_loss = []
+g_fight_rec_pro_breakdown_win_by_ko = []
+g_fight_rec_pro_breakdown_loss_by_ko = []
+g_fight_rec_pro_breakdown_win_by_sub = []
+g_fight_rec_pro_breakdown_loss_by_sub = []
+g_fight_rec_pro_breakdown_win_by_dec = []
+g_fight_rec_pro_breakdown_loss_by_sub = []
 
 fight_iterator = 1
 
-x_range = len(g_event_name)
+x_range = len(g_fighter_url)
 
 
 db = MySQLdb.connect(
@@ -91,8 +93,8 @@ cur = db.cursor()
 for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
-    event_main_event_url = g_event_fight_card_url[x]
-    page = requests.get('%s' % (event_main_event_url))
+    fighter_wiki_profile_url = g_fighter_url[x]
+    page = requests.get('%s' % (fighter_wiki_profile_url))
     tree = html.fromstring(page.content)
 
     this_event_name = g_event_name[x]
@@ -108,6 +110,54 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     print(str(this_event_past))
+
+# Result
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[1]
+# Record
+# //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[2]
+#Opponent
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[3]
+#Method
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[4]
+#Event
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[5]
+# Date
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[6]
+# Round
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[7]
+# Time
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[8]
+# Location
+# //*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[9]
+# Notes
+#//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[1]/th[10]
+
+# Professional Record Breakdown
+#//*[@id="mw-content-text"]/div[1]/table[2]/caption
+#Matches
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[1]/b
+# Wins
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[2]/b
+#Losses
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[1]/td[3]/b
+#By Knockout
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[1]/b
+# Wins by Knockout
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[2]
+# Losses by Knockout
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[2]/td[3]
+#By Submission
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[1]/b
+#Wins by Submission
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[2]
+#Losses by submission
+# //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[3]/td[3]
+#By Decision
+# //*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[1]/b
+#wins by decision
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[2]
+#losses by decisison
+#//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[4]/td[3]
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))

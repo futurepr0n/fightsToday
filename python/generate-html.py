@@ -192,6 +192,29 @@ session_start();
 .table-format td:not(:nth-child(2)):not(:nth-child(3)) {
   border-right: none;
 }
+
+/* Custom colors */
+.table-format th {
+  background-color: #fed136;
+  color: #212529;
+}
+
+.small-text {
+  color: #6c757d;
+}
+
+.table-format tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-format tr:hover {
+  background-color: #e9e9e9;
+}
+
+.table-format tr:nth-child(odd) {
+  background-color: #ffe68f;
+}
+
         </style>
         <link rel="stylesheet" href="css/demo.css"/>
         <link rel="stylesheet" href="css/jquery.flipster.min.css"/>

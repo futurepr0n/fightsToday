@@ -27,7 +27,7 @@ def loadPosterData (event_url):
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url))
 
-    poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table[1]/tbody/tr[2]/td/a/img/@src')
+    poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
 
     # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
 

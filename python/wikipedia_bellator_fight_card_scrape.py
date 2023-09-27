@@ -58,6 +58,9 @@ for row in cur.fetchall():
     g_wiki_event_id.append(row[5])
     g_event_past.append(str(row[6]))
 
+cur.close()
+db.close()
+
 # set up the fighter arrays
 g_fighter_one = []
 g_fighter_two = []
@@ -74,14 +77,14 @@ g_fight_card_wiki_event_id = []
 
 x_range = len(g_event_name)
 
-db = MySQLdb.connect(
-    host=os.environ['MYSQL_HOST'],
-    user=os.environ['MYSQL_ID'],
-    passwd=os.environ['MYSQL_PASSWORD'],
-    db="mark5463_ft_prod",
-    charset="utf8"
-)
-cur = db.cursor()
+#db = MySQLdb.connect(
+#    host=os.environ['MYSQL_HOST'],
+#    user=os.environ['MYSQL_ID'],
+#    passwd=os.environ['MYSQL_PASSWORD'],
+#    db="mark5463_ft_prod",
+#    charset="utf8"
+#)
+#cur = db.cursor()
 #cur.execute("TRUNCATE wiki_mma_fight_cards")
 
 
@@ -351,6 +354,13 @@ for x in range(0, x_range - 1):  # prev 0, 533
         table_mod = 3
  
     fight_iterator = 1
+    db = MySQLdb.connect(
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
+    db="mark5463_ft_prod",
+    charset="utf8")
+    cur = db.cursor()
     for z in range(3, row_len):
         asccii_string3 = ''
         fgtr1_wbst = ''

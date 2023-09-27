@@ -544,3 +544,5 @@ for x in range(0, x_range - 1):  # prev 0, 533
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,e_fc_url)
 
+cur.close()
+db.close()

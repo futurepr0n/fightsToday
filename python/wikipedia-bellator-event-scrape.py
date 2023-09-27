@@ -582,3 +582,5 @@ countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)
 #countTotalEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr
 prev_row_ptr = bellator_row_len + prev_row_ptr - 1
+cur.close()
+db.close()

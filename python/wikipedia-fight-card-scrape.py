@@ -360,3 +360,5 @@ for x in range(0, x_range):  # prev 0, 533
             print(e_name,e_f1,e_f2,ascii_fight_weightclass)
 
     
+cur.close()
+db.close()

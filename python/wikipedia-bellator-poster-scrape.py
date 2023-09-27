@@ -154,3 +154,5 @@ insertRows(poster_url)
 
 
 '''
+cur.close()
+db.close()

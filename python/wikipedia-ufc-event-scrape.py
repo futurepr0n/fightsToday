@@ -327,3 +327,6 @@ for line in total_events:
   print(line, file=outF_te)
   # print >>outF_te, line
 outF_te.close()
+
+cur.close()
+db.close()

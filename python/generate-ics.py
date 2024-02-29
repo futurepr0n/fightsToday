@@ -2,7 +2,10 @@ from lxml import html, etree
 from ics import Calendar, Event
 import io
 import datetime
-from django.utils.encoding import smart_str, smart_text
+#from django.utils.encoding import smart_str, smart_text
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
 from pyquery import PyQuery as pq
 import requests
 import MySQLdb

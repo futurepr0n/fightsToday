@@ -49,6 +49,7 @@ def dateify(s):
     s = re.sub(r"2021", '', s)
     s = re.sub(r"2022", '', s)
     s = re.sub(r"2023", '', s)
+    s = re.sub(r"2024", '', s)
 
     s = re.sub(r"Jan", '01', s)
     s = re.sub(r"Feb", '02', s)

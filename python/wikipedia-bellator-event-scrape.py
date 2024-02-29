@@ -136,7 +136,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
-    event_id = event_id - 2
+    event_id = event_id - 3
     
 
     # loop through all the rows

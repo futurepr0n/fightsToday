@@ -4,7 +4,10 @@
 
 from lxml import html, etree
 import io
-from django.utils.encoding import smart_str, smart_text
+#from django.utils.encoding import smart_str, smart_text
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
 from pyquery import PyQuery as pq
 from datetime import datetime
 import re

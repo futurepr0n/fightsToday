@@ -215,141 +215,87 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     return;
 
 # Do the Event Organization and writing to files
-def countPastEvents (row_len, prev_row_ptr, array_pos):
+def countPastEvents(row_len, prev_row_ptr, array_pos):
     bellator_te = 0
     bellator_pe = 0
     bellator_se = 0
-    # set the array position
-    array_pos = array_pos + prev_row_ptr
-    print("row length is: ")
-    print(row_len)
-    print("prev row ptr is: ")
-    print(prev_row_ptr)
-    print("array Pos is: ")
-    print(array_pos)
-    
-    # loop through all the rows
-    for loopid in range (1,row_len-2):
-      print('***********************************************************************************************')
-      db_e_en = ''.join(event_name[array_pos])
-      db_e_fc = ''.join(event_fight_card_url[array_pos])
-      db_e_fd = ''.join(event_date[array_pos])
-      print('Event Name: %s ...' % db_e_en)
-      print('Event Org: \t\t %s' % event_org)
-      print('Event Date: \t', db_e_fd)
-      print('***********************************************************************************************')
-      print('Check the dates for past and scheduled events')
-      #setting event_date1 so we can compare
-      if db_e_en == "Bellator 3":
-        event_date1 = "April 17, 2009"
-      else: 
-        event_date1 = db_e_fd
-      #getting current time
-      current_time = datetime.now()
-      print('The attributes of now() are: ')
-      print ("Year : ", end = "")
-      print (current_time.year) 
-      print ("Month : ", end = "")
-      print (current_time.month)
-      print ("Day : ", end = "") 
-      print (current_time.day)
-      d1 = datetime.strptime(event_date1, '%B %d, %Y').strftime("%d/%m/%Y")
-      month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
-      print("This is event_date_1 ", d1)
-      print("this is today date %s/%s/%s"%(current_time.day,current_time.month,current_time.year))
-      
-      print("This is the month formatted", month_formatted )
-      print("this is today date %s/%s/%s"%(current_time.day,month_formatted,current_time.year))
-      #LOGIC FOR Seeing if a date is is in the Past or Upcoming.
-       
-      
-      cd1 = "%s/%s/%s"%(current_time.day,month_formatted,current_time.year)
-      event_date1_breakdown = d1.split("/")
-      event_date1_breakdown_day = event_date1_breakdown[0]
-      event_date1_breakdown_month = event_date1_breakdown[1]
-      event_date1_breakdown_year = event_date1_breakdown[2]
-      compare_date_1 = date(int(event_date1_breakdown_year), int(event_date1_breakdown_month), int(event_date1_breakdown_day))
-      compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
-    
-      todays_date1_breakdown = cd1.split("/")
-      today_date1_breakdown_day =  todays_date1_breakdown[0] 
-      today_date1_breakdown_month =  todays_date1_breakdown[1]  
-      today_date1_breakdown_year =  todays_date1_breakdown[2]
-    
-      print(event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year)
-      print(today_date1_breakdown_day, today_date1_breakdown_month, today_date1_breakdown_year)
-      # Comparing the dates will return
-      # either True or False
-      print("comparing the years first, the event date year took place : ")
-      print(event_date1_breakdown_year)
-      print("todays year is ")
-      print(today_date1_breakdown_year)
-      if int(today_date1_breakdown_year) > int(event_date1_breakdown_year):
-        print("This event is in the past")
-        bellator_pe = bellator_pe + 1
-      else:
-        print("this event is this year - more investigation")
-        if int(today_date1_breakdown_month) > int(event_date1_breakdown_month):
-            print("This event took place earlier this year")
-            bellator_pe = bellator_pe + 1
-            print("there are " + str(bellator_pe) + " past events")
-        else:
-            print("more investigation required into the day")
-            if int(today_date1_breakdown_month) < int(event_date1_breakdown_month):
-               bellator_se = bellator_se + 1
-               print("this event happens later this year")
-            else:
-              if int(today_date1_breakdown_day) > int(event_date1_breakdown_day):
-                print("this event takes place earlier this month, there are this many past events")
-                bellator_pe = bellator_pe + 1
-                print(bellator_pe)
-              else:
-                print("This event is coming up in the future, scheduled events increase")
-                bellator_se = bellator_se + 1
-                print(bellator_se)
-                                               
-      bellator_te = bellator_te + 1
-      print("The Total Events number should increase")
-      print(bellator_te)
-      array_pos = (array_pos) + 1
-        
-    prev_row_ptr = prev_row_ptr + row_len
-    print("Total Events is " + str(bellator_te) + " And past events is " + str(bellator_pe) + " and scheduled events is " + str(bellator_se))
-    # Creating the Files for autonomous runs *****
-    pe_string = "BELLATOR_PAST_EVENTS = %i" %(bellator_pe)
-    past_events = [pe_string]
- 
-    outF_pe = open("python/bellator_pastevents.py", "w")
 
+    array_pos = array_pos + prev_row_ptr
+
+    for loopid in range(1, row_len - 2):
+        db_e_en = ''.join(event_name[array_pos])
+        db_e_fc = ''.join(event_fight_card_url[array_pos])
+        db_e_fd = ''.join(event_date[array_pos])
+
+        if not db_e_fd:  # Check if the date string is empty
+            print("Empty date string found. Skipping event.")
+            array_pos += 1
+            continue
+
+        try:
+            d1 = datetime.strptime(db_e_fd, '%B %d, %Y').strftime("%d/%m/%Y")
+        except ValueError as e:
+            print(f"Error parsing date: {db_e_fd}. Skipping event. Error: {e}")
+            array_pos += 1
+            continue
+
+        current_time = datetime.now()
+        month_formatted = datetime.strptime(str(current_time.month), "%m").strftime("%m")
+        
+        cd1 = "%s/%s/%s" % (current_time.day, month_formatted, current_time.year)
+        
+        event_date1_breakdown = d1.split("/")
+        event_date1_breakdown_day, event_date1_breakdown_month, event_date1_breakdown_year = map(int, event_date1_breakdown)
+
+        compare_date_1 = date(event_date1_breakdown_year, event_date1_breakdown_month, event_date1_breakdown_day)
+        compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
+
+        if compare_date_today > compare_date_1:
+            bellator_pe += 1
+        else:
+            if compare_date_today.month > compare_date_1.month:
+                bellator_pe += 1
+            else:
+                if compare_date_today.month < compare_date_1.month:
+                    bellator_se += 1
+                else:
+                    if compare_date_today.day > compare_date_1.day:
+                        bellator_pe += 1
+                    else:
+                        bellator_se += 1
+
+        bellator_te += 1
+        array_pos += 1
+
+    prev_row_ptr += row_len
+    print("Total Events is %i, Past events is %i, and Scheduled events is %i" % (bellator_te, bellator_pe, bellator_se))
+
+    # Creating the Files for autonomous runs *****
+    pe_string = "BELLATOR_PAST_EVENTS = %i" % bellator_pe
+    past_events = [pe_string]
+
+    outF_pe = open("python/bellator_pastevents.py", "w")
     for line in past_events:
-      print(line, file=outF_pe)
-      #print >>outF_pe, line
+        print(line, file=outF_pe)
     outF_pe.close()
 
-    se_string = "BELLATOR_SCHED_EVENTS = %i" %(bellator_se)
+    se_string = "BELLATOR_SCHED_EVENTS = %i" % bellator_se
     sched_events = [se_string]
 
     outF_se = open("python/bellator_schedevents.py", "w")
-
     for line in sched_events:
-      print(line, file=outF_se)
-      #print >>outF_se, line
+        print(line, file=outF_se)
     outF_se.close()
 
-    ###print("The SE NUM = %i" %(bellator_se_num))
-    ###print("The PE NUM = %i" %(bellator_pe_num))
-    te_string = "BELLATOR_TOTAL_EVENTS = %i" %(bellator_te)
+    te_string = "BELLATOR_TOTAL_EVENTS = %i" % bellator_te
     total_events = [te_string]
-    ###print("The TE num = %i" %(bellator_te_num))
-    outF_te = open("python/bellator_totalevents.py", "w")
 
+    outF_te = open("python/bellator_totalevents.py", "w")
     for line in total_events:
-      print(line, file=outF_te)
-    ###  # print >>outF_te, line
+        print(line, file=outF_te)
     outF_te.close()
 
-
-    return;
+    return
 
 """ def countScheduledEvents (row_len, prev_row_ptr, array_pos):
     # set the array position

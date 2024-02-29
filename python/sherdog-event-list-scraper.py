@@ -5,7 +5,10 @@
 import MySQLdb
 import requests
 import io
+#from django.utils.encoding import smart_str
+import django
 from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
 from lxml import html, etree
 from pyquery import PyQuery as pq
 

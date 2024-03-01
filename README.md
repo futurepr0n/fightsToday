@@ -37,7 +37,7 @@
 	* Install/Create Docker Container from Tteck
  	* create to proper spec
   	* after install, run container, ssh into
-  	* $ apt update && apt upgrade -y && apt install software-properties-common pkg-config build-essential fontconfig openjdk-17-jre python3 python3-pip pyenv libssl-dev libffi-dev libmariadb-dev
+  	* $ apt update && apt upgrade -y && apt install software-properties-common pkg-config build-essential fontconfig openjdk-17-jre python3 python3-pip libssl-dev libffi-dev libmariadb-dev --fix-missing
   	*  then run in the directory you want to stat stuff in, pip install pipenv
   	* Using Jenkins, connect your build node, it will probably fail, thats ok, go into the directory and continue instructions
   	* $ cd Jenkins/fightsToday-pipeline

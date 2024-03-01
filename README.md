@@ -12,6 +12,8 @@
 
 * Clone the Repository.
 
+
+
 * Configuration
 
     * For OS X Clients, have brew install mysql
@@ -31,7 +33,30 @@
 	    * passwd="fttesting", # your password
 	    * db="mark5463_ft_testdb") # name of the data base
 
+* Setting up a build node.
+	* Install/Create Docker Container from Tteck
+ 	* create to proper spec
+  	* after install, run container, ssh into
+  	* $ apt update && apt upgrade -y && apt install software-properties-common pkg-config build-essential fontconfig openjdk-17-jre python3 python3-pip pyenv libssl-dev libffi-dev libmariadb-dev
+  	*  then run in the directory you want to stat stuff in, pip install pipenv
+  	* Using Jenkins, connect your build node, it will probably fail, thats ok, go into the directory and continue instructions
+  	* $ cd Jenkins/fightsToday-pipeline
+  	* $ pipenv install -r requirements.txt
+  	* Might need a couple retries, but after can change this to:
+  	* $ pipenv install -r requirements.txt --deploy --skip-lock
+
+
+
+
+
+
+
 ## Load the Data ##
+
+
+
+
+
 
 * From inside python/ run the scripts in this order:
  

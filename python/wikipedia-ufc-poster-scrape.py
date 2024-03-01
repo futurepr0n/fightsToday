@@ -41,12 +41,12 @@ def loadPosterData (event_url):
     return ev_fp_wbst;
 
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
-    print('+++++++++++++++++++++++++++++')
+    # print('+++++++++++++++++++++++++++++')
     db_e_poster_url = ''.join(poster_url)
     w_e_p_i = event_org + str(event_id)
-    print('Adding poster URL to the Database: ', db_e_poster_url)
-    print('+++++++++++++++++++++++++++++')
-    print('+++++++++++++++++++++++++++++')
+    # print('Adding poster URL to the Database: ', db_e_poster_url)
+    # print('+++++++++++++++++++++++++++++')
+    # print('+++++++++++++++++++++++++++++')
     query = """
     INSERT INTO wiki_mma_events_poster
     (event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, wiki_event_poster_id)
@@ -114,13 +114,13 @@ for row in cur.fetchall() :
     g_event_fight_card_url.append(row[2])
     g_event_org.append(row[3])
     g_event_date.append(row[4])
-    print('***********************************************************************************************')
-    print('Loading event Name: \t\t\t %s ...' % row[0])
-    print('Loading event ID: \t\t %s ' % row[1])
-    print('Loading event Org: \t\t %s' % row[3])
-    print('Loading event Date: \t\t', row[4])
-    print('Loading event URL: \t\t %s' % row[2])
-    print('***********************************************************************************************')
+    # print('***********************************************************************************************')
+    # print('Loading event Name: \t\t\t %s ...' % row[0])
+    # print('Loading event ID: \t\t %s ' % row[1])
+    # print('Loading event Org: \t\t %s' % row[3])
+    # print('Loading event Date: \t\t', row[4])
+    # print('Loading event URL: \t\t %s' % row[2])
+    # print('***********************************************************************************************')
 
 
 x_range = len(g_event_name)

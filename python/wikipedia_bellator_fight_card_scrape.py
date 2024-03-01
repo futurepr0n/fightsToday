@@ -111,7 +111,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     g_fight_card_event_id.append(str(this_event_id))
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
-    print(str(this_event_past))
+    # print(str(this_event_past))
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
@@ -382,7 +382,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                       '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[2]/text()']:
             fighter_one_array = tree.xpath(xpath % (table_mod, z))
             if fighter_one_array:
-                print(fighter_one_array)
+                # print(fighter_one_array)
                 break;
                     
 
@@ -400,7 +400,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                       '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[2]/a/@href']:
             fighter_one_url_array = tree.xpath(xpath % (table_mod, z))
             if fighter_one_url_array:
-                print(fighter_one_url_array)
+                # print(fighter_one_url_array)
                 break
 
         if fighter_one_url_array:
@@ -418,7 +418,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/text()']:
             fighter_two_array = tree.xpath(xpath % (table_mod, z))
             if fighter_two_array:
-                print(fighter_two_array)
+                # print(fighter_two_array)
                 break
 
         if fighter_two_array:
@@ -434,7 +434,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
                         '//*[@id="mw-content-text"]/div[1]/table[%i]/tr[%i]/td[4]/a/@href']:
             fighter_two_url_array = tree.xpath(xpath % (table_mod, z))
             if fighter_two_url_array:
-                print(fighter_two_url_array)
+                # print(fighter_two_url_array)
                 break
 
         if fighter_two_url_array:
@@ -528,7 +528,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_time and ascii_fight_round and ascii_fight_weightclass:
-            print('I am going to insert a query')
+            # print('I am going to insert a query')
             query = """
                 INSERT INTO wiki_mma_fight_cards
                 (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass, wiki_fight_id)
@@ -551,11 +551,11 @@ for x in range(0, x_range - 1):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
-            print(query, values)
+            # print(query, values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
-            print(e_name,e_f1,e_f2,e_fc_url)
+            # print(e_name,e_f1,e_f2,e_fc_url)
 
 cur.close()
 db.close()

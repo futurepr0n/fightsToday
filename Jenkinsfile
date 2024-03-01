@@ -5,7 +5,8 @@ node {
       git 'https://github.com/futurepr0n/fightsToday.git'
       // Set up the Python Environment and dependencies  
       if (isUnix()) {
-          sh 'pipenv install -r requirements.txt --deploy --skip-lock'
+          // sh 'pipenv install -r requirements.txt --deploy --skip-lock'  -- This may only be required for subsequent runs - about to test.
+          sh 'pipenv install -r requirements.txt'
           sh 'rm -rf index.php'
       } else {
           //put windows command here

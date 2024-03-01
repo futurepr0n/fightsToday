@@ -110,7 +110,7 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_event_id.append(str(this_event_id))
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
-    print(str(this_event_past))
+    # print(str(this_event_past))
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))

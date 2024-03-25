@@ -64,7 +64,7 @@ def loadEventsData (event_url, event_org):
 
       if ascii_event_name_string == '':  # Try the italic version
         print('Since I found no event name, I am now trying another field - italicized td2')
-        scrape the event name with italic /i  
+        # scrape the event name with italic /i  
         event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/text()'%(x))
         new_event_name_str = ''.join(event_name_array)
         ascii_event_name_string = smart_str(new_event_name_str)

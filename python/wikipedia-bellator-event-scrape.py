@@ -45,17 +45,19 @@ def loadEventsData (event_url, event_org):
     row_len = len(p)
 
     #run through every row in the table
-    for x in range (2, row_len-31):
-
+    #for x in range (2, row_len-31):
+    for x in range (1, row_len-1):
+        
       # print('############### Scrape entire Wiki Table ######################################')
       # print('# scrape the event name')
       # print('td[2]? ')
-      event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/a/text()'%(x))
+      #event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/a/text()'%(x))
+      event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()'%(x))
       new_event_name_str = ''.join(event_name_array)
       ascii_event_name_string = smart_str(new_event_name_str)
       # print('event td[2]: %s ...' % ascii_event_name_string)
       # print('# scrape wikipedia ufc fight card url ')
-      event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/a/@href'%(x))
+      event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
       # print('Event URL: \t\t %s' % ascii_fight_card_url_string)
@@ -63,35 +65,35 @@ def loadEventsData (event_url, event_org):
       if ascii_event_name_string == '':  # Try the italic version
         # print('Since I found no event name, I am now trying another field - italicized td2')
         # scrape the event name with italic /i  
-        event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/i/a/text()'%(x))
+        event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/text()'%(x))
         new_event_name_str = ''.join(event_name_array)
         ascii_event_name_string = smart_str(new_event_name_str)
         # print('event td[2]/i: %s ...' % ascii_event_name_string)
         # print('# scrape wikipedia ufc fight card url ')
         # scrape wikipedia ufc fight card url
-        event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/i/a/@href'%(x))
+        event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/@href'%(x))
         new_fight_card_url_str = ''.join(event_fight_card_url_array)
         ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
         # print('Event URL: \t\t %s' % ascii_fight_card_url_string)
         if ascii_event_name_string == '': # Try the td 1 flavor
           # print('Since I was not able to find td2 ital, I am going to try td1')
-          event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/text()'%(x))
+          event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()'%(x))
           new_event_name_str = ''.join(event_name_array)
           ascii_event_name_string = smart_str(new_event_name_str)
           # print('event td[1]: %s ...' % ascii_event_name_string)
           # scrape wikipedia ufc fight card url
-          event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/a/@href'%(x))
+          event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
           new_fight_card_url_str = ''.join(event_fight_card_url_array)
           ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
           # print('Event URL: \t\t %s' % ascii_fight_card_url_string)
           if ascii_event_name_string == '': # Try the td 1 flavor with italic
             # print('this is my last attempt - I am now trying another field - italicized td1')
-            event_name_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/text()'%(x))
+            event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/text()'%(x))
             new_event_name_str = ''.join(event_name_array)
             ascii_event_name_string = smart_str(new_event_name_str)
             # print('event td[1]/i: %s ...' % ascii_event_name_string)
             # scrape wikipedia ufc fight card url
-            event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[1]/i/a/@href'%(x))
+            event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/@href'%(x))
             new_fight_card_url_str = ''.join(event_fight_card_url_array)
             ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
             # print('Event URL: \t\t %s' % ascii_fight_card_url_string)
@@ -115,12 +117,12 @@ def loadEventsData (event_url, event_org):
         ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
         event_fight_card_url.append(ev_fc_wbst)
       #######################################################################
-      event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[3]/span/text()'%(x))
+      event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
       new_event_date = ''.join(event_date_array)
       ascii_event_date = smart_str(new_event_date)
 
       if ascii_event_date == '':
-        event_date_array = tree.xpath('//*[@id="mw-content-text"]/div/table/tbody/tr[%i]/td[2]/span/text()'%(x))
+        event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[2]/span/text()'%(x))
         new_event_date = ''.join(event_date_array)
         ascii_event_date = smart_str(new_event_date)
         event_date.append(ascii_event_date)

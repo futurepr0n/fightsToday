@@ -70,7 +70,15 @@ def loadEventsData (event_url, event_org):
         event_name.append('Bellator Event') 
         print('event name is notfound calling it as Bellator Event')  
           
-      event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
+      event_fight_card_url_array = None
+      for xpath in ['//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href',
+                    '//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[6]/td[1]/i/a/@href']:
+            event_fight_card_url_array = tree.xpath(xpath % x)
+            
+            if event_fight_card_url_array:
+              break  
+
+        
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
       print('Event URL: \t\t %s' % ascii_fight_card_url_string)

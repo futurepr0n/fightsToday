@@ -487,7 +487,7 @@ event_fight_card_url = []
 event_date = []
 
 prev_row_ptr = 0
-array_pos = 1
+array_pos = 0
 
 new_prev_ptr = 0
 new_array_pos = 0

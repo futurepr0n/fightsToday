@@ -59,11 +59,15 @@ def loadEventsData (event_url, event_org):
             event_name_array = tree.xpath(xpath % x)
             
             if event_name_array:
-              new_event_name_str = ''.join(event_name_array)
-              ascii_event_name_string = smart_str(new_event_name_str)
-              print('event name td[2]: %s ...' % ascii_event_name_string)
               break  
-    
+      
+      if event_name_array:
+        newstr = ''.join(event_name_array)
+        asccii_string = smart_str(newstr)
+        event_name.append(asccii_string)  
+      else:
+        event_name.append('Bellator Event') 
+          
       event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
@@ -100,7 +104,8 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     print('we are now inside insert rows')
     print('row len is = %i'%(row_len))
     print('prev_row_ptr is = %i'%(prev_row_ptr))
-    print('row ptr is = %i'%(array_pos))
+    print('array ptr is = %i'%(array_pos))
+
           
     
     

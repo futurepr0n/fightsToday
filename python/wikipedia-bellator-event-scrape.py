@@ -64,9 +64,11 @@ def loadEventsData (event_url, event_org):
       if event_name_array:
         newstr = ''.join(event_name_array)
         asccii_string = smart_str(newstr)
+        print('event name is found as %s'%(asccii_string))
         event_name.append(asccii_string)  
       else:
         event_name.append('Bellator Event') 
+        print('event name is notfound calling it as Bellator Event')  
           
       event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
@@ -78,6 +80,7 @@ def loadEventsData (event_url, event_org):
       event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
       new_event_date = ''.join(event_date_array)
       ascii_event_date = smart_str(new_event_date)
+      
       print('event url found %s%s'%(ev_fc_wbst))
       print('event date found %s'%(ascii_event_date))
 
@@ -97,7 +100,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
-    event_id = event_id - 2
+    event_id = event_id - 1
 
     print('we are now inside insert rows')
     print('row len is = %i'%(row_len))

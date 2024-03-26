@@ -394,7 +394,7 @@ session_start();
     #############################################################
     # nrows = len(poster_url)
 
-    for x in range((BELLATOR_TOTAL_EVENTS - BELLATOR_SCHED_EVENTS) + 1, (BELLATOR_TOTAL_EVENTS + 1)):
+    for x in range((BELLATOR_TOTAL_EVENTS - BELLATOR_SCHED_EVENTS), (BELLATOR_TOTAL_EVENTS)):
         event_container_string = bellator_event_name[x]
         modified_string = event_container_string.replace(" ", "_")
         print('<div class="event-container" id="%s">' % (modified_string), file=f)

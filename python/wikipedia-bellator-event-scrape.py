@@ -50,8 +50,6 @@ def loadEventsData (event_url, event_org):
     print('So I am about to loop through from 1 to %i'%(row_len-35))
     for x in range (1, row_len-35):
       event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()'%(x))
-                                     //*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[1]/td[1]/i
-                                    //*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[328]/td[1]
       new_event_name_str = ''.join(event_name_array)
       ascii_event_name_string = smart_str(new_event_name_str)
       print('event td[2]: %s ...' % ascii_event_name_string)

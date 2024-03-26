@@ -64,27 +64,27 @@ def loadEventsData (event_url, event_org):
               print('event name td[2]: %s ...' % ascii_event_name_string)
               break  
     
-        event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
-        new_fight_card_url_str = ''.join(event_fight_card_url_array)
-        ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
-        print('Event URL: \t\t %s' % ascii_fight_card_url_string)
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
-        event_fight_card_url.append(ev_fc_wbst)
-        #######################################################################
-        event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
+      event_fight_card_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
+      new_fight_card_url_str = ''.join(event_fight_card_url_array)
+      ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
+      print('Event URL: \t\t %s' % ascii_fight_card_url_string)
+      ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+      event_fight_card_url.append(ev_fc_wbst)
+      #######################################################################
+      event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
+      new_event_date = ''.join(event_date_array)
+      ascii_event_date = smart_str(new_event_date)
+      print('event url found %s'%(ev_fc_wbst))
+      print('event date found %s'%(ascii_event_date))
+
+      if ascii_event_date == '':
+        event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[2]/span/text()'%(x))
         new_event_date = ''.join(event_date_array)
         ascii_event_date = smart_str(new_event_date)
-        print('event url found %s'%(ev_fc_wbst))
-        print('event date found %s'%(ascii_event_date))
-
-        if ascii_event_date == '':
-          event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[2]/span/text()'%(x))
-          new_event_date = ''.join(event_date_array)
-          ascii_event_date = smart_str(new_event_date)
-          event_date.append(ascii_event_date)
-        else:                      
-          event_date.append(ascii_event_date)
-          print('Event Date: \t', ascii_event_date)
+        event_date.append(ascii_event_date)
+      else:                      
+        event_date.append(ascii_event_date)
+        print('Event Date: \t', ascii_event_date)
     
       print('I am about to return the row length %i'%(row_len-35))
       print('%s'%(event_name))

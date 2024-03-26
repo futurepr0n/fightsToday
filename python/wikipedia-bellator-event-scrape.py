@@ -88,7 +88,7 @@ def loadEventsData (event_url, event_org):
     
       print('I am about to return the row length %i'%(row_len-35))
       print('%s'%(event_name))
-    
+    print('the row length before returning to the main loop is %i'%(row_len-35))
     return row_len-35;
 
 def insertRows (row_len, prev_row_ptr, array_pos):

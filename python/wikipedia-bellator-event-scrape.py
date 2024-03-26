@@ -198,14 +198,15 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
     bellator_se = 0
 
     array_pos = array_pos + prev_row_ptr
-    
-    for loopid in range(0, row_len - 2):
+    print('count past events the array position is %i'%(array_pos))
+    for loopid in range(0, row_len - 3):
+        print('entering the loop, loop id is %i'%(loopid))
         db_e_en = ''.join(event_name[array_pos])
         db_e_fc = ''.join(event_fight_card_url[array_pos])
         db_e_fd = ''.join(event_date[array_pos])
-
+        print('event name is %s'%(db_e_en))
         if not db_e_fd:  # Check if the date string is empty
-            # print("Empty date string found. Skipping event.")
+            print("Empty date string found. Skipping event.")
             array_pos += 1
             continue
         
@@ -228,23 +229,31 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
         compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
 
         if compare_date_today > compare_date_1:
+            print('we determined this is a past event')
             bellator_pe += 1
         else:
             if compare_date_today.month > compare_date_1.month:
                 bellator_pe += 1
+                print('we determined this is a past event')
             else:
                 if compare_date_today.month < compare_date_1.month:
                     bellator_se += 1
+                    print('we determined this is an upcoming event')
                 else:
                     if compare_date_today.day > compare_date_1.day:
                         bellator_pe += 1
+                        print('we determined this is a past event')
                     else:
                         bellator_se += 1
 
         bellator_te += 1
+        print('we are increasing the total events to %i'%(bellator_te))
         array_pos += 1
+        print('we are increasing our array pos to %i'%(array_pos))
+        
 
     prev_row_ptr += bellator_te
+    print('now we are saying that the prev_row_ptr should be %i'%(prev_row_ptr))
     print("Total Events is %i, Past events is %i, and Scheduled events is %i" % (bellator_te, bellator_pe, bellator_se))
 
     # Creating the Files for autonomous runs *****

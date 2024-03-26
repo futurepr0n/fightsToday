@@ -33,7 +33,9 @@ def loadEventsData (event_url, event_org):
     ### We will get their Event Names, Event URL, Event ID
 
     # get the row length by querying the event table on table rows
-    p = d("#mw-content-text tr")
+    #p = d("#mw-content-text tr")
+    p = d("#mw-content-text > div.mw-parser-output > table > tbody >)"
+    
 
     # JQUERY STUFF --  THIS will calculate the rows for Upcoming Events (Scheduled Events)
     # $("#Scheduled_events tr").length

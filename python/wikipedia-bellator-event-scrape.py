@@ -133,7 +133,7 @@ def loadEventsData (event_url, event_org):
         else:                      
           event_date.append(ascii_event_date)
           print('Event Date: \t', ascii_event_date)
-     
+    print('I am about to return the row length %i'%(row_len-35))
     return row_len-35;
 
 def insertRows (row_len, prev_row_ptr, array_pos):
@@ -528,6 +528,7 @@ event_url = 'https://en.wikipedia.org/wiki/List_of_Bellator_MMA_events'
 event_id = 0
 # print("****************** ---- Inserts ---- *******************")
 bellator_row_len = loadEventsData(event_url, event_org)
+print('The Bellator Row Len is %i')%(bellator_row_len))
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
 countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)

@@ -142,6 +142,13 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
     event_id = event_id - 1
+
+    print('we are now inside insert rows')
+    print('row len is = %i'%(row_len))
+    print('prev_row_ptr is = %i'%(prev_row_ptr))
+    print('row ptr is = %i'%(array_pos))
+          
+    
     
 
     # loop through all the rows

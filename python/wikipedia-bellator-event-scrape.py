@@ -47,7 +47,7 @@ def loadEventsData (event_url, event_org):
     row_len = len(p)
 
     print('The Row Length is %i'%(row_len))
-    for x in range (1, row_len-32):
+    for x in range (1, row_len-35):
       event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()'%(x))
       new_event_name_str = ''.join(event_name_array)
       ascii_event_name_string = smart_str(new_event_name_str)

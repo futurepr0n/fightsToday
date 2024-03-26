@@ -102,7 +102,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     print('row length is %i'%(row_len))
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len
-    event_id = event_id - 3
+    event_id = event_id - 2
 
     print('we are now inside insert rows')
     print('row len is = %i'%(row_len))

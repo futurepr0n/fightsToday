@@ -214,7 +214,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
           values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
           cur.execute(query_insert, values_insert)
       print('Success!...')
-     print('array ptr is now %i'%(array_pos))
+      print('array ptr is now %i'%(array_pos))
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
       print('after increasing its now %i'%(array_pos))

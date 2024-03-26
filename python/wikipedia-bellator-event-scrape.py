@@ -199,7 +199,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
 
     #array_pos = array_pos + prev_row_ptr
     print('count past events the array position is %i'%(array_pos))
-    for loopid in range(0, row_len - 3):
+    for loopid in range(0, row_len - 2):
         print('entering the loop, loop id is %i'%(loopid))
         db_e_en = ''.join(event_name[array_pos])
         db_e_fc = ''.join(event_fight_card_url[array_pos])
@@ -248,6 +248,8 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
 
         bellator_te += 1
         print('we are increasing the total events to %i'%(bellator_te))
+        print('total past events to %i'%(bellator_pe))
+        print('total upcoming events to %i'%(bellator_se))
         array_pos += 1
         print('we are increasing our array pos to %i'%(array_pos))
         

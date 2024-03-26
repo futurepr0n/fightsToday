@@ -50,7 +50,7 @@ def loadEventsData (event_url, event_org):
     print('So I am about to loop through from 1 to %i'%(row_len-35))
     
                 
-    for x in range (1, row_len-35):
+    for x in range (1, row_len-33):
     
       event_name_array = None
       for xpath in ['//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()',
@@ -74,7 +74,7 @@ def loadEventsData (event_url, event_org):
       event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
       new_event_date = ''.join(event_date_array)
       ascii_event_date = smart_str(new_event_date)
-      print('event url found %s'%(ev_fc_wbst))
+      print('event url found %s%s'%(ev_fc_wbst))
       print('event date found %s'%(ascii_event_date))
 
       if ascii_event_date == '':
@@ -86,10 +86,10 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
         print('Event Date: \t', ascii_event_date)
     
-      print('I am about to return the row length %i'%(row_len-35))
+      print('I am about to return the row length %i'%(row_len-33))
       print('%s'%(event_name))
-    print('the row length before returning to the main loop is %i'%(row_len-35))
-    return row_len-35;
+    print('the row length before returning to the main loop is %i'%(row_len-33))
+    return row_len-33;
 
 def insertRows (row_len, prev_row_ptr, array_pos):
     # set the array position

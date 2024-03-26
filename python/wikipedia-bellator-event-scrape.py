@@ -154,6 +154,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     # loop through all the rows
     for loopid in range (1,row_len-1):
       # print('***********************************************************************************************')
+      print('%i'%(array_pos))
       db_e_en = ''.join(event_name[array_pos])
       db_e_fc = ''.join(event_fight_card_url[array_pos])
       db_e_fd = ''.join(event_date[array_pos])
@@ -213,8 +214,10 @@ def insertRows (row_len, prev_row_ptr, array_pos):
           values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
           cur.execute(query_insert, values_insert)
       print('Success!...')
+     print('array ptr is now %i'%(array_pos))
       print('***********************************************************************************************')
       array_pos = (array_pos) + 1
+      print('after increasing its now %i'%(array_pos))
       event_id = event_id - 1
       
       
@@ -233,7 +236,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
     bellator_se = 0
 
     array_pos = array_pos + prev_row_ptr
-
+    
     for loopid in range(1, row_len - 2):
         db_e_en = ''.join(event_name[array_pos])
         db_e_fc = ''.join(event_fight_card_url[array_pos])

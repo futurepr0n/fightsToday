@@ -90,8 +90,6 @@ def loadEventsData (event_url, event_org):
         event_date.append(ascii_event_date)
         print('Event Date: \t', ascii_event_date)
     
-      print('I am about to return the row length %i'%(row_len-34))
-      print('%s'%(event_name))
     print('the row length before returning to the main loop is %i'%(row_len-34))
     return row_len-34;
 

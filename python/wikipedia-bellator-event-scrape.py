@@ -197,7 +197,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
     bellator_pe = 0
     bellator_se = 0
 
-    array_pos = array_pos + prev_row_ptr
+    #array_pos = array_pos + prev_row_ptr
     print('count past events the array position is %i'%(array_pos))
     for loopid in range(0, row_len - 3):
         print('entering the loop, loop id is %i'%(loopid))

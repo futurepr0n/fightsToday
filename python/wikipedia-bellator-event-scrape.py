@@ -33,8 +33,8 @@ def loadEventsData (event_url, event_org):
     ### We will get their Event Names, Event URL, Event ID
 
     # get the row length by querying the event table on table rows
-    #p = d("#mw-content-text tr")
-    p = d("#mw-content-text > div.mw-parser-output > table > tbody >")
+    p = d("#mw-content-text tr")
+    #p = d("#mw-content-text > div.mw-parser-output > table > tbody >")
     
 
     # JQUERY STUFF --  THIS will calculate the rows for Upcoming Events (Scheduled Events)
@@ -46,7 +46,7 @@ def loadEventsData (event_url, event_org):
     #set the row length
     row_len = len(p)
 
-    for x in range (1, row_len-1):
+    for x in range (1, row_len-34):
       event_name_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/text()'%(x))
       new_event_name_str = ''.join(event_name_array)
       ascii_event_name_string = smart_str(new_event_name_str)

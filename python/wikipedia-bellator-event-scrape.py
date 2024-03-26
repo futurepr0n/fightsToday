@@ -114,7 +114,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     
 
     # loop through all the rows
-    for loopid in range (1,row_len-2):
+    for loopid in range (1,row_len-1):
       # print('***********************************************************************************************')
       print('%i'%(array_pos))
       db_e_en = ''.join(event_name[array_pos])

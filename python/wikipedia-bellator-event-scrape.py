@@ -208,7 +208,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
             # print("Empty date string found. Skipping event.")
             array_pos += 1
             continue
-
+        
         try:
             d1 = datetime.strptime(db_e_fd, '%B %d, %Y').strftime("%d/%m/%Y")
         except ValueError as e:
@@ -244,7 +244,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
         bellator_te += 1
         array_pos += 1
 
-    prev_row_ptr += row_len
+    prev_row_ptr += bellator_te
     print("Total Events is %i, Past events is %i, and Scheduled events is %i" % (bellator_te, bellator_pe, bellator_se))
 
     # Creating the Files for autonomous runs *****

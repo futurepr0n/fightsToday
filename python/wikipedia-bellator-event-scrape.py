@@ -199,7 +199,7 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
 
     array_pos = array_pos + prev_row_ptr
     
-    for loopid in range(1, row_len - 2):
+    for loopid in range(0, row_len - 3):
         db_e_en = ''.join(event_name[array_pos])
         db_e_fc = ''.join(event_fight_card_url[array_pos])
         db_e_fd = ''.join(event_date[array_pos])
@@ -489,7 +489,7 @@ event_date = []
 prev_row_ptr = 0
 array_pos = 0
 
-new_prev_ptr = 0
+new_prev_ptr = 1
 new_array_pos = 0
 
 # print("********************************************************")

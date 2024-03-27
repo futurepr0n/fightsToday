@@ -15,9 +15,7 @@ import requests
 import MySQLdb
 import os
 
-bellator_pe_num = 0
-bellator_se_num = 0
-bellator_te_num = 0 
+
 
 def loadEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
@@ -117,6 +115,9 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     print('prev_row_ptr is = %i'%(prev_row_ptr))
     print('array ptr is = %i'%(array_pos))
 
+    bellator_pe_num = 0
+    bellator_se_num = 0
+    bellator_te_num = 0 
           
     
     

@@ -236,23 +236,13 @@ def countPastEvents(row_len, prev_row_ptr, array_pos):
         compare_date_1 = date(event_date1_breakdown_year, event_date1_breakdown_month, event_date1_breakdown_day)
         compare_date_today = date(current_time.year, int(month_formatted), current_time.day)
 
-        if compare_date_today > compare_date_1:
-            print('we determined this is a past event')
+        if compare_date_today <= compare_date_1:
             bellator_pe += 1
+            print('we determined this is a past event')
         else:
-            if compare_date_today.month > compare_date_1.month:
-                bellator_pe += 1
-                print('we determined this is a past event')
-            else:
-                if compare_date_today.month < compare_date_1.month:
-                    bellator_se += 1
-                    print('we determined this is an upcoming event')
-                else:
-                    if compare_date_today.day > compare_date_1.day:
-                        bellator_pe += 1
-                        print('we determined this is a past event')
-                    else:
-                        bellator_se += 1
+            bellator_se += 1
+            print('we determined this is an upcoming event')
+
 
         bellator_te += 1
         print('we are increasing the total events to %i'%(bellator_te))

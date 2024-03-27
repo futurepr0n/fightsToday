@@ -72,7 +72,7 @@ def loadEventsData (event_url, event_org):
           
       event_fight_card_url_array = None
       for xpath in ['//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/a/@href',
-                    '//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[6]/td[1]/i/a/@href']:
+                    '//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[1]/i/a/@href']:
             event_fight_card_url_array = tree.xpath(xpath % x)
             
             if event_fight_card_url_array:

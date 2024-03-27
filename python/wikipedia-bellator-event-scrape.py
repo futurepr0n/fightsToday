@@ -152,10 +152,13 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       if event_date_compare > today_date:
           db_ep = False
           db_ep_int = int(db_ep)
+          bellator_pe_num =+ 1
       else:
           db_ep = True
           db_ep_int = int(db_ep)
-          
+          bellator_se_num =+ 1
+      
+      bellator_te_num =+ 1    
       # Check if the row already exists in the table
       query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
       cur.execute(query_select, (w_e_id,))
@@ -195,6 +198,30 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     prev_row_ptr = prev_row_ptr + row_len
     print("the prev row ptr is")
     print(str(prev_row_ptr))
+    # Creating the Files for autonomous runs *****
+    pe_string = "BELLATOR_PAST_EVENTS = %i" % bellator_pe_num
+    past_events = [pe_string]
+
+    outF_pe = open("python/bellator_pastevents.py", "w")
+    for line in past_events:
+        print(line, file=outF_pe)
+    outF_pe.close()
+
+    se_string = "BELLATOR_SCHED_EVENTS = %i" % bellator_se_num
+    sched_events = [se_string]
+
+    outF_se = open("python/bellator_schedevents.py", "w")
+    for line in sched_events:
+        print(line, file=outF_se)
+    outF_se.close()
+
+    te_string = "BELLATOR_TOTAL_EVENTS = %i" % bellator_te_num
+    total_events = [te_string]
+
+    outF_te = open("python/bellator_totalevents.py", "w")
+    for line in total_events:
+        print(line, file=outF_te)
+    outF_te.close()
 
 
     return;
@@ -513,7 +540,7 @@ bellator_row_len = loadEventsData(event_url, event_org)
 print('The Bellator Row Len is %i'%(bellator_row_len))
 bellator_countEvents_row_len = bellator_row_len
 insertRows(bellator_row_len, prev_row_ptr, array_pos)
-countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos)
+#countPastEvents(bellator_countEvents_row_len, new_prev_ptr, new_array_pos) <---
 #countScheduledEvents(bellator_countEvents_row_len,0,0)
 #countTotalEvents(bellator_countEvents_row_len,0,0)
 # set the prev_row_ptr

@@ -153,11 +153,11 @@ def insertRows (row_len, prev_row_ptr, array_pos):
       if event_date_compare > today_date:
           db_ep = False
           db_ep_int = int(db_ep)
-          bellator_pe_num += 1
+          bellator_se_num += 1
       else:
           db_ep = True
           db_ep_int = int(db_ep)
-          bellator_se_num += 1
+          bellator_pe_num += 1
       
       bellator_te_num += 1    
       # Check if the row already exists in the table

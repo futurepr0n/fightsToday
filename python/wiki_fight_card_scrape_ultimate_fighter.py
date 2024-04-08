@@ -29,17 +29,28 @@ def scrapeEvent(event_url, event_org):
 # db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod", charset="utf8")
 
 #production like mysql database
-db = MySQLdb.connect(
-    host=os.environ['MYSQL_HOST'],
-    user=os.environ['MYSQL_ID'],
-    passwd=os.environ['MYSQL_PASSWORD'],
-    db="mark5463_ft_prod",
-    charset="utf8",
+#db = MySQLdb.connect(
+#    host=os.environ['MYSQL_HOST'],
+#    user=os.environ['MYSQL_ID'],
+#    passwd=os.environ['MYSQL_PASSWORD'],
+#    db="mark5463_ft_prod",
+#    charset="utf8"
+#)
+
+db_params = {
+    'host': os.environ['MYSQL_HOST'],
+    'user': os.environ['MYSQL_ID'],
+    'passwd': os.environ['MYSQL_PASSWORD'],
+    'db': 'mark5463_ft_prod',
+    'charset': 'utf8',
     'connect_timeout': 60,  # Set connect_timeout parameter here
     'interactive_timeout': 604800,  # Set interactive_timeout parameter here
     'wait_timeout': 2147483,  # Set wait_timeout parameter here
     'net_read_timeout': 120  # Set net_read_timeout parameter here
-)
+}
+
+# Connect to the database
+db = MySQLdb.connect(**db_params)
 
 
 cur = db.cursor()

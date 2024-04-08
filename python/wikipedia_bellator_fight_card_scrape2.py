@@ -87,10 +87,10 @@ db = MySQLdb.connect(
 )
 cur = db.cursor()
 
-cur.execute("SET SESSION connect_timeout = 60")
-cur.execute("SET SESSION interactive_timeout = 604800")
-cur.execute("SET SESSION wait_timeout = 2147483")
-cur.execute("SET SESSION net_read_timeout = 120")
+cur.execute("SET GLOBAL SESSION connect_timeout = 60")
+cur.execute("SET GLOBAL SESSION interactive_timeout = 604800")
+cur.execute("SET GLOBAL SESSION wait_timeout = 2147483")
+cur.execute("SET GLOBAL SESSION net_read_timeout = 120")
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range - 1):  # prev 0, 533

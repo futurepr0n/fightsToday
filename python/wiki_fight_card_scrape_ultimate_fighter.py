@@ -34,7 +34,11 @@ db = MySQLdb.connect(
     user=os.environ['MYSQL_ID'],
     passwd=os.environ['MYSQL_PASSWORD'],
     db="mark5463_ft_prod",
-    charset="utf8"
+    charset="utf8",
+    'connect_timeout': 60,  # Set connect_timeout parameter here
+    'interactive_timeout': 604800,  # Set interactive_timeout parameter here
+    'wait_timeout': 2147483,  # Set wait_timeout parameter here
+    'net_read_timeout': 120  # Set net_read_timeout parameter here
 )
 
 
@@ -88,10 +92,10 @@ db = MySQLdb.connect(
 cur = db.cursor()
 #cur.execute("TRUNCATE wiki_mma_fight_cards")
 
-cur.execute("SET GLOBAL SESSION connect_timeout = 60")
-cur.execute("SET GLOBAL SESSION interactive_timeout = 604800")
-cur.execute("SET GLOBAL SESSION wait_timeout = 2147483")
-cur.execute("SET GLOBAL SESSION net_read_timeout = 120")
+#cur.execute("SET GLOBAL SESSION connect_timeout = 60")
+#cur.execute("SET GLOBAL SESSION interactive_timeout = 604800")
+#cur.execute("SET GLOBAL SESSION wait_timeout = 2147483")
+#cur.execute("SET GLOBAL SESSION net_read_timeout = 120")
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range - 1):  # prev 0, 533
     # bring in the url information

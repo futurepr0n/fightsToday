@@ -75,7 +75,7 @@ def loadPastEventsData (event_url, event_org):
       else:
         event_name.append(asccii_string)
 
-      # scrape wikipedia ufc fight card url
+      # scrape wikipedia pfl fight card url
       #event_fight_card_url_array = tree.xpath('//*[@id="Past_events"]/table[2]/tr[%i]/td[2]/span[2]/a/@href'%(x))
       event_fight_card_url_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/span/a/@href'%(x))
       newstr2 = ''.join(event_fight_card_url_array)
@@ -161,7 +161,7 @@ def loadUpcomingEventsData (event_url, event_org):
       else:
         event_name.append('PFL Event')  
 
-      # scrape wikipedia ufc fight card url
+      # scrape wikipedia pfl fight card url
       event_fight_card_url_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/@href'%(x))
       newstr2 = ''.join(event_fight_card_url_array)
       asccii_string2 = smart_str(newstr2)
@@ -277,7 +277,7 @@ db = MySQLdb.connect(
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
 
-# Scrape UFC Information
+# Scrape pfl Information
 # initialize our arrays. our Arrays.
 event_name = []
 # event_month = []
@@ -294,27 +294,27 @@ event_past = []
 print("*********************************************")
 print("List of PFL Events Wikipedia Page URL Scrape...")
 print("*********************************************")
-# set the event organization to UFC
+# set the event organization to pfl
 event_org = 'PFL'
-# set the event url to sherdog ufc section
+# set the event url to sherdog pfl section
 event_url = 'https://en.wikipedia.org/wiki/List_of_Professional_Fighters_League_events'
 #reset the event id
 event_id = 0
 
 
-ufc_row_len = loadPastEventsData(event_url, event_org)
-pe2_num = ufc_row_len-1
+pfl_row_len = loadPastEventsData(event_url, event_org)
+pe2_num = pfl_row_len-1
 print(" ---- Inserts ----")
-insertRows(ufc_row_len, prev_row_ptr, array_pos, True)
+insertRows(pfl_row_len, prev_row_ptr, array_pos, True)
 
 #set the prev_row_ptrgth pointer
-prev_row_ptr = ufc_row_len + prev_row_ptr - 1
+prev_row_ptr = pfl_row_len + prev_row_ptr - 1
 
 
-ufc_row_len2 = loadUpcomingEventsData(event_url, event_org)
-se2_num = ufc_row_len2-1
+pfl_row_len2 = loadUpcomingEventsData(event_url, event_org)
+se2_num = pfl_row_len2-1
 print(" ---- Inserts ----")
-insertRows(ufc_row_len2, prev_row_ptr, array_pos, False)
+insertRows(pfl_row_len2, prev_row_ptr, array_pos, False)
 
 # Creating the Files for autonomous runs *****
 

@@ -111,10 +111,18 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     # print(str(this_event_past))
+    try:
+        d = pq("<html></html>")
+        d = pq(etree.fromstring("<html></html>"))
+        d = pq(url='%s' % (event_main_event_url))
+    except Exception as e:
+        print(f"An error occurred while initializing PyQuery for the URL {event_main_event_url}: {e}")
+        break  # or continue, depending on your requirement
 
-    d = pq("<html></html>")
-    d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_main_event_url))
+
+    #d = pq("<html></html>")
+    #d = pq(etree.fromstring("<html></html>"))
+    #d = pq(url='%s' % (event_main_event_url))
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 

@@ -40,7 +40,10 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
+# this is useful for first time run. But if you are running perpetually, we can shorten this by only looking for upcoming events
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
+# Here we will add event_past = 0 - that way when we select we are only going to scrape upcoming events from ufc, our database is loaded with the previous ones.
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
 
 # initialize the arrays
 g_event_name = []
@@ -88,7 +91,8 @@ db = MySQLdb.connect(
 )
 
 cur = db.cursor()
-#cur.execute("TRUNCATE wiki_mma_fight_cards")
+#first we are deleting the events which are upcoming, so we don't get duplicate fights
+cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533

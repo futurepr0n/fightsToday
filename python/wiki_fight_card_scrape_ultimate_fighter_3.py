@@ -36,7 +36,10 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%UFC\_on\_%' AND event_org = 'UFC' AND event_fight_card_url NOT LIKE '%\_in\_UFC#UFC\_%'")
+# Commenting out the query which is good for initial run, since we are going to look for upcoming events only
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%UFC\_on\_%' AND event_org = 'UFC' AND event_fight_card_url NOT LIKE '%\_in\_UFC#UFC\_%'")
+# use this one below after initial run, as it looks for event_past = 0
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%UFC\_on\_%' AND event_org = 'UFC' AND event_fight_card_url NOT LIKE '%\_in\_UFC#UFC\_%' AND event_past = 0")
 
 # initialize the arrays
 g_event_name = []

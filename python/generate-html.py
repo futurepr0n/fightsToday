@@ -22,6 +22,9 @@ from totalevents import *
 from bellator_pastevents import *
 from bellator_schedevents import * 
 from bellator_totalevents import *
+from pfl_pastevents import *
+from pfl_schedevents import * 
+from pfl_totalevents import *
 import os
 
 
@@ -77,7 +80,7 @@ def dateify(s):
 
 # year = ['January',  'February',  'March',  'April',  'May',  'June',  'July',  'August',  'September',  'October',  'November',  'December']
 
-def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name):
+def main(poster_url, poster_id, fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name, pfl_event_fight_poster_url, pfl_event_id, pfl_event_fight_card_url, pfl_event_date, pfl_event_name):
 
     print('''<?php
 session_start();
@@ -257,6 +260,8 @@ session_start();
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Past UFC Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorup">Upcoming Bellator Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorpast">Past Bellator Events</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#pflup">Upcoming PFL Events</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#pflpast">Past PFL Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/picks/">My Picks</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/trivia/">Trivia</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://fights.today/ical/">iCal</a></li>
@@ -463,7 +468,100 @@ session_start();
                     
                 });
             </script>
+          </div>
+          </section>
+          <!--PFL Section -->
+        <!-- PFL Upcoming Events-->
+        <section class="page-section" id="pflup">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Upcoming PFL Events</h2>
+                    <h3 class="section-subheading text-muted">Next up from PFL</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="features_ara">
+                        <p>
+''', file=f)
+    
+    ##This section needs to produce the Upcoming PFL Events
+    #############################################################
+    # nrows = len(poster_url)
+
+    for x in range(PFL_PAST_EVENTS, PFL_TOTAL_EVENTS):
+        event_container_string = pfl_event_name[x]
+        modified_string = event_container_string.replace(" ", "_")
+        print('<div class="event-container" id="%s">' % (modified_string), file=f)
+        print('<tr><th><h2>%s</h2></th></tr><br>' % (pfl_event_name[x]), file=f)
+        print('<tr><th><h6>%s</h6></th></tr><br>' % (pfl_event_date[x]), file=f)
+        
+        if(pfl_poster_url[x]=="https:"):
+            print('<img src="https://fights.today/images/pfl_placeholder.png" alt="PFL event poster for %s"><br>' % (pfl_event_name[x]), file=f)
+        else:
+            print('<img src="%s" alt="PFL event poster for %s"><br>' % (pfl_poster_url[x], pfl_event_name[x]), file=f)
+        print('<div class="event-section">', file=f)
+        # str1 = urlify(event_name[x])
+        # str2 = dateify(event_date[x])
+        ## print '<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&details=&location=&sf=true&output=xml">Add to Google Calendar</a>'%(str1, str2, str2)
+        # print('<p>%s %s %s ' % (str1, str2, str2), file=f)
+        ## http://www.google.com/calendar/event?action=TEMPLATE&text=Event1&dates=20140905/20140905&details=&location=&trp=false&sprop=&sprop=name:
+        ## print '<img src="images/Small_Wikipedia_logo.png">'
+        print('</td></tr><br>', file=f)
+        print('</div>', file=f)
+        print('</div>', file=f)
+        print('<p>', file=f)
+
+
+
+    print('''
+                  </p>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio Grid-->
+        <section class="page-section" id="pflpast">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Past PFL Events</h2>
+                <h3 class="section-subheading text-muted">Discover results from the latest PFL bouts</h3>
+            </div>
+            <div id="demo-flat" class="demo">
+                <div id="flat">
+                <ul>''', file=f)
+
+    ##This section needs to produce the Past UFC Events
+    #############################################################
+    # nrows = len(poster_url)
+
+    zpfl = PFL_PAST_EVENTS 
+    length_of_loop3 = PFL_PAST_EVENTS - PFL_SCHED_EVENTS
+    while zpfl >= length_of_loop3:
+        print('<li data-flip-title="%s">' %  (pfl_event_name[zpfl]), file=f)
+        print('<a href="%s" class="Button Block">' %(pfl_event_fight_card_url[zpfl]), file=f)
+        if(pfl_event_fight_poster_url[zpfl] == "https:"):
+            print('<img src="https://fights.today/images/pfl_placeholder.png" alt="Bellator event poster for %s"><br>' % (pfl_event_name[zpfl]), file=f)
+        else:
+            print('<img src="%s" alt="PFL event poster for %s"><br>' % (pfl_event_fight_poster_url[zpfl],pfl_event_name[zpfl]), file=f)
+        #print('<img src="https://cdn.mmaweekly.com/wp-content/uploads/2017/01/Bellator-173-and-BAMMA-28-Fight-Poster.jpg">', file=f)
+        # print '<img src="images/Small_Wikipedia_logo.png">'
+        print('</a></li>', file=f)
+        zpfl-=1
+
+    print('''
+          </ul>
+                </div>
+            
             <script>
+                var flat = $("#flat2").flipster({
+                    style: 'flat',
+                    spacing: -0.25,
+                    start: 'left'
+                    
+                });
+            </script>
+          </div>
+          </section>
+
+                  <script>
             // Get the modal and modal content elements
 const modal = document.getElementById("eventModal");
 const modalContent = document.querySelector("#eventModal .modal-content");
@@ -562,9 +660,9 @@ function toggleContent(event) {
 }
 
             </script>
-            </div>
-            </section>
          <!-- More -->
+
+
         <section class="page-section" id="more">
             <div class="container">
                 <div class="text-center">

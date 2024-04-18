@@ -45,7 +45,7 @@ def loadPosterData (event_url):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching the URL {event_url}: {e}")
         # Return a default URL
-        ev_fp_wbst = "https://fights.today/pfl_placeholder.png"
+        ev_fp_wbst = "https://fights.today/images/pfl_placeholder.png"
         return ev_fp_wbst
         
 

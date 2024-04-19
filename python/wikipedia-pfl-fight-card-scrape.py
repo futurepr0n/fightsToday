@@ -95,7 +95,14 @@ for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
-    page = requests.get('%s' % (event_main_event_url))
+    try:
+         page = requests.get('%s' % (event_main_event_url))
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while fetching the URL {event_main_event_url}: {e}")
+        page = requests.get('https://en.wikipedia.org/wiki/Main_Page')
+        continue  # Skip the current iteration and move to the next URL
+    
+    # page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
 
     this_event_name = g_event_name[x]
@@ -111,33 +118,16 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     # print(str(this_event_past))
-    try:
-        d = pq("<html></html>")
-        d = pq(etree.fromstring("<html></html>"))
-        d = pq(url='%s' % (event_main_event_url))
-    except Exception as e:
-        print(f"An error occurred while initializing PyQuery for the URL {event_main_event_url}: {e}")
-        break  # or continue, depending on your requirement
-
-
-    #d = pq("<html></html>")
-    #d = pq(etree.fromstring("<html></html>"))
-    #d = pq(url='%s' % (event_main_event_url))
+    
+    d = pq("<html></html>")
+    d = pq(etree.fromstring("<html></html>"))
+    d = pq(url='%s' % (event_main_event_url))
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
     row_len = len(p) + 1
     fight_iterator = 1
     for z in range(3, row_len):
-        #asccii_string3 = ''
-        #fgtr1_wbst = ''
-        #asccii_string4 = ''
-        #fgtr2_wbst = ''
-        #ascii_fight_weightclass = ''
-        #ascii_fight_method = ''
-        #ascii_fight_time = ''
-        #ascii_fight_round = ''
-        
         
         fighter_one_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',

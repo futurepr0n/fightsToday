@@ -525,14 +525,14 @@ session_start();
                 <h3 class="section-subheading text-muted">Discover results from the latest PFL bouts</h3>
             </div>
             <div id="demo-flat" class="demo">
-                <div id="flat">
+                <div id="flat3">
                 <ul>''', file=f)
 
     ##This section needs to produce the Past UFC Events
     #############################################################
     # nrows = len(poster_url)
 
-    zpfl = PFL_PAST_EVENTS 
+    zpfl = PFL_PAST_EVENTS - 1
     length_of_loop3 = PFL_PAST_EVENTS - PFL_SCHED_EVENTS
     while zpfl >= length_of_loop3:
         print('<li data-flip-title="%s">' %  (pfl_event_name[zpfl]), file=f)
@@ -551,7 +551,7 @@ session_start();
                 </div>
             
             <script>
-                var flat = $("#flat2").flipster({
+                var flat = $("#flat3").flipster({
                     style: 'flat',
                     spacing: -0.25,
                     start: 'left'

@@ -42,7 +42,7 @@ cur = db.cursor()
 # This section will query the database and return all data in the table
 #cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%Bellator\_MMA%%' AND event_org = 'Bellator'")
 # this query is for only upcoming events.
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%Bellator\_MMA%%' AND event_org = 'Bellator' AND event_past = 0")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%Bellator\_MMA%%' AND event_org = 'Bellator'")
 
 
 

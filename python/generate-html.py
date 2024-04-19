@@ -256,6 +256,7 @@ session_start();
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#nextup">Next Event</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Upcoming UFC Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Past UFC Events</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bellatorup">Upcoming Bellator Events</a></li>
@@ -286,7 +287,7 @@ session_start();
             <div class="container">
                 <h1 class="masthead-subheading"> Welcome to fights.Today!</h1>
                 <div class="masthead-heading text-uppercase">A way to see what fights are happening today.</div>
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#nextup">Tell Me More</a>
             </div>
         </header>
         <!-- Modal HTML -->
@@ -300,8 +301,8 @@ session_start();
         <section class="page-section" id="nextup">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Next Up</h2>
-                    <h3 class="section-subheading text-muted">The very next MMA event.. Click or tap the poster to view the Fight Card</h3>
+                    <h2 class="section-heading text-uppercase">Next MMA Event is...</h2>
+                    <h3 class="section-subheading text-muted">Click or tap the poster to view the Fight Card</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-lg-12 col-md-12">

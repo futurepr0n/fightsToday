@@ -808,8 +808,26 @@ for row2 in cur.fetchall():
     bellator_event_date.append(row2[3])
     bellator_event_name.append(row2[4])
 
+# Bellator query
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'PFL'")
+
+pfl_event_fight_poster_url = []
+pfl_event_id = []
+pfl_event_fight_card_url = []
+pfl_event_date = []
+pfl_event_name = []
+
+
+for row3 in cur.fetchall():
+    pfl_event_fight_poster_url.append(row3[0])
+    pfl_event_id.append(row3[1])
+    pfl_event_fight_card_url.append(row3[2])
+    pfl_event_date.append(row3[3])
+    pfl_event_name.append(row3[4])
+
+
 if __name__ == "__main__":
     f = open("index.php", "a")
-    main(event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name)
+    main(event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name, bellator_event_fight_poster_url, bellator_event_id, bellator_event_fight_card_url, bellator_event_date, bellator_event_name, pfl_event_fight_poster_url, pfl_event_id, pfl_event_fight_card_url, pfl_event_date, pfl_event_name)
     f.close()
 

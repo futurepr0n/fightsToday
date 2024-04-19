@@ -289,6 +289,104 @@ session_start();
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
             </div>
         </header>
+        <!-- Modal HTML -->
+        <div id="eventModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+          <!-- Next up -->
+        <section class="page-section" id="nextup">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Next Up</h2>
+                    <h3 class="section-subheading text-muted">The very next MMA event.. Click or tap the poster to view the Fight Card</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="features_ara">
+<?php
+$servername = "markpereira.com";
+$username = "mark5463_ft_test";
+$password = "fttesting66";
+$dbname = "mark5463_ft_prod";
+$conn = new mysqli($servername, $username, $password, $dbname);
+$currentDate = date("F j, Y");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$conn->set_charset("utf8");
+
+// New Query to set up the events we will be displaying in a table
+$eventNamesQuery = "
+    SELECT DISTINCT w.event_name, e.event_date, o.event_fight_poster_url,e.wiki_event_id
+    FROM wiki_mma_fight_cards AS w
+    JOIN wiki_mma_events_poster AS o ON w.event_name = o.event_name AND w.wiki_event_id = o.wiki_event_poster_id
+    JOIN wiki_mma_events AS e ON w.wiki_event_id = e.wiki_event_id
+    WHERE w.event_past = 0
+    AND w.event_org IN ('UFC','Bellator', 'PFL')
+        AND STR_TO_DATE(e.event_date, '%M %d, %Y') >= STR_TO_DATE('$currentDate', '%M %d, %Y')
+    ORDER BY STR_TO_DATE(e.event_date, '%M %d, %Y') ASC
+    LIMIT 1;
+";
+
+$eventNamesResult = $conn->query($eventNamesQuery);
+
+if ($eventNamesResult->num_rows > 0) {
+  while ($eventNameRow = $eventNamesResult->fetch_assoc()) {
+    $eventName = $eventNameRow['event_name'];
+    $eventPoster = $eventNameRow['event_fight_poster_url'];
+    $eventDate = $eventNameRow['event_date'];
+    $eventId = $eventNameRow['wiki_event_id'];
+
+    // Generate the HTML code for the section header
+    echo '<p>';
+    echo '<div class="event-container" id="' . $eventName . '">';
+    echo '<tr><th><h2>' . $eventName . '</h2></th></tr><br>';
+    echo '<tr><th><h6>' . $eventDate . '</h6></th></tr><br>';
+
+    if ($eventPoster === "https:") {
+      if (strpos($eventName, 'UFC') !== false) 
+      {
+        echo '<img src="https://fights.today/images/ufc_placeholder.png">';
+      } 
+      elseif (strpos($eventName, 'Bellator') !== false) 
+      {
+        echo '<img src="https://fights.today/images/bellator_placeholder.png">';
+      } 
+      elseif (strpos($eventName, 'PFL') !== false) 
+      {
+        echo '<img src="https://fights.today/images/pfl_placeholder.png">';
+      } 
+      else 
+      {
+        echo '<img src="' . $eventPoster . '"/>';
+      }
+    } 
+    else {
+        // Handle the case when $eventPoster has less than or equal to 6 characters
+        // You can choose to display a default image or show an error message
+        echo '<img src="' . $eventPoster . '"/>';
+    }
+    echo '<div class="event-section">';
+    echo '</td></tr><br>';
+    echo '</div>';
+    echo '</div>';
+    echo '</p>';
+}
+}
+$conn->close();
+
+?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container">
@@ -300,13 +398,7 @@ session_start();
                     <div class="col-lg-12 col-md-12">
                         <div class="features_ara">
                         <p>
-<!-- Modal HTML -->
-<div id="eventModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <div id="modalContent"></div>
-    </div>
-</div>
+
 ''', file=f)
 
     ##This section needs to produce the Upcoming Events

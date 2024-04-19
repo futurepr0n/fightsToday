@@ -495,10 +495,10 @@ session_start();
         print('<tr><th><h2>%s</h2></th></tr><br>' % (pfl_event_name[x]), file=f)
         print('<tr><th><h6>%s</h6></th></tr><br>' % (pfl_event_date[x]), file=f)
         
-        if(pfl_poster_url[x]=="https:"):
+        if(pfl_event_fight_poster_url[x]=="https:"):
             print('<img src="https://fights.today/images/pfl_placeholder.png" alt="PFL event poster for %s"><br>' % (pfl_event_name[x]), file=f)
         else:
-            print('<img src="%s" alt="PFL event poster for %s"><br>' % (pfl_poster_url[x], pfl_event_name[x]), file=f)
+            print('<img src="%s" alt="PFL event poster for %s"><br>' % (pfl_event_fight_poster_url[x], pfl_event_name[x]), file=f)
         print('<div class="event-section">', file=f)
         # str1 = urlify(event_name[x])
         # str2 = dateify(event_date[x])

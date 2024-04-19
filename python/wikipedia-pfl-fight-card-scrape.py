@@ -40,7 +40,7 @@ db = MySQLdb.connect(
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'PFL'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'PFL' ORDER BY event_id ASC")
 
 # initialize the arrays
 g_event_name = []

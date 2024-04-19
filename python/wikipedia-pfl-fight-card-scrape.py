@@ -338,7 +338,8 @@ for x in range(0, x_range):  # prev 0, 533
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
-        if e_f1 and e_f2 and ascii_fight_weightclass:
+        if e_f1 and e_f2 and e_f1 != 0 and e_f2 != 0 and ascii_fight_weightclass:
+        # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards
                 (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass, wiki_fight_id)

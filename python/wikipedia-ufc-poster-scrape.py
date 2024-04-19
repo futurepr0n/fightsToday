@@ -93,7 +93,11 @@ cur = db.cursor()
 #cur.execute("TRUNCATE wiki_mma_events_poster ")
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' ORDER BY event_id ASC")
+#cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' ORDER BY event_id ASC")
+#This query is for when events in the past have already been loaded
+cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' AND event_past = 0 ORDER BY event_id ASC")
+
+
 
 # initialize the arrays
 g_event_name = []

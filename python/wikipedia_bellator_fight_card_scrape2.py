@@ -52,7 +52,11 @@ db = MySQLdb.connect(**db_params)
 cur = db.cursor()
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator\_MMA\_in%%' AND event_fight_card_url NOT LIKE '%%Season%%' AND event_fight_card_url NOT LIKE '%%Summer\_Series%%'")
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator\_MMA\_in%%' AND event_fight_card_url NOT LIKE '%%Season%%' AND event_fight_card_url NOT LIKE '%%Summer\_Series%%'")
+# Events upcoming only
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'Bellator' AND event_fight_card_url NOT LIKE '%%Bellator\_MMA\_in%%' AND event_fight_card_url NOT LIKE '%%Season%%' AND event_fight_card_url NOT LIKE '%%Summer\_Series%%' AND event_past = 0")
+
+
 
 # initialize the arrays
 g_event_name = []

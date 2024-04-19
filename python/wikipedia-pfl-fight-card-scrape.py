@@ -99,7 +99,7 @@ for x in range(0, x_range):  # prev 0, 533
          page = requests.get('%s' % (event_main_event_url))
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching the URL {event_main_event_url}: {e}")
-        page = requests.get('https://en.wikipedia.org/wiki/Main_Page')
+        # page = requests.get('https://en.wikipedia.org/wiki/Main_Page')
         continue  # Skip the current iteration and move to the next URL
     
     # page = requests.get('%s' % (event_main_event_url))
@@ -121,7 +121,12 @@ for x in range(0, x_range):  # prev 0, 533
     
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_main_event_url))
+
+    try:
+        d = pq(url='%s' % (event_main_event_url))
+    except Exception as e:
+        print(f"An error occurred while parsing the HTML of {event_main_event_url}: {e}")
+        continue  # Skip the current iteration and move to the next URL
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 

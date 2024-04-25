@@ -41,9 +41,9 @@ cur = db.cursor()
 
 # This section will query the database and return all data in the table
 # this is useful for first time run. But if you are running perpetually, we can shorten this by only looking for upcoming events
-#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
 # Here we will add event_past = 0 - that way when we select we are only going to scrape upcoming events from ufc, our database is loaded with the previous ones.
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
 
 # initialize the arrays
 g_event_name = []

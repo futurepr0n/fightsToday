@@ -54,9 +54,9 @@ cur = db.cursor()
 
 # This section will query the database and return all data in the table
 # but we will comment it out and then use a query which will select only if the event is upcoming
-#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC'")
 # by adding event_past = 0  we will only return upcoming events, use the one above and comment this below one out if running from first time.
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC' AND event_past = 0")
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC' AND event_past = 0")
 
 
 # initialize the arrays

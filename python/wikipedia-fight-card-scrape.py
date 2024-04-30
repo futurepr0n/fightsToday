@@ -151,7 +151,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_array:
-            newstr3 = ''.join(fighter_one_array) 
+            newstr3 = ''.join(fighter_one_array).strip() 
             asccii_string3 = smart_str(newstr3)
             g_fighter_one.append(asccii_string3)
         else:
@@ -167,10 +167,10 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_url_array:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array).strip()
             g_fighter_one_url.append(fgtr1_wbst)
         else:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array).strip()
             g_fighter_one_url.append(fgtr1_wbst)
                 
             '''
@@ -194,7 +194,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_array:
-            newstr4 = ''.join(fighter_two_array) 
+            newstr4 = ''.join(fighter_two_array).strip() 
             asccii_string4 = smart_str(newstr4)
             g_fighter_two.append(asccii_string4)
         else:
@@ -211,10 +211,10 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_url_array:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array).strip()
             g_fighter_two_url.append(fgtr2_wbst)
         else:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array).strip()
             g_fighter_two_url.append(fgtr2_wbst)
             '''
             fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
@@ -234,7 +234,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_method_array:
-            new_fight_method_string = ''.join(fight_method_array)
+            new_fight_method_string = ''.join(fight_method_array).strip()
             ascii_fight_method = smart_str(new_fight_method_string)
         else:
             new_fight_method_string = ''
@@ -258,7 +258,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_round_array:
-            new_fight_round_string = ''.join(fight_round_array)
+            new_fight_round_string = ''.join(fight_round_array).strip()
             ascii_fight_round = smart_str(new_fight_round_string)
         else:
             new_fight_round_string = ''
@@ -282,7 +282,7 @@ for x in range(0, x_range):  # prev 0, 533
                     break
 
         if fight_time_array:
-            new_fight_time_string = ''.join(fight_time_array)
+            new_fight_time_string = ''.join(fight_time_array).strip()
             ascii_fight_time = smart_str(new_fight_time_string)
         else:
             new_fight_time_string = ''
@@ -309,7 +309,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_weightclass_array:
-            new_fight_weightclass_string = ''.join(fight_weightclass_array)
+            new_fight_weightclass_string = ''.join(fight_weightclass_array).strip()
             ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
         else:
             new_fight_weightclass_string = ''

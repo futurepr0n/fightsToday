@@ -10,4 +10,7 @@ file.close()                                    # close file and FTP
 file = open('all_events.ics','rb')                  # file to send
 session.storbinary('STOR all_events.ics', file)     # send the file
 file.close()     
+file = open('all_events_test.ics','rb')                  # file to send
+session.storbinary('STOR all_events_test.ics', file)     # send the file
+file.close()     
 session.quit()

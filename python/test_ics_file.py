@@ -10,7 +10,7 @@ import requests
 import MySQLdb
 import os
 
-def createEvents(event_date, event_fight_card_url, event_name, event_org, event_description, event_image_url):
+def createEvents(event_date, event_fight_card_url, event_name, event_org, event_description):
     print('+++++++++++++++++++++++++++++')
     print('Event Date: ')
     print(event_date)
@@ -47,8 +47,6 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org, event_
     e.make_all_day()  # Make it an all-day event
     e.url = event_fight_card_url
     e.description = event_description
-    if event_image_url:
-        e.extra.append(('IMAGE', event_image_url))
 
     MMACalendar.events.add(e)
     return
@@ -67,14 +65,6 @@ def getFightBreakdown(event_name, cursor):
         weightclass, fighter_one, fighter_two = fight
         description += f"{weightclass} - {fighter_one} vs {fighter_two}\n"
     return description
-
-def getEventImageUrl(event_name, cursor):
-    query = "SELECT event_image_url FROM wiki_mma_events_poster WHERE event_name = %s"
-    cursor.execute(query, (event_name,))
-    result = cursor.fetchone()
-    if result:
-        return result[0]
-    return None
 
 # Database Connection
 db = MySQLdb.connect(
@@ -115,8 +105,7 @@ x_range = len(event_name)
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):
     description = getFightBreakdown(event_name[x], cur)
-    image_url = getEventImageUrl(event_name[x], cur)
-    createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x], description, image_url)
+    createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x], description)
 
-with open('all_events_test.ics', 'w') as f:
+with open('all_events.ics', 'w') as f:
     f.writelines(MMACalendar)

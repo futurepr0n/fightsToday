@@ -435,6 +435,31 @@ node {
 //         discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    }
+      stage('Build Test ICS File') {
+      // Run the build
+       withCredentials([
+                string(
+                    credentialsId: 'mysql-id',
+                    variable: 'MYSQL_ID'
+                ),
+                string(
+                    credentialsId: 'mysql-password',
+                    variable: 'MYSQL_PASSWORD'
+                ),
+                string(
+                    credentialsId: 'mysql-host',
+                    variable: 'MYSQL_HOST'
+                )
+      ]){
+         if (isUnix()) {
+            sh 'pipenv run python python/test_ics_file.py'
+         } else { //Run in windows
+            //bat(/"python stuff here"/)
+         }
+         //##discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
+//         discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
+   }
+   }
    stage('Upload To Server') {
        withCredentials([
                 string(

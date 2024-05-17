@@ -235,10 +235,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_method_array:
             new_fight_method_string = ''.join(fight_method_array)
-            ascii_fight_method = smart_str(new_fight_method_string)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
         else:
             new_fight_method_string = ''
-            ascii_fight_method = smart_str(new_fight_method_string)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
                 
             '''    
             fight_method_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()' % (z))
@@ -259,10 +259,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_round_array:
             new_fight_round_string = ''.join(fight_round_array)
-            ascii_fight_round = smart_str(new_fight_round_string)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
         else:
             new_fight_round_string = ''
-            ascii_fight_round = smart_str(new_fight_round_string)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
             
             '''
             fight_round_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()' % (z))
@@ -283,10 +283,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_time_array:
             new_fight_time_string = ''.join(fight_time_array)
-            ascii_fight_time = smart_str(new_fight_time_string)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
         else:
             new_fight_time_string = ''
-            ascii_fight_time = smart_str(new_fight_time_string)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
                     
             '''
             fight_time_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()' % (z))
@@ -310,10 +310,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_weightclass_array:
             new_fight_weightclass_string = ''.join(fight_weightclass_array)
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
         else:
             new_fight_weightclass_string = ''
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
             
             '''    
             fight_weightclass_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()' % (z))
@@ -340,10 +340,7 @@ for x in range(0, x_range):  # prev 0, 533
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator).strip()
         # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
         if e_f1 and e_f2 and ascii_fight_weightclass:
-          if ((e_f1 != '0' and e_f2 != '0') or 
-          (e_f1 != '1' and e_f2 != '1') or 
-          (e_f1 != '0' and e_f2 != '2') or 
-          (e_f1 != '1' and e_f2 != '0')):        
+          if not ((e_f1 == '1' and e_f2 == '1') or (e_f1 == '0' and e_f2 == '2') or (e_f1 == '1' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '1' and not ascii_fight_weightclass)):     
         # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards

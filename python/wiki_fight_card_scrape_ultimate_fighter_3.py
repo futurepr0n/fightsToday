@@ -304,7 +304,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         # e_ei = ''.join(g_fight_card_event_id[y])
         e_wei = ''.join(this_wiki_event_id).strip()
         e_ep = ''.join(str(this_event_past)).strip()
-        db_ep_int = int(e_ep).strip()
+        db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_round and ascii_fight_time and ascii_fight_weightclass:
             query = """

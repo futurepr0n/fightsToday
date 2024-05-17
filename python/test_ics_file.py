@@ -107,5 +107,5 @@ for x in range(0, x_range):
     description = getFightBreakdown(event_name[x], cur)
     createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x], description)
 
-with open('all_events.ics', 'w') as f:
+with open('all_events_test.ics', 'w') as f:
     f.writelines(MMACalendar)

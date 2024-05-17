@@ -51,14 +51,14 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org, event_
     MMACalendar.events.add(e)
     return
 
-def getFightBreakdown(event_fight_card_url, cursor):
+def getFightBreakdown(event_name, wiki_event_id, cursor):
     query = """
     SELECT weightclass, fighter_one, fighter_two
     FROM wiki_mma_fight_cards
-    WHERE  event_url = %s
+    WHERE event_name = %s AND wiki_event_id = %s
     ORDER BY CAST(SUBSTRING(wiki_fight_id, LOCATE('Fight', wiki_fight_id) + 5) AS UNSIGNED)
     """
-    cursor.execute(query, (event_fight_card_url,))
+    cursor.execute(query, (event_name, wiki_event_id))
     fight_breakdowns = cursor.fetchall()
     description = "Fight Card:\n"
     for fight in fight_breakdowns:
@@ -104,7 +104,7 @@ x_range = len(event_name)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):
-    description = getFightBreakdown(event_name[x], cur)
+    description = getFightBreakdown(event_name[x], wiki_event_id[x], cur)
     createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x], description)
 
 with open('all_events_test.ics', 'w') as f:

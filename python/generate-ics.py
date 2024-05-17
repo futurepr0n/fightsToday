@@ -255,6 +255,6 @@ for x in range(0, x_range):  # prev 0, 533
 
     # time.sleep(5)
 
-with open('all_events.ics', 'w') as f:
+with open('all_events_test.ics', 'w') as f:
     f.writelines(MMACalendar)
 

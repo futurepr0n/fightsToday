@@ -326,25 +326,24 @@ for x in range(0, x_range):  # prev 0, 533
         g_fight_card_org.append(this_event_org)
         g_fight_card_wiki_event_id.append(this_wiki_event_id)
         g_fight_card_event_past.append(str(this_event_past))
-        e_name = ''.join(this_event_name)
-        e_f1 = ''.join(asccii_string3)
-        e_f1_url = ''.join(fgtr1_wbst)
-        e_f2 = ''.join(asccii_string4)
-        e_f2_url = ''.join(fgtr2_wbst)
-        e_fc_url = ''.join(event_main_event_url)
-        e_org = ''.join(this_event_org)
+        e_name = ''.join(this_event_name).strip()
+        e_f1 = ''.join(asccii_string3).strip()
+        e_f1_url = ''.join(fgtr1_wbst).strip()
+        e_f2 = ''.join(asccii_string4).strip()
+        e_f2_url = ''.join(fgtr2_wbst).strip()
+        e_fc_url = ''.join(event_main_event_url).strip()
+        e_org = ''.join(this_event_org).strip()
          # e_ei = ''.join(g_fight_card_event_id[y])
-        e_wei = ''.join(this_wiki_event_id)
-        e_ep = ''.join(str(this_event_past))
+        e_wei = ''.join(this_wiki_event_id).strip()
+        e_ep = ''.join(str(this_event_past)).strip()
         db_ep_int = int(e_ep)
-        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
+        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator).strip()
         # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
         if e_f1 and e_f2 and ascii_fight_weightclass:
           if ((e_f1 != '0' and e_f2 != '0') or 
           (e_f1 != '1' and e_f2 != '1') or 
           (e_f1 != '0' and e_f2 != '2') or 
-          (e_f1 != '1' and e_f2 != '0') or 
-          (e_f1 != '0' and e_f2 != '0')):        
+          (e_f1 != '1' and e_f2 != '0')):        
         # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards

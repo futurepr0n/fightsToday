@@ -338,7 +338,13 @@ for x in range(0, x_range):  # prev 0, 533
         e_ep = ''.join(str(this_event_past))
         db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
-        if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 10and e_ep != 0):
+        # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
+        if e_f1 and e_f2 and ascii_fight_weightclass:
+          if ((e_f1 != '0' and e_f2 != '0') or 
+          (e_f1 != '1' and e_f2 != '1') or 
+          (e_f1 != '0' and e_f2 != '2') or 
+          (e_f1 != '1' and e_f2 != '0') or 
+          (e_f1 != '0' and e_f2 != '0')):        
         # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards
@@ -363,6 +369,7 @@ for x in range(0, x_range):  # prev 0, 533
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
             fight_iterator = fight_iterator + 1
+          else: print("Not all vars required for insertion")
         else:
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,ascii_fight_weightclass)

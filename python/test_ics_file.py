@@ -53,17 +53,23 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org, event_
 
 def getFightBreakdown(event_name, wiki_event_id, cursor):
     query = """
-    SELECT weightclass, fighter_one, fighter_two
+    SELECT weightclass, fighter_one, fighter_two, event_past, method
     FROM wiki_mma_fight_cards
     WHERE event_name = %s AND wiki_event_id = %s
     ORDER BY CAST(SUBSTRING(wiki_fight_id, LOCATE('Fight', wiki_fight_id) + 5) AS UNSIGNED)
     """
     cursor.execute(query, (event_name, wiki_event_id))
     fight_breakdowns = cursor.fetchall()
-    description = "Fight Card:\n"
-    for fight in fight_breakdowns:
-        weightclass, fighter_one, fighter_two = fight
-        description += f"{weightclass} - {fighter_one} vs {fighter_two}\n"
+    if fight_breakdowns and fight_breakdowns[0][3] == 1:  # Check if event_past is 1
+        description = "Fight Card:\n"
+        for fight in fight_breakdowns:
+            weightclass, fighter_one, fighter_two, event_past, method = fight
+            description += f"{weightclass} - {fighter_one} defeated {fighter_two} via {method}\n"
+    else:
+        description = "Fight Card:\n"
+        for fight in fight_breakdowns:
+            weightclass, fighter_one, fighter_two, event_past, method = fight
+            description += f"{weightclass} - {fighter_one} vs {fighter_two}\n"
     return description
 
 # Database Connection
@@ -107,5 +113,5 @@ for x in range(0, x_range):
     description = getFightBreakdown(event_name[x], wiki_event_id[x], cur)
     createEvents(event_date[x], event_fight_card_url[x], event_name[x], event_org[x], description)
 
-with open('all_events_test.ics', 'w') as f:
+with open('all_events.ics', 'w') as f:
     f.writelines(MMACalendar)

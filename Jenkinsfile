@@ -385,31 +385,6 @@ node {
 //         discordSend description: "Wikipedia Fight Cards Scraped", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Nohat-wiki-logo.png", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
       }     
    }
-   stage('Build HTML Page') {
-      // Run the build
-       withCredentials([
-                string(
-                    credentialsId: 'mysql-id',
-                    variable: 'MYSQL_ID'
-                ),
-                string(
-                    credentialsId: 'mysql-password',
-                    variable: 'MYSQL_PASSWORD'
-                ),
-                string(
-                    credentialsId: 'mysql-host',
-                    variable: 'MYSQL_HOST'
-                )
-      ]){
-         if (isUnix()) {
-            sh 'pipenv run python python/generate-html.py'
-         } else { //Run in windows
-            //bat(/"python stuff here"/)
-         }
-         //##discordSend description: "WebPage Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media3.giphy.com/media/l3vRfNA1p0rvhMSvS/200.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"
-//        discordSend description: "WebPage Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media3.giphy.com/media/l3vRfNA1p0rvhMSvS/200.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
-   }
-   }
    stage('Build ICS File') {
       // Run the build
        withCredentials([

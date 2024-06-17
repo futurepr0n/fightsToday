@@ -340,7 +340,7 @@ for x in range(0, x_range):  # prev 0, 533
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator).strip()
         # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
         if e_f1 and e_f2 and ascii_fight_weightclass:
-          if not ((e_f1 == '1' and e_f2 == '1') or (e_f1 == '0' and e_f2 == '2') or (e_f1 == '0' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '1' and not ascii_fight_weightclass)):     
+          if not ((e_f1 == '1' and e_f2 == '1') or (e_f1 == '0' and e_f2 == '2') or (e_f1 == '0' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '0') or (e_f1 == '0' and e_f2 == '1') or (e_f1 == '1' and e_f2 == '1' and not ascii_fight_weightclass)):     
         # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards

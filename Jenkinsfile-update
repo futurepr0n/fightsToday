@@ -156,7 +156,7 @@ node {
                 )
       ]){
          if (isUnix()) {
-            sh 'pipenv run python python/wikipedia-fight-card-scrape.py'
+            sh 'pipenv run python python/wikipedia-fight-card-scrape-new-only.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -232,7 +232,7 @@ node {
                 )
       ]){
          if (isUnix()) {
-            sh 'pipenv run python python/wikipedia-pfl-fight-card-scrape.py'
+            sh 'pipenv run python python/wikipedia-pfl-fight-card-scrape-new-only.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }
@@ -258,7 +258,7 @@ node {
                 )
       ]){
          if (isUnix()) {
-            sh 'pipenv run python python/wikipedia_bellator_fight_card_scrape.py'
+            sh 'pipenv run python python/wikipedia_bellator_fight_card_scrape-new-only.py'
          } else { //Run in windows
             //bat(/"python stuff here"/)
          }

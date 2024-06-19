@@ -6,6 +6,30 @@ DB_USER="mark5463_ft_test"
 DB_PASS="fttesting66"
 DB_NAME="mark5463_ft_prod"
 
+# Function to compare fighter names
+compare_fighter_names() {
+  local name1="$1"
+  local name2="$2"
+  local name1_lower
+  local name2_lower
+  local name1_parts
+  local name2_parts
+
+  name1_lower=$(echo "$name1" | tr '[:upper:]' '[:lower:]')
+  name2_lower=$(echo "$name2" | tr '[:upper:]' '[:lower:]')
+  IFS=' ' read -r -a name1_parts <<< "$name1_lower"
+  IFS=' ' read -r -a name2_parts <<< "$name2_lower"
+
+  for part1 in "${name1_parts[@]}"; do
+    for part2 in "${name2_parts[@]}"; do
+      if [ "$part1" == "$part2" ]; then
+        return 0
+      fi
+    done
+  done
+  return 1
+}
+
 # Download JSON files
 wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
 wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
@@ -13,54 +37,55 @@ wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftk
 
 # Files to process
 FILES=("pfl-response.json" "ufc-response.json" "bellator-response.json")
-# Function to log and handle errors
-log_and_exit() {
-  echo "$1"
-  exit 1
-}
 
 # Process each JSON file
 for FILE in "${FILES[@]}"; do
   echo "Processing file: $FILE"
-  EVENTS=$(jq -c '.eventGroup.events[]' "$FILE" 2>/dev/null) || log_and_exit "Failed to parse events in $FILE"
+  EVENT_GROUP_NAME=$(jq -r '.eventGroup.name' "$FILE")
 
-  # Check if EVENTS is not null
-  if [ -z "$EVENTS" ]; then
-    log_and_exit "No events found in $FILE"
-  fi
+  OFFER_CATEGORIES=$(jq -c '.eventGroup.offerCategories[]' "$FILE")
 
-  # Iterate over each event
-  echo "$EVENTS" | while IFS= read -r EVENT; do
-    EVENT_NAME=$(echo "$EVENT" | jq -r '.name')
-    OFFERS=$(echo "$EVENT" | jq -c '.offers[]' 2>/dev/null)
+  # Iterate over each category
+  echo "$OFFER_CATEGORIES" | while IFS= read -r CATEGORY; do
+    OFFER_SUBCATEGORY_DESCRIPTORS=$(echo "$CATEGORY" | jq -c '.offerSubcategoryDescriptors[]')
 
-    # Check if OFFERS is not null
-    if [ -z "$OFFERS" ]; then
-      log_and_exit "No offers found for event: $EVENT_NAME in $FILE"
-    fi
+    # Iterate over each subcategory descriptor
+    echo "$OFFER_SUBCATEGORY_DESCRIPTORS" | while IFS= read -r DESCRIPTOR; do
+      OFFERS=$(echo "$DESCRIPTOR" | jq -c '.offerSubcategory.offers[]')
 
-    # Iterate over each offer
-    echo "$OFFERS" | while IFS= read -r OFFER; do
-      LABEL=$(echo "$OFFER" | jq -r '.label')
-      if [ "$LABEL" == "Moneyline" ]; then
-        OUTCOMES=$(echo "$OFFER" | jq -c '.outcomes[]' 2>/dev/null)
+      # Iterate over each offer group
+      echo "$OFFERS" | while IFS= read -r OFFER_GROUP; do
+        for OFFER in $(echo "$OFFER_GROUP" | jq -c '.[]'); do
+          OUTCOMES=$(echo "$OFFER" | jq -c '.outcomes[]')
 
-        # Check if OUTCOMES is not null
-        if [ -z "$OUTCOMES" ]; then
-          log_and_exit "No outcomes found for offer: $LABEL in event: $EVENT_NAME in $FILE"
-        fi
+          # Variables to store fighter names and odds
+          FIGHTER_ONE=""
+          FIGHTER_TWO=""
+          ODDS_ONE=""
+          ODDS_TWO=""
 
-        FIGHTER_ONE=$(echo "$OUTCOMES" | jq -r '.[0].participant')
-        FIGHTER_ONE_ODDS=$(echo "$OUTCOMES" | jq -r '.[0].oddsDecimal')
-        FIGHTER_TWO=$(echo "$OUTCOMES" | jq -r '.[1].participant')
-        FIGHTER_TWO_ODDS=$(echo "$OUTCOMES" | jq -r '.[1].oddsDecimal')
+          # Iterate over each outcome
+          echo "$OUTCOMES" | while IFS= read -r OUTCOME; do
+            LABEL=$(echo "$OUTCOME" | jq -r '.label')
+            ODDS_AMERICAN=$(echo "$OUTCOME" | jq -r '.oddsAmerican')
 
-        TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+            if [ -z "$FIGHTER_ONE" ]; then
+              FIGHTER_ONE="$LABEL"
+              ODDS_ONE="$ODDS_AMERICAN"
+            elif compare_fighter_names "$LABEL" "$FIGHTER_TWO"; then
+              FIGHTER_TWO="$LABEL"
+              ODDS_TWO="$ODDS_AMERICAN"
+            fi
+          done
 
-        # Insert into database
-        QUERY="INSERT INTO odds (event_name, fighter_one, fighter_one_odds, fighter_two, fighter_two_odds, timestamp) VALUES ('$EVENT_NAME', '$FIGHTER_ONE', $FIGHTER_ONE_ODDS, '$FIGHTER_TWO', $FIGHTER_TWO_ODDS, '$TIMESTAMP');"
-        mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "$QUERY" || log_and_exit "Failed to execute query: $QUERY"
-      fi
+          # Insert data if both fighters and odds are available
+          if [ -n "$FIGHTER_ONE" ] && [ -n "$FIGHTER_TWO" ] && [ -n "$ODDS_ONE" ] && [ -n "$ODDS_TWO" ]; then
+            TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+            QUERY="INSERT INTO odds (event_name, fighter_one, fighter_one_odds, fighter_two, fighter_two_odds, timestamp) VALUES ('$EVENT_GROUP_NAME', '$FIGHTER_ONE', $ODDS_ONE, '$FIGHTER_TWO', $ODDS_TWO, '$TIMESTAMP');"
+            mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "$QUERY" || echo "Failed to execute query: $QUERY"
+          fi
+        done
+      done
     done
   done
 done

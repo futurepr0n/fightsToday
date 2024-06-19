@@ -55,7 +55,7 @@ for FILE in "${FILES[@]}"; do
 
       # Iterate over each offer group
       echo "$OFFERS" | while IFS= read -r OFFER_GROUP; do
-        for OFFER in $(echo "$OFFER_GROUP" | jq -c '.[]'); do
+        echo "$OFFER_GROUP" | jq -c '.[]' | while IFS= read -r OFFER; do
           OUTCOMES=$(echo "$OFFER" | jq -c '.outcomes[]')
 
           # Variables to store fighter names and odds
@@ -72,7 +72,7 @@ for FILE in "${FILES[@]}"; do
             if [ -z "$FIGHTER_ONE" ]; then
               FIGHTER_ONE="$LABEL"
               ODDS_ONE="$ODDS_AMERICAN"
-            elif compare_fighter_names "$LABEL" "$FIGHTER_TWO"; then
+            elif [ -z "$FIGHTER_TWO" ]; then
               FIGHTER_TWO="$LABEL"
               ODDS_TWO="$ODDS_AMERICAN"
             fi
@@ -89,7 +89,6 @@ for FILE in "${FILES[@]}"; do
     done
   done
 done
-
 
 # Upload JSON files via FTP
 #lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put pfl-response.json; exit" ftp.markpereira.com

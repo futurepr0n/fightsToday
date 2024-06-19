@@ -37,7 +37,7 @@ for FILE in "${FILES[@]}"; do
         TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
         # Insert into database
-        QUERY="INSERT INTO odds (event_name, fighter_one, fighter_one_odds, fighter_two, fighter_two_odds, timestamp) VALUES ('$EVENT_NAME', '$FIGHTER_ONE', $FIGHTER_ONE_ODDS, '$FIGHTER_TWO', $FIGHTER_TWO_ODDS, '$TIMESTAMP');"
+        QUERY="INSERT INTO odds_history (event_name, fighter_one, fighter_one_odds, fighter_two, fighter_two_odds, timestamp) VALUES ('$EVENT_NAME', '$FIGHTER_ONE', $FIGHTER_ONE_ODDS, '$FIGHTER_TWO', $FIGHTER_TWO_ODDS, '$TIMESTAMP');"
         mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "$QUERY"
       fi
     done

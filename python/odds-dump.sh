@@ -31,9 +31,9 @@ compare_fighter_names() {
 }
 
 # Download JSON files
-wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
-wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
-wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112?format=json"
+#wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
+#wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
+#wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112?format=json"
 
 # Files to process
 FILES=("pfl-response.json" "ufc-response.json" "bellator-response.json")
@@ -92,6 +92,6 @@ done
 
 
 # Upload JSON files via FTP
-lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put pfl-response.json; exit" ftp.markpereira.com
-lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put ufc-response.json; exit" ftp.markpereira.com
-lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put bellator-response.json; exit" ftp.markpereira.com
+#lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put pfl-response.json; exit" ftp.markpereira.com
+#lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put ufc-response.json; exit" ftp.markpereira.com
+#lftp -u "mp3loader@markpereira.com,korn66!" -e "set ssl:verify-certificate no; put bellator-response.json; exit" ftp.markpereira.com

@@ -39,9 +39,25 @@ db = MySQLdb.connect(
 
 cur = db.cursor()
 
+new_query = '''
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'UFC' AND event_past = 0
+
+UNION ALL
+
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'UFC' AND event_past = 1 AND event_id = (
+    SELECT MAX(event_id)
+    FROM wiki_mma_events
+    WHERE event_org = 'UFC' AND event_past = 1
+)
+ORDER BY event_id;
+'''
 # This section will query the database and return all data in the table
 # this is useful for first time run. But if you are running perpetually, we can shorten this by only looking for upcoming events
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
+cur.execute(new_query)
 # Here we will add event_past = 0 - that way when we select we are only going to scrape upcoming events from ufc, our database is loaded with the previous ones.
 #cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
 

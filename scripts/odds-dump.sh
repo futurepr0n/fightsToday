@@ -34,4 +34,9 @@ do
 done
 
 # Execute the insert statements using MySQL
-mysql -h $SERVERNAME -u $USERNAME -p$PASSWORD $DBNAME < insert_statements.sql
+#mysql -h $SERVERNAME -u $USERNAME -p$PASSWORD $DBNAME < insert_statements.sql
+# Run MySQL commands using Docker
+docker run --rm -i --network=host \
+  -e MYSQL_PWD=$PASSWORD \
+  mysql:latest \
+  mysql -h $SERVERNAME -u $USERNAME $DBNAME < insert_statements.sql

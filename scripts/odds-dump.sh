@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
-wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
-wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112?format=json"
+#wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
+#wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
+#wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112?format=json"
 
 # File paths (add paths to your JSON files here)
 FILES=("ufc-response.json" "pfl-response.json" "bellator-response.json")

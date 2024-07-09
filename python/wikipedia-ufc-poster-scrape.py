@@ -44,7 +44,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     # print('+++++++++++++++++++++++++++++')
     db_e_poster_url = ''.join(poster_url)
     w_e_p_i = event_org + str(event_id)
-    # print('Adding poster URL to the Database: ', db_e_poster_url)
+    print('Adding poster URL to the Database: ', db_e_poster_url)
     # print('+++++++++++++++++++++++++++++')
     # print('+++++++++++++++++++++++++++++')
     query = """
@@ -61,7 +61,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     """
 
     values = (db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, w_e_p_i)
-
+    print(query)
     cur.execute(query, values)
 
     return;

@@ -14,31 +14,40 @@ from pyquery import PyQuery as pq
 import requests
 import MySQLdb
 import os
+import urllib.error
 
 ##### The JQuery for "The Ultimate Fighter" Posters is:
 
 #mw-content-text > table:nth-child(52) > tbody > tr:nth-child(2) > td
 
 def loadPosterData (event_url):
-    #set up the lxml, load url to scrape
-    page = requests.get('%s'%(event_url))
-    tree = html.fromstring(page.content)
+    try:
+        #set up the lxml, load url to scrape
+        page = requests.get('%s' % (event_url))
+        tree = html.fromstring(page.content)
 
-    #set up PyQuery section, load the url to scrape
-    d = pq("<html></html>")
-    d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+        #set up PyQuery section, load the url to scrape
+        d = pq("<html></html>")
+        d = pq(etree.fromstring("<html></html>"))
+        d = pq(url='%s' % (event_url))
 
-    poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
+        poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
 
-    # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
+        # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
 
+        ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
+        newstr = ev_fc_poster_wbst
+        ev_fp_wbst = "https:%s" % (newstr)
 
-    ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
-    newstr = ev_fc_poster_wbst
-    ev_fp_wbst = "https:%s"%(newstr)
+        return ev_fp_wbst
 
-    return ev_fp_wbst;
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error {e.code} for URL: {event_url}")
+        return None
+
+    except requests.exceptions.RequestException as e:
+        print(f"Request Exception {e} for URL: {event_url}")
+        return None
 
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     # print('+++++++++++++++++++++++++++++')

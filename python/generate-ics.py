@@ -142,6 +142,10 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     
     if event_date == "":
         return
+
+    # Strip leading and trailing whitespace from event_date
+    event_date = event_date.strip()
+
     
     try:
         dt = datetime.datetime.strptime(event_date, "%B %d, %Y")

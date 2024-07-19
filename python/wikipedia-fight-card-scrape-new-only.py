@@ -146,6 +146,7 @@ for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
+    print(event_main_event_url)
     page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
 

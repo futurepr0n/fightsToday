@@ -71,14 +71,39 @@ g_wiki_event_id = []
 g_event_past = []
 
 # load our arrays with all of our event data.
+#for row in cur.fetchall():
+#    g_event_id.append(row[0])
+#    g_event_fight_card_url.append(row[1])
+#    g_event_name.append(row[2])
+#    g_event_date.append(row[3])
+#    g_event_org.append(row[4])
+#    g_wiki_event_id.append(row[5])
+#    g_event_past.append(str(row[6]))
+
 for row in cur.fetchall():
     g_event_id.append(row[0])
+    print("Event ID:", row[0])
+    
     g_event_fight_card_url.append(row[1])
+    print("Event Fight Card URL:", row[1])
+    
     g_event_name.append(row[2])
+    print("Event Name:", row[2])
+    
     g_event_date.append(row[3])
+    print("Event Date:", row[3])
+    
     g_event_org.append(row[4])
+    print("Event Org:", row[4])
+    
     g_wiki_event_id.append(row[5])
+    print("Wiki Event ID:", row[5])
+    
     g_event_past.append(str(row[6]))
+    print("Event Past:", str(row[6]))
+    
+    print("------------------------------")
+
 
 # set up the fighter arrays
 g_fighter_one = []

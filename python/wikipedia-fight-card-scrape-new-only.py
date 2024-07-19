@@ -109,6 +109,10 @@ db = MySQLdb.connect(
 cur = db.cursor()
 #first we are deleting the events which are upcoming, so we don't get duplicate fights
 cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
+print("X is: ")
+print(x)
+print("X Range is: ")
+print(x_range)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533

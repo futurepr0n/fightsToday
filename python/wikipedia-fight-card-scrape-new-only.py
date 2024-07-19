@@ -114,6 +114,10 @@ print(x_range)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
+    print("variable X is : ")
+    print(x)
+    print("X Range is: ")
+    print(x_range)
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
@@ -383,7 +387,7 @@ for x in range(0, x_range):  # prev 0, 533
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
-            print(e_name,e_f1,e_f2,ascii_fight_weightclass,)
+            print(e_name,e_f1,e_f2,ascii_fight_weightclass,e_wei,w_fight_id)
 
     
 cur.close()

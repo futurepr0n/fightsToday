@@ -315,11 +315,11 @@ for x in range(0, x_range):  # prev 0, 533
             '''
         fight_weightclass_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[1]/text()']:
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[1]/text()']:
             fight_weightclass_array = tree.xpath(xpath % z)
             if fight_weightclass_array:
                 break
@@ -377,11 +377,11 @@ for x in range(0, x_range):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
-            print(query)
+            print(values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
-            print(e_name,e_f1,e_f2,ascii_fight_weightclass)
+            print(e_name,e_f1,e_f2,ascii_fight_weightclass,)
 
     
 cur.close()

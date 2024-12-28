@@ -34,23 +34,33 @@ def get_db_connection(max_retries=3):
             time.sleep(2)  # Wait 2 seconds before retrying
 
 def execute_with_retry(cursor, query, params=None, max_retries=3):
+    global db  # We need access to the global db connection
     for attempt in range(max_retries):
         try:
+            # Execute the query
             if params:
-                cursor.execute(query, params)
+                result = cursor.execute(query, params)
             else:
-                cursor.execute(query)
-            return
-        except MySQLdb.OperationalError as e:
-            if e.args[0] == 4031:  # Timeout error
-                if attempt == max_retries - 1:
-                    raise
-                # Get a fresh connection
-                cursor.connection = get_db_connection()
-                cursor = cursor.connection.cursor()
-                time.sleep(1)
-            else:
+                result = cursor.execute(query)
+            
+            # Immediately commit the transaction
+            db.commit()
+            
+            return result
+            
+        except (MySQLdb.OperationalError, MySQLdb.ProgrammingError) as e:
+            if attempt == max_retries - 1:
                 raise
+            
+            # For any database error, get a fresh connection
+            try:
+                cursor.close()
+            except:
+                pass
+                
+            db = get_db_connection()
+            cursor = db.cursor()
+            time.sleep(1)
 
 def loadPastEventsData(event_url, event_org):
     #set up the lxml, load url to scrape
@@ -179,6 +189,7 @@ def loadUpcomingEventsData(event_url, event_org):
     return row_len
 
 def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
+    global db, cur  # We need access to the global connection and cursor
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len - 1
 
@@ -200,36 +211,54 @@ def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
         print('Event in the past?:\t', str(db_e_p))
         print('Event in the past as integer?: \t', db_int_ep)
 
-        try:
-            # Check if the row exists
-            query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
-            execute_with_retry(cur, query_select, (w_e_id,))
-            existing_row = cur.fetchone()
-            
-            if existing_row:
-                query_update = """
-                    UPDATE wiki_mma_events
-                    SET event_name = %s,
-                        event_id = %s,
-                        event_fight_card_url = %s,
-                        event_org = %s,
-                        event_date = %s,
-                        event_past = %s
-                    WHERE wiki_event_id = %s
-                """
-                values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_int_ep, w_e_id)
-                execute_with_retry(cur, query_update, values_update)
-            else:
-                query_insert = """
-                    INSERT INTO wiki_mma_events 
-                    (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """
-                values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_int_ep)
-                execute_with_retry(cur, query_insert, values_insert)
-            
-            db.commit()  # Commit after each successful operation
-            print('Success!...')
+        while True:  # Keep trying until successful or unrecoverable error
+            try:
+                # Check if the row exists
+                query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
+                execute_with_retry(cur, query_select, (w_e_id,))
+                existing_row = cur.fetchone()
+                
+                if existing_row:
+                    query_update = """
+                        UPDATE wiki_mma_events
+                        SET event_name = %s,
+                            event_id = %s,
+                            event_fight_card_url = %s,
+                            event_org = %s,
+                            event_date = %s,
+                            event_past = %s
+                        WHERE wiki_event_id = %s
+                    """
+                    values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_int_ep, w_e_id)
+                    execute_with_retry(cur, query_update, values_update)
+                else:
+                    query_insert = """
+                        INSERT INTO wiki_mma_events 
+                        (event_name, event_id, event_fight_card_url, event_org, event_date, wiki_event_id, event_past)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    """
+                    values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_int_ep)
+                    execute_with_retry(cur, query_insert, values_insert)
+                
+                print('Success!...')
+                break  # Exit the while loop if successful
+                
+            except (MySQLdb.OperationalError, MySQLdb.ProgrammingError) as e:
+                print(f"Database error processing event {w_e_id}: {str(e)}")
+                print("Attempting to reconnect...")
+                # Get a fresh connection
+                try:
+                    cur.close()
+                except:
+                    pass
+                try:
+                    db.close()
+                except:
+                    pass
+                    
+                db = get_db_connection()
+                cur = db.cursor()
+                time.sleep(2)  # Wait before retrying
         except Exception as e:
             print(f"Error processing event {w_e_id}: {str(e)}")
             db.rollback()  # Rollback in case of error

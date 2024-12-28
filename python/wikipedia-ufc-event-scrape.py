@@ -34,49 +34,37 @@ def get_db_connection(max_retries=3):
             time.sleep(2)  # Wait 2 seconds before retrying
 
 def execute_with_retry(cursor, query, params=None, max_retries=3):
-    global db  # We need access to the global db connection
+    global db
     for attempt in range(max_retries):
         try:
-            # Execute the query
             if params:
                 result = cursor.execute(query, params)
             else:
                 result = cursor.execute(query)
-            
-            # Immediately commit the transaction
             db.commit()
-            
             return result
-            
         except (MySQLdb.OperationalError, MySQLdb.ProgrammingError) as e:
             if attempt == max_retries - 1:
                 raise
-            
-            # For any database error, get a fresh connection
             try:
                 cursor.close()
             except:
                 pass
-                
             db = get_db_connection()
             cursor = db.cursor()
             time.sleep(1)
 
 def loadPastEventsData(event_url, event_org):
-    #set up the lxml, load url to scrape
     page = requests.get('%s'%(event_url))
     tree = html.fromstring(page.content)
 
-    #set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url))
 
-    #get the row length by querying the event table on table rows
     p = d("#Past_events tr")
     row_len = len(p)
 
-    # ***** Creating the Files for autonomous runs *****
     pe_num = row_len - 1
     pe_string = "PAST_EVENTS = %i" %(pe_num)
     past_events = [pe_string]
@@ -86,7 +74,6 @@ def loadPastEventsData(event_url, event_org):
         print(line, file=outF_pe)
     outF_pe.close()
 
-    #run through every row in the table
     for x in range(2, row_len+1):
         event_name_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/a/text()'%(x))
         newstr = ''.join(event_name_array)
@@ -123,20 +110,16 @@ def loadPastEventsData(event_url, event_org):
     return row_len
 
 def loadUpcomingEventsData(event_url, event_org):
-    #set up the lxml, load url to scrape
     page = requests.get('%s'%(event_url))
     tree = html.fromstring(page.content)
 
-    #set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url))
 
-    #get the row length by querying the event table on table rows
     p = d("#Scheduled_events tr")
     row_len = len(p)
 
-    # Creating the Files for autonomous runs *****
     se_num = row_len - 1
     se_string = "SCHED_EVENTS = %i" %(se_num)
     sched_events = [se_string]
@@ -146,7 +129,6 @@ def loadUpcomingEventsData(event_url, event_org):
         print(line, file=outF_se)
     outF_se.close()
 
-    #run through every row in the table
     for x in range(2, row_len+1):
         event_name_array = None
         for xpath in ['//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/text()',
@@ -189,7 +171,7 @@ def loadUpcomingEventsData(event_url, event_org):
     return row_len
 
 def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
-    global db, cur  # We need access to the global connection and cursor
+    global db, cur
     array_pos = array_pos + prev_row_ptr
     event_id = prev_row_ptr + row_len - 1
 
@@ -211,7 +193,7 @@ def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
         print('Event in the past?:\t', str(db_e_p))
         print('Event in the past as integer?: \t', db_int_ep)
 
-        while True:  # Keep trying until successful or unrecoverable error
+        while True:
             try:
                 # Check if the row exists
                 query_select = "SELECT wiki_event_id FROM wiki_mma_events WHERE wiki_event_id = %s"
@@ -241,12 +223,11 @@ def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
                     execute_with_retry(cur, query_insert, values_insert)
                 
                 print('Success!...')
-                break  # Exit the while loop if successful
+                break
                 
             except (MySQLdb.OperationalError, MySQLdb.ProgrammingError) as e:
                 print(f"Database error processing event {w_e_id}: {str(e)}")
                 print("Attempting to reconnect...")
-                # Get a fresh connection
                 try:
                     cur.close()
                 except:
@@ -258,11 +239,7 @@ def insertRows(row_len, prev_row_ptr, array_pos, pe_b):
                     
                 db = get_db_connection()
                 cur = db.cursor()
-                time.sleep(2)  # Wait before retrying
-        except Exception as e:
-            print(f"Error processing event {w_e_id}: {str(e)}")
-            db.rollback()  # Rollback in case of error
-            raise
+                time.sleep(2)
 
         array_pos = (array_pos) + 1
         event_id = event_id - 1

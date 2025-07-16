@@ -31,7 +31,7 @@ compare_fighter_names() {
 }
 
 # Download JSON files
-#wget --no-check-certificate -O ufc-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/9034/categories/491?format=json"
+#wget --no-check-certificate -O ufc-response.json "https://sportsbook-nash.draftkings.com/api/sportscontent/dkcaon/v1/leagues/9034?format=json"
 #wget --no-check-certificate -O pfl-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268?format=json"
 #wget --no-check-certificate -O bellator-response.json "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112?format=json"
 

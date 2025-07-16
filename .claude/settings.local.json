@@ -8,7 +8,12 @@
       "Bash(pipenv run:*)",
       "Bash(python3:*)",
       "Bash(cat:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "WebFetch(domain:sportsbook-nash.draftkings.com)",
+      "Bash(jq:*)",
+      "Bash(bash:*)",
+      "Bash(php:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

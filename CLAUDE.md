@@ -1,10 +1,20 @@
-# CLAUDE.md
+# CLAUDE.md - FightsToday Application Architecture
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides comprehensive guidance to Claude Code (claude.ai/code) when working with the fightsToday dual-component architecture.
 
 ## Project Overview
 
-fightsToday is a web scraping and data aggregation system for MMA (Mixed Martial Arts) events. It collects event information from multiple sources (Sherdog, Wikipedia) and generates HTML pages and ICS calendar files.
+FightsToday is a dual-component MMA event aggregation platform that combines automated data collection with dynamic web presentation. The system consists of:
+
+1. **Website Generation Component** (GitHub Repository): Backend data pipeline that scrapes MMA event data, processes it through MySQL, and generates static website files
+2. **Server-Side Runtime Component** (Web Server): Live web application that serves generated content to users with dynamic database queries and interactive features
+
+### Architecture Pattern
+```
+Wikipedia/APIs → Python Scrapers → MySQL Database → Generated PHP → Web Server
+     ↓                ↓                ↓               ↓           ↓
+  Data Sources    Collection      Central Store    Static Gen   Live Site
+```
 
 ## Key Commands
 
@@ -45,30 +55,140 @@ pipenv run python python/generate-html.py > index.html
 pipenv run python python/generate-ics.py
 ```
 
-## Architecture
+## Component 1: Website Generation (GitHub Repository)
 
-### Data Flow
-1. **Scrapers** → Extract event data from Sherdog and Wikipedia
-2. **MySQL Database** → Store scraped data in normalized tables
-3. **Generators** → Create HTML pages and ICS calendar files from DB data
+### Purpose
+Backend data pipeline that scrapes MMA event data, processes it through MySQL, and generates static website files for deployment.
 
-### Database Structure
-- **sd_mma_events**: Sherdog event data (event details, dates, locations)
-- **sd_mma_fight_cards**: Sherdog fight card matchups
-- **wiki_mma_events**: Wikipedia event data
-- **wiki_mma_events_poster**: Event poster URLs from Wikipedia
-- **wiki_mma_fight_cards**: Wikipedia fight card matchups
+### Core Architecture
+- **Technology**: Python 3.7+, MySQL, Jenkins CI/CD
+- **Process**: Scrape → Store → Generate → Deploy
+
+### Key Scripts
+```yaml
+Data Scrapers:
+  - wikipedia-ufc-event-scrape.py: UFC event listings
+  - wikipedia-bellator-event-scrape.py: Bellator event listings  
+  - wikipedia-pfl-event-scrape.py: PFL event listings
+  - wikipedia-*-poster-scrape.py: Event poster images
+  - wiki_fight_card_scrape_*.py: Individual fight details
+
+Content Generators:
+  - generate-html.py: Creates complete index.php file
+  - generate-ics.py: Generates calendar subscription files
+  - upload-files.py: FTP deployment to web server
+
+**Note**: `generate-html.py` imports several Python modules that are not in the repository:
+- `pastevents`, `schedevents`, `totalevents` (UFC-specific)
+- `bellator_pastevents`, `bellator_schedevents`, `bellator_totalevents` (Bellator-specific)
+- `pfl_pastevents`, `pfl_schedevents`, `pfl_totalevents` (PFL-specific)
+
+These modules are likely generated dynamically or stored separately from the main repository.
+
+Utilities:
+  - odds-dump.sh: DraftKings betting odds integration
+  - sherdog-*.py: Alternative data source (currently disabled)
+```
+
+### Database Schema
+- **Host**: markpereira.com
+- **Database**: mark5463_ft_prod
+- **Tables**:
+  - `wiki_mma_events`: Event metadata (name, date, organization, URLs)
+  - `wiki_mma_events_poster`: Event poster images and metadata
+  - `wiki_mma_fight_cards`: Fight card details (fighters, outcomes, methods)
+  - `sd_mma_events`: Sherdog event data (legacy)
+  - `sd_mma_fight_cards`: Sherdog fight card data (legacy)
 
 ### Database Connection
 All scrapers use the same connection pattern:
 ```python
+import MySQLdb  # Provided by mysqlclient package
+
 db = MySQLdb.connect(
-    host="markpereira.com",
-    user="mark5463_ft_test", 
-    passwd="fttesting",
-    db="mark5463_ft_testdb"
+    host=os.environ.get('MYSQL_HOST'),
+    user=os.environ.get('MYSQL_ID'), 
+    passwd=os.environ.get('MYSQL_PASSWORD'),
+    db="mark5463_ft_prod"
 )
 ```
+
+**Note**: The project uses `MySQLdb` (from `mysqlclient` package) as specified in requirements.txt.
+
+### External Data Sources
+- **Wikipedia**: Primary source for events, fight cards, posters
+- **DraftKings API**: Real-time betting odds
+  - UFC: `https://sportsbook-nash.draftkings.com/api/sportscontent/dkcaon/v1/leagues/9034`
+  - Bellator: `https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/33112`
+  - PFL: `https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/142268`
+
+## Component 2: Server-Side Runtime (Web Server)
+
+### Purpose
+Live web application that serves generated content to users with dynamic database queries and interactive features.
+
+### Generated Files
+- **Main Entry**: `index.php` (generated by `generate-html.py`)
+- **Calendar**: `all_events.ics` (generated by `generate-ics.py`)
+- **Assets**: Static CSS, JS, images from repository
+
+### Server-Side Only Files
+- **Betting Odds Display**: `fightsToday/picks/piechart.php` (server-side only, not in repository)
+- **Other PHP Components**: May exist in server subdirectories (`/picks/`, `/trivia/`, etc.)
+
+### User Experience Flow
+```
+User visits fights.today → index.php → Dynamic content sections:
+├── Next Event (live DB query)
+├── Upcoming Events (static generated)
+├── Past Events (carousel display)
+└── Interactive Modals (fight card details)
+```
+
+### Database Integration
+```php
+// Real-time queries embedded in generated PHP
+$conn = new mysqli("markpereira.com", "mark5463_ft_test", "fttesting66", "mark5463_ft_prod");
+
+// Example: Next upcoming event
+$query = "SELECT * FROM wiki_mma_events WHERE event_date > NOW() ORDER BY event_date ASC LIMIT 1";
+```
+
+### Interactive Features
+- **Fight Card Modals**: Click poster → AJAX → Display fight details
+- **Betting Odds**: `piechart.php` integrates DraftKings API data
+- **Calendar Integration**: iCal subscription for calendar apps
+- **Responsive Design**: Bootstrap-based mobile-friendly interface
+
+### Frontend Technologies
+```yaml
+Frameworks:
+  - Bootstrap: Responsive grid and components
+  - jQuery: DOM manipulation and AJAX
+  - Flipster: Past events carousel
+
+Libraries:
+  - Font Awesome: Icons
+  - Yandex Metrika: Analytics
+
+Assets:
+  - /css/styles.css: Main stylesheet
+  - /js/scripts.js: Interactive behaviors
+  - /images/: Event posters, logos, placeholders
+```
+
+## Data Flow & Integration
+
+### Complete Data Pipeline
+```
+1. Jenkins Trigger → 2. Wikipedia Scrape → 3. MySQL Store → 4. PHP Generate → 5. FTP Upload → 6. Live Website
+```
+
+### Key Integration Points
+- **Database as Central Hub**: All scraped data stored in MySQL
+- **Generated content queries database**: Static PHP with embedded queries
+- **Live website performs real-time queries**: Dynamic "Next Event" section
+- **File-Based Deployment**: Generated PHP files contain embedded data
 
 ### Key Technologies
 - **Python 3.7+** with pipenv for dependency management
@@ -76,6 +196,7 @@ db = MySQLdb.connect(
 - **Web scraping**: lxml, PyQuery, requests
 - **Calendar generation**: ics library
 - **CI/CD**: Jenkins with Docker containers
+- **Frontend**: Bootstrap, jQuery, PHP
 
 ## Important Patterns
 
@@ -101,9 +222,165 @@ The Jenkinsfile orchestrates the entire build process:
 4. Executes scrapers in sequence
 5. Generates output files
 
+## Development & Deployment
+
+### Local Development Workflow
+1. **Set up environment**: `pipenv install`
+2. **Run scrapers**: Execute individual Python scripts
+3. **Generate content**: Run `generate-html.py` and `generate-ics.py`
+4. **Test locally**: Use PHP built-in server (`php -S localhost:8000`)
+5. **Deploy**: Upload via FTP or trigger Jenkins pipeline
+
+### Production Deployment
+1. **Automated**: Jenkins pipeline triggered by git commits
+2. **Manual**: Run `upload-files.py` for specific files
+3. **Monitoring**: Check build logs and website functionality
+
+### Working with Server-Side Components
+```bash
+# Test specific components
+php piechart.php?fighterOne=Paulo%20Costa&fighterTwo=Roman%20Kopylov&tableId=UFC
+
+# Local database testing
+docker run -p 3308:3306 -e MYSQL_ROOT_PASSWORD=root mysql:5.7
+```
+
+### File Structure
+```
+Web Server Root/
+├── index.php (generated)
+├── all_events.ics (generated)
+├── piechart.php (odds display)
+├── css/ (static assets)
+├── js/ (static assets)
+├── images/ (static assets)
+└── assets/ (Bootstrap theme)
+```
+
+## Security & Configuration
+
+### Environment Variables
+```bash
+# Database credentials
+MYSQL_HOST=your_database_host
+MYSQL_ID=your_database_user
+MYSQL_PASSWORD=your_database_password
+
+# FTP deployment
+FTP_ID=your_ftp_username
+FTP_PASSWORD=your_ftp_password
+```
+
+**Note**: Actual credentials are stored in Jenkins credential store and should never be hardcoded in source code.
+
+### Security Considerations
+- Jenkins credential store for sensitive data
+- No hardcoded credentials in source code
+- Database connection retry logic
+- Input sanitization for user queries
+
+## Troubleshooting
+
+### Common Issues
+- **Date parsing errors**: Check `generate-ics.py` for incomplete dates
+- **Betting odds not displaying**: Verify DraftKings API endpoints in `piechart.php`
+- **Database connection failures**: Check MySQL credentials and network access
+- **Scraping failures**: Wikipedia structure changes may break scrapers
+
+### Key Files for Debugging
+- **Database schema**: `/sql/fights_today_setup.sql`
+- **Scraper logs**: Jenkins build console output
+- **Generated content**: Check `index.php` for proper data insertion
+- **API responses**: Test DraftKings endpoints directly
+
+## Maintenance Procedures
+
+### Regular Tasks
+- **Monitor scraping**: Check Jenkins builds for failures
+- **Update scrapers**: Adapt to Wikipedia structure changes
+- **Database maintenance**: Archive old events, optimize queries
+- **API monitoring**: Verify DraftKings endpoint availability
+
+### Backup Strategy
+- **Database**: Manual MySQL dumps (no automated backup currently)
+- **Generated files**: Stored in git repository after generation
+- **Configuration**: All settings in version control
+
+## Working with Both Components
+
+### Understanding the Relationship
+- **GitHub Repository**: Contains the data collection and generation logic
+- **Web Server**: Runs the generated content and provides user interface
+- **Database**: Serves as the bridge between both components
+
+### File Location Mapping
+```
+GitHub Repository          →    Web Server
+├── Generated Files:
+│   ├── index.php          →    /index.php (uploaded)
+│   └── all_events.ics     →    /all_events.ics (uploaded)
+├── Static Assets:
+│   ├── /css/              →    /css/ (synchronized)
+│   ├── /js/               →    /js/ (synchronized)
+│   └── /images/           →    /images/ (synchronized)
+└── Server-Side Only:
+    ├── (none)             →    /picks/piechart.php
+    ├── (none)             →    /trivia/ (if exists)
+    └── (none)             →    /socials/ (if exists)
+```
+
+### Making Changes
+1. **Data Changes**: Modify scrapers in GitHub repository → Run Jenkins pipeline → New data appears on website
+2. **UI Changes**: Modify static assets (CSS, JS, images) → Update both repository and server
+3. **Feature Changes**: May require updates to both generation scripts and server-side PHP
+
+### Testing Changes
+```bash
+# Test data pipeline locally
+pipenv run python python/wikipedia-ufc-event-scrape.py
+pipenv run python python/generate-html.py > test_index.php
+
+# Test server-side functionality
+php -S localhost:8000 test_index.php
+```
+
+### Deployment Workflow
+```
+1. Commit changes to GitHub repository
+2. Jenkins pipeline automatically runs
+3. Generated files (index.php, all_events.ics) uploaded to server
+4. Static assets may need manual sync
+5. Database serves live data to both components
+```
+
+### Key Integration Points
+- **fightsToday/picks/piechart.php**: Server-side component that reads DraftKings API data (not in repository)
+- **index.php**: Generated component that includes embedded database queries (uploaded to server)
+- **all_events.ics**: Generated component for calendar integration (uploaded to server)
+- **Static assets**: Shared between repository and server (CSS, JS, images)
+
 ## Current Limitations & TODOs
 - HTML output requires manual UTF-8 encoding
 - No automated tests yet
 - Wikipedia and Sherdog data merging via SQL Views not yet implemented
 - ICS generation needs poster integration
 - Need system for updating only upcoming events (not full historical scrape)
+- **Automated backups**: Implement database backup scripts
+- **Rate limiting**: Add API request throttling
+- **Caching**: Implement Redis for frequently accessed data
+- **Authentication**: Add user accounts for personalized features
+- **Real-time updates**: WebSocket integration for live event updates
+- **Asset synchronization**: Automate sync between repository and server assets
+- **Error monitoring**: Implement logging and alerting for both components
+- **Performance optimization**: Add caching layers for database queries
+
+## Summary
+
+This dual-component architecture enables:
+- **Scalable data collection**: Automated scraping and processing pipeline
+- **Dynamic content generation**: Database-driven website content
+- **Interactive user experience**: Real-time features and responsive design
+- **Maintainable codebase**: Clear separation of concerns between data and presentation
+- **Flexible deployment**: CI/CD pipeline with manual override capabilities
+
+The system successfully combines the reliability of static generation with the flexibility of dynamic content, making it suitable for high-traffic MMA event tracking with frequent data updates.

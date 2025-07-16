@@ -235,10 +235,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_method_array:
             new_fight_method_string = ''.join(fight_method_array)
-            ascii_fight_method = smart_str(new_fight_method_string)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
         else:
             new_fight_method_string = ''
-            ascii_fight_method = smart_str(new_fight_method_string)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
                 
             '''    
             fight_method_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()' % (z))
@@ -259,10 +259,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_round_array:
             new_fight_round_string = ''.join(fight_round_array)
-            ascii_fight_round = smart_str(new_fight_round_string)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
         else:
             new_fight_round_string = ''
-            ascii_fight_round = smart_str(new_fight_round_string)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
             
             '''
             fight_round_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()' % (z))
@@ -283,10 +283,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_time_array:
             new_fight_time_string = ''.join(fight_time_array)
-            ascii_fight_time = smart_str(new_fight_time_string)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
         else:
             new_fight_time_string = ''
-            ascii_fight_time = smart_str(new_fight_time_string)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
                     
             '''
             fight_time_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()' % (z))
@@ -310,10 +310,10 @@ for x in range(0, x_range):  # prev 0, 533
 
         if fight_weightclass_array:
             new_fight_weightclass_string = ''.join(fight_weightclass_array)
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
         else:
             new_fight_weightclass_string = ''
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
             
             '''    
             fight_weightclass_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()' % (z))
@@ -326,19 +326,21 @@ for x in range(0, x_range):  # prev 0, 533
         g_fight_card_org.append(this_event_org)
         g_fight_card_wiki_event_id.append(this_wiki_event_id)
         g_fight_card_event_past.append(str(this_event_past))
-        e_name = ''.join(this_event_name)
-        e_f1 = ''.join(asccii_string3)
-        e_f1_url = ''.join(fgtr1_wbst)
-        e_f2 = ''.join(asccii_string4)
-        e_f2_url = ''.join(fgtr2_wbst)
-        e_fc_url = ''.join(event_main_event_url)
-        e_org = ''.join(this_event_org)
+        e_name = ''.join(this_event_name).strip()
+        e_f1 = ''.join(asccii_string3).strip()
+        e_f1_url = ''.join(fgtr1_wbst).strip()
+        e_f2 = ''.join(asccii_string4).strip()
+        e_f2_url = ''.join(fgtr2_wbst).strip()
+        e_fc_url = ''.join(event_main_event_url).strip()
+        e_org = ''.join(this_event_org).strip()
          # e_ei = ''.join(g_fight_card_event_id[y])
-        e_wei = ''.join(this_wiki_event_id)
-        e_ep = ''.join(str(this_event_past))
+        e_wei = ''.join(this_wiki_event_id).strip()
+        e_ep = ''.join(str(this_event_past)).strip()
         db_ep_int = int(e_ep)
-        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
-        if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1):
+        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator).strip()
+        # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
+        if e_f1 and e_f2 and ascii_fight_weightclass:
+          if not ((e_f1 == '1' and e_f2 == '1') or (e_f1 == '0' and e_f2 == '2') or (e_f1 == '0' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '0') or (e_f1 == '0' and e_f2 == '1') or (e_f1 == '1' and e_f2 == '1' and not ascii_fight_weightclass)):     
         # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards
@@ -363,6 +365,7 @@ for x in range(0, x_range):  # prev 0, 533
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
             fight_iterator = fight_iterator + 1
+          else: print("Not all vars required for insertion")
         else:
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,ascii_fight_weightclass)

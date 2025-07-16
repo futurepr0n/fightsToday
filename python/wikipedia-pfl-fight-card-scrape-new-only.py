@@ -39,11 +39,25 @@ db = MySQLdb.connect(
 
 cur = db.cursor()
 
-# This section will query the database and return all data in the table
-# this is useful for first time run. But if you are running perpetually, we can shorten this by only looking for upcoming events
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
-# Here we will add event_past = 0 - that way when we select we are only going to scrape upcoming events from ufc, our database is loaded with the previous ones.
-#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
+mystring = '''
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'PFL' AND event_past = 0
+
+UNION ALL
+
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'PFL' AND event_past = 1 AND event_id = (
+    SELECT MAX(event_id)
+    FROM wiki_mma_events
+    WHERE event_org = 'PFL' AND event_past = 1
+)
+ORDER BY event_id;
+'''
+
+cur.execute(mystring)
+
 
 # initialize the arrays
 g_event_name = []
@@ -91,15 +105,21 @@ db = MySQLdb.connect(
 )
 
 cur = db.cursor()
-#first we are deleting the events which are upcoming, so we don't get duplicate fights
-cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
+#cur.execute("TRUNCATE wiki_mma_fight_cards")
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
-    page = requests.get('%s' % (event_main_event_url))
+    try:
+         page = requests.get('%s' % (event_main_event_url))
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while fetching the URL {event_main_event_url}: {e}")
+        page = requests.get('https://en.wikipedia.org/wiki/Main_Page')
+        # continue  # Skip the current iteration and move to the next URL
+    
+    # page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
 
     this_event_name = g_event_name[x]
@@ -115,25 +135,22 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_event_past.append(str(this_event_past))
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     # print(str(this_event_past))
-
+    
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_main_event_url))
+
+    try:
+        d = pq(url='%s' % (event_main_event_url))
+    except Exception as e:
+        print(f"An error occurred while parsing the HTML of {event_main_event_url}: {e}")
+        d = pq(url='https://en.wikipedia.org/wiki/Main_Page')
+        # continue  # Skip the current iteration and move to the next URL
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 
     row_len = len(p) + 1
     fight_iterator = 1
     for z in range(3, row_len):
-        #asccii_string3 = ''
-        #fgtr1_wbst = ''
-        #asccii_string4 = ''
-        #fgtr2_wbst = ''
-        #ascii_fight_weightclass = ''
-        #ascii_fight_method = ''
-        #ascii_fight_time = ''
-        #ascii_fight_round = ''
-        
         
         fighter_one_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
@@ -151,7 +168,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_array:
-            newstr3 = ''.join(fighter_one_array).strip() 
+            newstr3 = ''.join(fighter_one_array) 
             asccii_string3 = smart_str(newstr3)
             g_fighter_one.append(asccii_string3)
         else:
@@ -167,10 +184,10 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_url_array:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array).strip()
+            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
             g_fighter_one_url.append(fgtr1_wbst)
         else:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array).strip()
+            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
             g_fighter_one_url.append(fgtr1_wbst)
                 
             '''
@@ -194,7 +211,7 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_array:
-            newstr4 = ''.join(fighter_two_array).strip() 
+            newstr4 = ''.join(fighter_two_array) 
             asccii_string4 = smart_str(newstr4)
             g_fighter_two.append(asccii_string4)
         else:
@@ -211,10 +228,10 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_url_array:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array).strip()
+            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
         else:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array).strip()
+            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
             g_fighter_two_url.append(fgtr2_wbst)
             '''
             fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
@@ -234,11 +251,11 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_method_array:
-            new_fight_method_string = ''.join(fight_method_array).strip()
-            ascii_fight_method = smart_str(new_fight_method_string)
+            new_fight_method_string = ''.join(fight_method_array)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
         else:
             new_fight_method_string = ''
-            ascii_fight_method = smart_str(new_fight_method_string)
+            ascii_fight_method = smart_str(new_fight_method_string).strip()
                 
             '''    
             fight_method_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()' % (z))
@@ -258,11 +275,11 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_round_array:
-            new_fight_round_string = ''.join(fight_round_array).strip()
-            ascii_fight_round = smart_str(new_fight_round_string)
+            new_fight_round_string = ''.join(fight_round_array)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
         else:
             new_fight_round_string = ''
-            ascii_fight_round = smart_str(new_fight_round_string)
+            ascii_fight_round = smart_str(new_fight_round_string).strip()
             
             '''
             fight_round_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()' % (z))
@@ -282,11 +299,11 @@ for x in range(0, x_range):  # prev 0, 533
                     break
 
         if fight_time_array:
-            new_fight_time_string = ''.join(fight_time_array).strip()
-            ascii_fight_time = smart_str(new_fight_time_string)
+            new_fight_time_string = ''.join(fight_time_array)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
         else:
             new_fight_time_string = ''
-            ascii_fight_time = smart_str(new_fight_time_string)
+            ascii_fight_time = smart_str(new_fight_time_string).strip()
                     
             '''
             fight_time_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()' % (z))
@@ -309,11 +326,11 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fight_weightclass_array:
-            new_fight_weightclass_string = ''.join(fight_weightclass_array).strip()
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            new_fight_weightclass_string = ''.join(fight_weightclass_array)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
         else:
             new_fight_weightclass_string = ''
-            ascii_fight_weightclass = smart_str(new_fight_weightclass_string)
+            ascii_fight_weightclass = smart_str(new_fight_weightclass_string).strip()
             
             '''    
             fight_weightclass_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()' % (z))
@@ -335,10 +352,13 @@ for x in range(0, x_range):  # prev 0, 533
         e_org = ''.join(this_event_org).strip()
          # e_ei = ''.join(g_fight_card_event_id[y])
         e_wei = ''.join(this_wiki_event_id).strip()
-        e_ep = ''.join(str(this_event_past))
+        e_ep = ''.join(str(this_event_past)).strip()
         db_ep_int = int(e_ep)
-        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
+        w_fight_id = str(e_wei) + "Fight" + str(fight_iterator).strip()
+        # This was original if (e_f1 and e_f2 and ascii_fight_weightclass) or (e_f1 != 0 and e_f2 != 0) or (e_f1 != 1 and e_f2 != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 2 and e_ep != 1) or (e_f1 != 1 and e_f2 != 1 and e_ep != 1) or (e_f1 != 0 and e_f2 != 0 and e_ep != 0):
         if e_f1 and e_f2 and ascii_fight_weightclass:
+          if not ((e_f1 == '1' and e_f2 == '1') or (e_f1 == '0' and e_f2 == '2') or (e_f1 == '0' and e_f2 == '0') or (e_f1 == '1' and e_f2 == '0') or (e_f1 == '0' and e_f2 == '1') or (e_f1 == '1' and e_f2 == '1' and not ascii_fight_weightclass)):     
+        # if e_f1 and e_f2 and ascii_fight_weightclass:
             query = """
                 INSERT INTO wiki_mma_fight_cards
                 (event_name, fighter_one, fighter_one_url, fighter_two, fighter_two_url, event_url, event_org, wiki_event_id, event_past, method, time, round, weightclass, wiki_fight_id)
@@ -362,6 +382,7 @@ for x in range(0, x_range):  # prev 0, 533
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
             fight_iterator = fight_iterator + 1
+          else: print("Not all vars required for insertion")
         else:
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,ascii_fight_weightclass)

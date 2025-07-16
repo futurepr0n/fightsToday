@@ -39,9 +39,25 @@ db = MySQLdb.connect(
 
 cur = db.cursor()
 
+new_query = '''
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'UFC' AND event_past = 0
+
+UNION ALL
+
+SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past
+FROM wiki_mma_events
+WHERE event_org = 'UFC' AND event_past = 1 AND event_id = (
+    SELECT MAX(event_id)
+    FROM wiki_mma_events
+    WHERE event_org = 'UFC' AND event_past = 1
+)
+ORDER BY event_id;
+'''
 # This section will query the database and return all data in the table
 # this is useful for first time run. But if you are running perpetually, we can shorten this by only looking for upcoming events
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%'")
+cur.execute(new_query)
 # Here we will add event_past = 0 - that way when we select we are only going to scrape upcoming events from ufc, our database is loaded with the previous ones.
 #cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_org = 'UFC' AND event_fight_card_url NOT LIKE '%The_Ultimate_Fighter%' AND event_fight_card_url NOT LIKE '%_in_UFC#%' AND event_fight_card_url NOT LIKE '%UFC_on_Fox%' AND event_past = 0")
 
@@ -55,14 +71,39 @@ g_wiki_event_id = []
 g_event_past = []
 
 # load our arrays with all of our event data.
+#for row in cur.fetchall():
+#    g_event_id.append(row[0])
+#    g_event_fight_card_url.append(row[1])
+#    g_event_name.append(row[2])
+#    g_event_date.append(row[3])
+#    g_event_org.append(row[4])
+#    g_wiki_event_id.append(row[5])
+#    g_event_past.append(str(row[6]))
+
 for row in cur.fetchall():
     g_event_id.append(row[0])
+    print("Event ID:", row[0])
+    
     g_event_fight_card_url.append(row[1])
+    print("Event Fight Card URL:", row[1])
+    
     g_event_name.append(row[2])
+    print("Event Name:", row[2])
+    
     g_event_date.append(row[3])
+    print("Event Date:", row[3])
+    
     g_event_org.append(row[4])
+    print("Event Org:", row[4])
+    
     g_wiki_event_id.append(row[5])
+    print("Wiki Event ID:", row[5])
+    
     g_event_past.append(str(row[6]))
+    print("Event Past:", str(row[6]))
+    
+    print("------------------------------")
+
 
 # set up the fighter arrays
 g_fighter_one = []
@@ -93,12 +134,19 @@ db = MySQLdb.connect(
 cur = db.cursor()
 #first we are deleting the events which are upcoming, so we don't get duplicate fights
 cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
+print("X Range is: ")
+print(x_range)
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
+    print("variable X is : ")
+    print(x)
+    print("X Range is: ")
+    print(x_range)
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
+    print(event_main_event_url)
     page = requests.get('%s' % (event_main_event_url))
     tree = html.fromstring(page.content)
 
@@ -299,11 +347,11 @@ for x in range(0, x_range):  # prev 0, 533
             '''
         fight_weightclass_array = None
         for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[1]/text()',
-                            '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[1]/text()']:
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[1]/text()']:
             fight_weightclass_array = tree.xpath(xpath % z)
             if fight_weightclass_array:
                 break
@@ -361,10 +409,11 @@ for x in range(0, x_range):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
+            print(values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
-            print(e_name,e_f1,e_f2,ascii_fight_weightclass)
+            print(e_name,e_f1,e_f2,ascii_fight_weightclass,e_wei,w_fight_id)
 
     
 cur.close()

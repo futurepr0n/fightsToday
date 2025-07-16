@@ -126,9 +126,9 @@ def insertRows (row_len, prev_row_ptr, array_pos):
     for loopid in range (1,row_len-1):
       # print('***********************************************************************************************')
       print('%i'%(array_pos))
-      db_e_en = ''.join(event_name[array_pos])
-      db_e_fc = ''.join(event_fight_card_url[array_pos])
-      db_e_fd = ''.join(event_date[array_pos])
+      db_e_en = ''.join(event_name[array_pos]).strip()
+      db_e_fc = ''.join(event_fight_card_url[array_pos]).strip()
+      db_e_fd = ''.join(event_date[array_pos]).strip()
       w_e_id = event_org + str(event_id)
       print('Adding event: %s ...' % db_e_en)
       print('Event ID: \t\t %i ' % event_id)

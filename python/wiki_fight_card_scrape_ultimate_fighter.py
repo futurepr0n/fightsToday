@@ -54,9 +54,9 @@ cur = db.cursor()
 
 # This section will query the database and return all data in the table
 # but we will comment it out and then use a query which will select only if the event is upcoming
-#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC'")
+cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC'")
 # by adding event_past = 0  we will only return upcoming events, use the one above and comment this below one out if running from first time.
-cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC' AND event_past = 0")
+#cur.execute("SELECT event_id, event_fight_card_url, event_name, event_date, event_org, wiki_event_id, event_past FROM wiki_mma_events WHERE event_fight_card_url LIKE '%%The_Ultimate_Fighter%%' AND event_org = 'UFC' AND event_past = 0")
 
 
 # initialize the arrays
@@ -291,16 +291,16 @@ for x in range(0, x_range - 1):  # prev 0, 533
         g_fight_card_org.append(this_event_org)
         g_fight_card_wiki_event_id.append(this_wiki_event_id)
         g_fight_card_event_past.append(str(this_event_past))
-        e_name = ''.join(this_event_name)
-        e_f1 = ''.join(asccii_string3)
-        e_f1_url = ''.join(fgtr1_wbst)
-        e_f2 = ''.join(asccii_string4)
-        e_f2_url = ''.join(fgtr2_wbst)
-        e_fc_url = ''.join(event_main_event_url)
-        e_org = ''.join(this_event_org)
+        e_name = ''.join(this_event_name).strip()
+        e_f1 = ''.join(asccii_string3).strip()
+        e_f1_url = ''.join(fgtr1_wbst).strip()
+        e_f2 = ''.join(asccii_string4).strip()
+        e_f2_url = ''.join(fgtr2_wbst).strip()
+        e_fc_url = ''.join(event_main_event_url).strip()
+        e_org = ''.join(this_event_org).strip()
         # e_ei = ''.join(g_fight_card_event_id[y])
-        e_wei = ''.join(this_wiki_event_id)
-        e_ep = ''.join(str(this_event_past))
+        e_wei = ''.join(this_wiki_event_id).strip()
+        e_ep = ''.join(str(this_event_past)).strip()
         db_ep_int = int(e_ep)
         w_fight_id = str(e_wei) + "Fight" + str(fight_iterator)
         if e_f1 and e_f2 and ascii_fight_weightclass:

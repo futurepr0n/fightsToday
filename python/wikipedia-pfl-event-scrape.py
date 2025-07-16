@@ -208,14 +208,14 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
       print('***********************************************************************************************')
       # set the event id
      # print '+++++++++++++++++++++++++++++'
-      db_e_en = ''.join(event_name[array_pos])
+      db_e_en = ''.join(event_name[array_pos]).strip()
       # db_e_ev = ''.join(event_month[array_pos])
       # db_e_ed = ''.join((event_day[array_pos]))
       # db_e_ey = ''.join((event_year[array_pos]))
-      db_e_fc = ''.join(event_fight_card_url[array_pos])
+      db_e_fc = ''.join(event_fight_card_url[array_pos]).strip()
       # db_e_lc = ''.join(event_location[array_pos])
-      db_e_fd = ''.join(event_date[array_pos])
-      w_e_id = event_org + str(event_id)
+      db_e_fd = ''.join(event_date[array_pos]).strip()
+      w_e_id = event_org + str(event_id).strip()
       db_e_p = pe_b
       db_int_ep = int(db_e_p)
       print('Adding event: %s ...' % db_e_en)

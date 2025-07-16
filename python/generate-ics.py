@@ -142,6 +142,10 @@ def createEvents(event_date, event_fight_card_url, event_name, event_org):
     
     if event_date == "":
         return
+
+    # Strip leading and trailing whitespace from event_date
+    event_date = event_date.strip()
+
     
     try:
         dt = datetime.datetime.strptime(event_date, "%B %d, %Y")
@@ -255,6 +259,6 @@ for x in range(0, x_range):  # prev 0, 533
 
     # time.sleep(5)
 
-with open('all_events.ics', 'w') as f:
+with open('all_events_test.ics', 'w') as f:
     f.writelines(MMACalendar)
 

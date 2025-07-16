@@ -14,37 +14,46 @@ from pyquery import PyQuery as pq
 import requests
 import MySQLdb
 import os
+import urllib.error
 
 ##### The JQuery for "The Ultimate Fighter" Posters is:
 
 #mw-content-text > table:nth-child(52) > tbody > tr:nth-child(2) > td
 
 def loadPosterData (event_url):
-    #set up the lxml, load url to scrape
-    page = requests.get('%s'%(event_url))
-    tree = html.fromstring(page.content)
+    try:
+        #set up the lxml, load url to scrape
+        page = requests.get('%s' % (event_url))
+        tree = html.fromstring(page.content)
 
-    #set up PyQuery section, load the url to scrape
-    d = pq("<html></html>")
-    d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+        #set up PyQuery section, load the url to scrape
+        d = pq("<html></html>")
+        d = pq(etree.fromstring("<html></html>"))
+        d = pq(url='%s' % (event_url))
 
-    poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
+        poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
 
-    # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
+        # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
 
+        ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
+        newstr = ev_fc_poster_wbst
+        ev_fp_wbst = "https:%s" % (newstr)
 
-    ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
-    newstr = ev_fc_poster_wbst
-    ev_fp_wbst = "https:%s"%(newstr)
+        return ev_fp_wbst
 
-    return ev_fp_wbst;
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error {e.code} for URL: {event_url}")
+        return None
+
+    except requests.exceptions.RequestException as e:
+        print(f"Request Exception {e} for URL: {event_url}")
+        return None
 
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     # print('+++++++++++++++++++++++++++++')
     db_e_poster_url = ''.join(poster_url)
     w_e_p_i = event_org + str(event_id)
-    # print('Adding poster URL to the Database: ', db_e_poster_url)
+    print('Adding poster URL to the Database: ', db_e_poster_url)
     # print('+++++++++++++++++++++++++++++')
     # print('+++++++++++++++++++++++++++++')
     query = """
@@ -61,7 +70,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     """
 
     values = (db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, w_e_p_i)
-
+    print(query)
     cur.execute(query, values)
 
     return;
@@ -93,9 +102,9 @@ cur = db.cursor()
 #cur.execute("TRUNCATE wiki_mma_events_poster ")
 
 # This section will query the database and return all data in the table
-#cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' ORDER BY event_id ASC")
+cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' ORDER BY event_id ASC")
 #This query is for when events in the past have already been loaded
-cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' AND event_past = 0 ORDER BY event_id ASC")
+#cur.execute("SELECT event_name, event_id, event_fight_card_url, event_org, event_date FROM wiki_mma_events where event_org = 'UFC' AND event_past = 0 ORDER BY event_id ASC")
 
 
 
@@ -118,13 +127,13 @@ for row in cur.fetchall() :
     g_event_fight_card_url.append(row[2])
     g_event_org.append(row[3])
     g_event_date.append(row[4])
-    # print('***********************************************************************************************')
-    # print('Loading event Name: \t\t\t %s ...' % row[0])
-    # print('Loading event ID: \t\t %s ' % row[1])
-    # print('Loading event Org: \t\t %s' % row[3])
-    # print('Loading event Date: \t\t', row[4])
-    # print('Loading event URL: \t\t %s' % row[2])
-    # print('***********************************************************************************************')
+    print('***********************************************************************************************')
+    print('Loading event Name: \t\t\t %s ...' % row[0])
+    print('Loading event ID: \t\t %s ' % row[1])
+    print('Loading event Org: \t\t %s' % row[3])
+    print('Loading event Date: \t\t', row[4])
+    print('Loading event URL: \t\t %s' % row[2])
+    print('***********************************************************************************************')
 
 
 x_range = len(g_event_name)

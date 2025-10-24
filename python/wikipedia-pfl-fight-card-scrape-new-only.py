@@ -11,13 +11,13 @@ import time
 import os
 
 def scrapeEvent(event_url, event_org):
-
-    page = requests.get('%s' % (event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % (event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_url))
+    d = pq(url='%s' % (event_url), headers=hdr)
 
     p = d("#mw-content-text table tr")
 
@@ -112,11 +112,12 @@ for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     try:
-         page = requests.get('%s' % (event_main_event_url))
+         page = requests.get('%s' % (event_main_event_url), headers=hdr)
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching the URL {event_main_event_url}: {e}")
-        page = requests.get('https://en.wikipedia.org/wiki/Main_Page')
+        page = requests.get('https://en.wikipedia.org/wiki/Main_Page', headers=hdr)
         # continue  # Skip the current iteration and move to the next URL
     
     # page = requests.get('%s' % (event_main_event_url))
@@ -140,10 +141,10 @@ for x in range(0, x_range):  # prev 0, 533
     d = pq(etree.fromstring("<html></html>"))
 
     try:
-        d = pq(url='%s' % (event_main_event_url))
+        d = pq(url='%s' % (event_main_event_url), headers=hdr)
     except Exception as e:
         print(f"An error occurred while parsing the HTML of {event_main_event_url}: {e}")
-        d = pq(url='https://en.wikipedia.org/wiki/Main_Page')
+        d = pq(url='https://en.wikipedia.org/wiki/Main_Page', headers=hdr)
         # continue  # Skip the current iteration and move to the next URL
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')

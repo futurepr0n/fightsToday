@@ -55,12 +55,13 @@ def execute_with_retry(cursor, query, params=None, max_retries=3):
             time.sleep(1)
 
 def loadPastEventsData(event_url, event_org):
-    page = requests.get('%s'%(event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s'%(event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+    d = pq(url='%s'%(event_url), headers=hdr)
 
     p = d("#Past_events tr")
     row_len = len(p)
@@ -110,12 +111,13 @@ def loadPastEventsData(event_url, event_org):
     return row_len
 
 def loadUpcomingEventsData(event_url, event_org):
-    page = requests.get('%s'%(event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s'%(event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+    d = pq(url='%s'%(event_url), headers=hdr)
 
     p = d("#Scheduled_events tr")
     row_len = len(p)

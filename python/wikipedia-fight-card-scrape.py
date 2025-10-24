@@ -11,13 +11,13 @@ import time
 import os
 
 def scrapeEvent(event_url, event_org):
-
-    page = requests.get('%s' % (event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % (event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_url))
+    d = pq(url='%s' % (event_url), headers=hdr)
 
     p = d("#mw-content-text table tr")
 
@@ -99,7 +99,8 @@ for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
-    page = requests.get('%s' % (event_main_event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % (event_main_event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     this_event_name = g_event_name[x]
@@ -116,9 +117,10 @@ for x in range(0, x_range):  # prev 0, 533
     g_fight_card_wiki_event_id.append(this_wiki_event_id)
     # print(str(this_event_past))
 
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % (event_main_event_url))
+    d = pq(url='%s' % (event_main_event_url), headers=hdr)
 
     p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
 

@@ -18,13 +18,14 @@ import time
 
 def scrapeEvent(event_url, event_org):
     # set up the lxml, load url to scrape
-    page = requests.get('%s' % (event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % (event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     # set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % event_url)
+    d = pq(url='%s' % event_url, headers=hdr)
 
     # get the row length by querying the event table on table rows
     p = d(".content table tr")
@@ -101,7 +102,8 @@ for x in range(0, x_range - 1):  # prev 0, 533
     print('***********************************************************************************************')
     # bring in the url information
     event_main_event_url = g_event_fight_card_url[x]
-    page = requests.get('%s' % event_main_event_url)
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s' % event_main_event_url, headers=hdr)
     tree = html.fromstring(page.content)
     g_fight_card_event_url.append(event_main_event_url)
     print('Fight_card_event_url = %s ' % event_main_event_url)
@@ -117,7 +119,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
 
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s' % event_main_event_url)
+    d = pq(url='%s' % event_main_event_url, headers=hdr)
     # --get the row length by querying the event table on table rows
     p = d(".content table tr")
     # p = d(".content table tr")

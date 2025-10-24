@@ -22,13 +22,14 @@ import os
 
 def loadPosterData (event_url):
     #set up the lxml, load url to scrape
-    page = requests.get('%s'%(event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s'%(event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     #set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+    d = pq(url='%s'%(event_url), headers=hdr)
 
     poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
 

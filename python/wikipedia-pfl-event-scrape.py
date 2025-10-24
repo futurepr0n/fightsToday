@@ -22,13 +22,14 @@ te_num = 0
 
 def loadPastEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
-    page = requests.get('%s'%(event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s'%(event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     #set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+    d = pq(url='%s'%(event_url), headers=hdr)
 
     ### First thing I am going to try doing is query through the past events.
     ### We will get their Event Names, Event URL, Event ID
@@ -104,13 +105,14 @@ def loadPastEventsData (event_url, event_org):
 
 def loadUpcomingEventsData (event_url, event_org):
     #set up the lxml, load url to scrape
-    page = requests.get('%s'%(event_url))
+    hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    page = requests.get('%s'%(event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     #set up PyQuery section, load the url to scrape
     d = pq("<html></html>")
     d = pq(etree.fromstring("<html></html>"))
-    d = pq(url='%s'%(event_url))
+    d = pq(url='%s'%(event_url), headers=hdr)
 
 
     ### First thing I am going to try doing is query through the past events.

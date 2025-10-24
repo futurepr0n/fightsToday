@@ -22,7 +22,8 @@ import os
 def loadPosterData (event_url):
     try:
         # Set up the lxml, load URL to scrape
-        page = requests.get(event_url)
+        hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+        page = requests.get(event_url, headers=hdr)
         page.raise_for_status()  # Raise an HTTPError for bad responses (4xx or 5xx)
         tree = html.fromstring(page.content)
 
@@ -30,7 +31,7 @@ def loadPosterData (event_url):
         #set up PyQuery section, load the url to scrape
         d = pq("<html></html>")
         d = pq(etree.fromstring("<html></html>"))
-        d = pq(url='%s'%(event_url))
+        d = pq(url='%s'%(event_url), headers=hdr)
 
         poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
 

@@ -17,7 +17,7 @@ from pyquery import PyQuery as pq
 def loadData(event_url, event_org, thisflag):
     # set up the lxml, load url to scrape
     hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-    page = requests.get('%s' % (event_url))
+    page = requests.get('%s' % (event_url), headers=hdr)
     tree = html.fromstring(page.content)
 
     # set up PyQuery section, load the url to scrape

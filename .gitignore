@@ -1,7 +1,60 @@
+# Generated HTML/PHP files
+index.html
+index.php
+
+# Generated ICS calendar files
+all_events.ics
+all_events_test.ics
+*.ics
+
+# Log files
+*.log
+ics_generation.log
+
+# Python cache and bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Test files (temporary)
+test_*.py
+
+# Virtual environment files
 Pipfile
 Pipfile.lock
-index.html
-all_events.ics
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Claude-specific files
+.claude/settings.local.json
+
+# Database files (if any)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+.env.staging
+
+# Generated scripts (from old gitignore)
 python/totalevents.py
 python/schedevents.py
 python/pastevents.py

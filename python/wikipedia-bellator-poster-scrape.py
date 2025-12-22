@@ -31,10 +31,18 @@ def loadPosterData (event_url):
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url), headers=hdr)
 
-    poster_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src')
+    poster_url_array = None
+    for xpath in ['//table[@class="infobox vevent"]/tbody/tr[2]/td/span/a/img/@src',
+                  '//table[@class="infobox"]/tbody/tr[2]/td/span/a/img/@src',
+                  '//*[@id="mw-content-text"]/div[2]/table[1]/tbody/tr[2]/td/span/a/img/@src',
+                  '//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[2]/td/span/a/img/@src',
+                  '//*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img/@src']:
+        poster_url_array = tree.xpath(xpath)
+        if poster_url_array:
+            break
 
-    # If the poster is not found, we might want to try this xpath: //*[@id="mw-content-text"]/table[5]/tr[2]/td/a/img
-
+    if not poster_url_array:
+        poster_url_array = []
 
     ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
     newstr = ev_fc_poster_wbst

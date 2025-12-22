@@ -169,10 +169,11 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_array:
-            newstr3 = ''.join(fighter_one_array) 
+            newstr3 = ''.join(fighter_one_array)
             asccii_string3 = smart_str(newstr3)
             g_fighter_one.append(asccii_string3)
         else:
+            asccii_string3 = ''
             g_fighter_one.append('')
         # Try and get the fighter one url
         fighter_one_url_array = None
@@ -212,10 +213,11 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_array:
-            newstr4 = ''.join(fighter_two_array) 
+            newstr4 = ''.join(fighter_two_array)
             asccii_string4 = smart_str(newstr4)
             g_fighter_two.append(asccii_string4)
         else:
+            asccii_string4 = ''
             g_fighter_two.append('')
 
                 # Try and get the fighter two url

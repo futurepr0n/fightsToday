@@ -185,7 +185,13 @@ for x in range(0, x_range):  # prev 0, 533
         
         
         fighter_one_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[2]/a/text()',
+                            '//table[@class="toccolours"]/tbody/tr[%i]/td[2]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[2]/a/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[2]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[2]/a/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[2]/text()',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[2]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/text()',
@@ -208,7 +214,10 @@ for x in range(0, x_range):  # prev 0, 533
             g_fighter_one.append('')
         # Try and get the fighter one url
         fighter_one_url_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href',
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[2]/a/@href',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[2]/a/@href',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[2]/a/@href',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[2]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[2]/a/@href']:
@@ -229,7 +238,13 @@ for x in range(0, x_range):  # prev 0, 533
             g_fighter_one_url.append(fgtr1_wbst)
             '''
         fighter_two_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[4]/a/text()',
+                            '//table[@class="toccolours"]/tbody/tr[%i]/td[4]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[4]/a/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[4]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[4]/a/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[4]/text()',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[4]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/a/text()',
@@ -253,7 +268,10 @@ for x in range(0, x_range):  # prev 0, 533
 
                 # Try and get the fighter two url
         fighter_two_url_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href',
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[4]/a/@href',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[4]/a/@href',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[4]/a/@href',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/tr[%i]/td[4]/a/@href',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tr[%i]/td[4]/a/@href']:
@@ -273,8 +291,11 @@ for x in range(0, x_range):  # prev 0, 533
             g_fighter_two_url.append(fgtr2_wbst)
             '''
         fight_method_array = None
-        
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
+
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[5]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[5]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[5]/text()',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[5]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[5]/text()',
@@ -297,8 +318,11 @@ for x in range(0, x_range):  # prev 0, 533
             ascii_fight_method = smart_str(new_fight_method_string)
             '''
         fight_round_array = None
-     
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()',
+
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[6]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[6]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[6]/text()',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[6]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[6]/text()',
@@ -321,8 +345,11 @@ for x in range(0, x_range):  # prev 0, 533
             ascii_fight_round = smart_str(new_fight_round_string)
             '''
         fight_time_array = None
-       
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()',
+
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[7]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[7]/text()',
+                            '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[7]/text()',
+                            '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[7]/text()',
                             '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[7]/text()',
@@ -349,7 +376,10 @@ for x in range(0, x_range):  # prev 0, 533
             ascii_fight_notes = smart_str(new_fight_notes_string)
             '''
         fight_weightclass_array = None
-        for xpath in ['//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
+        for xpath in ['//table[@class="toccolours"]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[2]/table[2]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[2]/table[3]/tbody/tr[%i]/td[1]/text()',
+                      '//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[1]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[2]/body/tr[%i]/td[1]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[3]/tbody/tr[%i]/td[1]/text()',
                       '//*[@id="mw-content-text"]/div[1]/table[3]/body/tr[%i]/td[1]/text()',

@@ -8,7 +8,9 @@
       "Bash(pipenv run:*)",
       "Bash(python3:*)",
       "Bash(cat:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(/usr/bin/python3 -m pip install:*)",
+      "Bash(/usr/bin/python3:*)"
     ],
     "deny": []
   }

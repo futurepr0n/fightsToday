@@ -7,6 +7,7 @@
 import io
 import MySQLdb
 import requests
+import os
 #from django.utils.encoding import smart_str, smart_text
 import django
 from django.utils.encoding import smart_str
@@ -14,6 +15,7 @@ django.utils.encoding.smart_text = smart_str
 from lxml import html, etree
 from pyquery import PyQuery as pq
 import time
+import db_utils
 
 
 def scrapeEvent(event_url, event_org):
@@ -37,12 +39,13 @@ def scrapeEvent(event_url, event_org):
 
 
 # Database Connection
-# db = MySQLdb.connect(host="markpereira.com",  # your host, usually localhost
-#                     user="mark5463_ft_test",  # your username
-#                     passwd="fttesting",  # your password
-#                     db="mark5463_ft_prod")  # name of the data base
-# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
-db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
+db = MySQLdb.connect(
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 
 
 #  you must create a Cursor object. It will let
@@ -52,6 +55,7 @@ cur = db.cursor()
 # This section will delete the information on the table, for a clean run.
 print('CLEAN the Tables')
 cur.execute("TRUNCATE sd_mma_fight_cards")
+db_utils.truncate_postgres_table("sd_mma_fight_cards")
 
 # This section will query the database and return all data in the table
 cur.execute("SELECT event_name, event_month, event_day, event_year, event_id, event_fight_card_url, event_org FROM sd_mma_events")
@@ -166,6 +170,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
     # print(main_event_query) # -- This is the query printed so we can see it. Commented out bc its not necessary.
     print('Query Executed...')
     cur.execute(main_event_query)
+    db_utils.execute_on_postgres(main_event_query, None)
     print('Success!...')
 
 
@@ -209,6 +214,7 @@ for x in range(0, x_range - 1):  # prev 0, 533
         # print(undercard_query) # commented out bc we do not need to see the full query unless debug
         print('Query Executing...')
         cur.execute(undercard_query)
+        db_utils.execute_on_postgres(undercard_query, None)
         print('Success!...')
 
         g_fight_card_event_name.append(this_event_name)
@@ -225,16 +231,18 @@ fighterloop = len(g_fighter_one)
 #                     db="mark5463_ft_prod")
                      # db="mark5463_ft_testdb")  # name of the data base
 
-# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
-db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
+# Reconnect to database for the next section
+db = MySQLdb.connect(
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 
 #  you must create a Cursor object. It will let
 #  you execute all the queries you need
 cur = db.cursor()
-
-# This section will delete the information on the table, for a clean run.
-# print('CLEAN the Tables')
-# cur.execute("TRUNCATE sd_mma_fight_cards")
 
 # for y in range(0, fighterloop - 1):
 #     print('***********************************************************************************************')

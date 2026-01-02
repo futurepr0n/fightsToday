@@ -14,6 +14,7 @@ from pyquery import PyQuery as pq
 import requests
 import MySQLdb
 import os
+import db_utils
 
 pe_num = 0
 se_num = 0
@@ -248,6 +249,7 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
           """
           values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_int_ep, w_e_id)
           cur.execute(query_update, values_update)
+          db_utils.execute_on_postgres(query_update, values_update)
       else:
           # Insert a new row
           query_insert = """
@@ -256,6 +258,7 @@ def insertRows (row_len, prev_row_ptr, array_pos, pe_b):
           """
           values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_int_ep)
           cur.execute(query_insert, values_insert)
+          db_utils.execute_on_postgres(query_insert, values_insert)
 
       print('Success!...')
       print('***********************************************************************************************')

@@ -15,6 +15,7 @@ import requests
 import MySQLdb
 import os
 import urllib.error
+import db_utils
 
 ##### The JQuery for "The Ultimate Fighter" Posters is:
 
@@ -82,6 +83,7 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     values = (db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, w_e_p_i)
     print(query)
     cur.execute(query, values)
+    db_utils.execute_on_postgres(query, values)
 
     return;
 

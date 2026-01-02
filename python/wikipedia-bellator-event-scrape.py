@@ -14,7 +14,7 @@ from datetime import datetime, date
 import requests
 import MySQLdb
 import os
-
+import db_utils
 
 
 def loadEventsData (event_url, event_org):
@@ -180,6 +180,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
           """
           values_update = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, db_ep_int, w_e_id)
           cur.execute(query_update, values_update)
+          db_utils.execute_on_postgres(query_update, values_update)
       else:
           # Insert a new row
           query_insert = """
@@ -188,6 +189,7 @@ def insertRows (row_len, prev_row_ptr, array_pos):
           """
           values_insert = (db_e_en, event_id, db_e_fc, event_org, db_e_fd, w_e_id, db_ep_int)
           cur.execute(query_insert, values_insert)
+          db_utils.execute_on_postgres(query_insert, values_insert)
       print('Success!...')
       print('array ptr is now %i'%(array_pos))
       print('***********************************************************************************************')

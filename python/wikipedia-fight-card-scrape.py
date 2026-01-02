@@ -9,6 +9,7 @@ import requests
 import MySQLdb
 import time
 import os
+import db_utils
 
 def scrapeEvent(event_url, event_org):
     hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
@@ -93,6 +94,7 @@ db = MySQLdb.connect(
 cur = db.cursor()
 #first we are deleting the events which are upcoming, so we don't get duplicate fights
 cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
+db_utils.delete_from_postgres("wiki_mma_fight_cards", "event_past = 0")
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
@@ -395,6 +397,7 @@ for x in range(0, x_range):  # prev 0, 533
             """
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
+            db_utils.execute_on_postgres(query, values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")

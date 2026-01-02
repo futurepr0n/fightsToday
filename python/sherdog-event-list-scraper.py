@@ -5,12 +5,14 @@
 import MySQLdb
 import requests
 import io
+import os
 #from django.utils.encoding import smart_str
 import django
 from django.utils.encoding import smart_str
 django.utils.encoding.smart_text = smart_str
 from lxml import html, etree
 from pyquery import PyQuery as pq
+import db_utils
 
 
 
@@ -135,6 +137,7 @@ def insertRows(row_len, total_event, prev_row_ptr, array_pos):
         # commenting out the query since we are loaded in the db right now
         print('Query Executed...')
         cur.execute(query)
+        db_utils.execute_on_postgres(query, None)
         print('Success!...')
         print('***********************************************************************************************')
         array_pos = (array_pos) + 1
@@ -145,10 +148,13 @@ def insertRows(row_len, total_event, prev_row_ptr, array_pos):
 
 
 # Database Connection
-# db = MySQLdb.connect(host="markpereira.com", user="mark5463_ft_test", passwd="fttesting", db="mark5463_ft_prod")
-# db = MySQLdb.connect(host="dev-mysql.markpereira.com", user="root", passwd="fttesting", db="mark5463_ft_prod")
-db = MySQLdb.connect(host="192.168.1.96", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
-#db = MySQLdb.connect(host="172.17.0.1", user="root", passwd="fttesting", port=3308, db="mark5463_ft_prod")
+db = MySQLdb.connect(
+    host=os.environ['MYSQL_HOST'],
+    user=os.environ['MYSQL_ID'],
+    passwd=os.environ['MYSQL_PASSWORD'],
+    db="mark5463_ft_prod",
+    charset="utf8"
+)
 
 # Cursor object. It will let you execute the queries
 cur = db.cursor()
@@ -156,6 +162,7 @@ cur = db.cursor()
 # This section will delete the information on the table, for a clean run.
 print("clear the table")
 cur.execute("TRUNCATE sd_mma_events")
+db_utils.truncate_postgres_table("sd_mma_events")
 
 # Scrape UFC Information
 # initialize our arrays. our Arrays.

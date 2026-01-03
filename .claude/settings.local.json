@@ -11,7 +11,8 @@
       "Bash(rm:*)",
       "Bash(/usr/bin/python3 -m pip install:*)",
       "Bash(/usr/bin/python3:*)",
-      "Bash(docker run:*)"
+      "Bash(docker run:*)",
+      "Bash(PGPASSWORD=korn5676 psql:*)"
     ],
     "deny": []
   }

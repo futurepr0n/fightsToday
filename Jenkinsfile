@@ -23,22 +23,20 @@ node {
         }                                                                                                                                                                                                                                                
     }                                                                                                                                                                                                                                                    
             
-    stage('Prepare the fightsToday DB for loading') {                                                                                                                                                                                                  
-        git 'https://github.com/futurepr0n/fightsToday.git'                                                                                                                                                                                            
-        if (isUnix()) {                                                                                                                                                                                                                                  
-            sh '''
-                for i in $(seq 1 20); do                                                                                                                                                                                                                 
-                    docker exec fightsTodayTestDB mysqladmin ping -u root --password=fttesting --silent && break                                                                                                                                         
-                    echo "Waiting for MySQL... attempt $i"
-                    sleep 3                                                                                                                                                                                                                              
-                done                                                 
-            '''                                                                                                                                                                                                                                          
-            retry(5) {                                                                                                                                                                                                                                 
+    stage('Prepare the fightsToday DB for loading') { // prep the db
+        git 'https://github.com/futurepr0n/fightsToday.git'
+        // Set up the Python Environment and dependencies  
+        if (isUnix()) {
+            sleep(60)
+            retry(5){
                 sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql --port=3308 -u root --password=fttesting'
-            }                                                                                                                                                                                                                                            
-        } else {
-        }                                                                                                                                                                                                                                                
-    }  
+            }
+                
+            }else{
+
+        }
+            //##discordSend description: "DB Staged and Prepared for Loading..", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/725819926019047525/u2pGRTVXR9yCDzNnzhRgqlN4GiBgMmywTRUuyTagWQG9RmWAyDt6OSHYHWg7ObJlLVj9"       
+    }
   // stage('Wikipedia Bellator Events Scrape') {
       // Run the build
   //     withCredentials([

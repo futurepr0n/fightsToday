@@ -196,15 +196,15 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_one_url_array:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+            fgtr1_wbst = db_utils.absolute_wiki_url(''.join(fighter_one_url_array))
             g_fighter_one_url.append(fgtr1_wbst)
         else:
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+            fgtr1_wbst = db_utils.absolute_wiki_url(''.join(fighter_one_url_array))
             g_fighter_one_url.append(fgtr1_wbst)
                 
             '''
             fighter_one_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[2]/a/@href' % (z))
-            fgtr1_wbst = 'https://en.wikipedia.org', ''.join(fighter_one_url_array)
+            fgtr1_wbst = db_utils.absolute_wiki_url(''.join(fighter_one_url_array))
             g_fighter_one_url.append(fgtr1_wbst)
             '''
         fighter_two_array = None
@@ -250,14 +250,14 @@ for x in range(0, x_range):  # prev 0, 533
                 break
 
         if fighter_two_url_array:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+            fgtr2_wbst = db_utils.absolute_wiki_url(''.join(fighter_two_url_array))
             g_fighter_two_url.append(fgtr2_wbst)
         else:
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+            fgtr2_wbst = db_utils.absolute_wiki_url(''.join(fighter_two_url_array))
             g_fighter_two_url.append(fgtr2_wbst)
             '''
             fighter_two_url_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[2]/tbody/tr[%i]/td[4]/a/@href' % (z))
-            fgtr2_wbst = 'https://en.wikipedia.org', ''.join(fighter_two_url_array)
+            fgtr2_wbst = db_utils.absolute_wiki_url(''.join(fighter_two_url_array))
             g_fighter_two_url.append(fgtr2_wbst)
             '''
         fight_method_array = None

@@ -217,3 +217,24 @@ def rows_after_heading(d, heading_id):
         # Parsoid wraps sections in <section>, putting the table one level down
         table = siblings.find('table').eq(0)
     return table.find('tr')
+
+
+WIKI_BASE = 'https://en.wikipedia.org'
+
+
+def absolute_wiki_url(href):
+    """Return an absolute Wikipedia URL for href.
+
+    Wikipedia serves relative hrefs ('/wiki/UFC_88') in some renderings and
+    absolute ones in others. Unconditionally prefixing the domain produced
+    'http://en.wikipedia.orghttps://en.wikipedia.org/wiki/UFC_88', which fails
+    DNS resolution on every request.
+    """
+    href = (href or '').strip()
+    if not href:
+        return ''
+    if href.startswith(('http://', 'https://')):
+        return href
+    if href.startswith('//'):
+        return 'https:' + href
+    return WIKI_BASE + href

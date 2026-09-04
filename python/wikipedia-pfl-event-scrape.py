@@ -88,10 +88,10 @@ def loadPastEventsData (event_url, event_org):
         event_fight_card_url_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/a/@href'%(x))
         newstr2 = ''.join(event_fight_card_url_array)
         asccii_string2 = smart_str(newstr2)
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
+        ev_fc_wbst = db_utils.absolute_wiki_url(''.join(asccii_string2))
         event_fight_card_url.append(ev_fc_wbst)
       else:
-        ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
+        ev_fc_wbst = db_utils.absolute_wiki_url(''.join(asccii_string2))
         event_fight_card_url.append(ev_fc_wbst)
 
       #event_date_array = tree.xpath('//*[@id="Past_events"]/table[2]/tr[%i]/td[3]/span[2]/text()'%(x))
@@ -173,10 +173,10 @@ def loadUpcomingEventsData (event_url, event_org):
       #  event_fight_card_url_array = tree.xpath('//[@id="Scheduled_events"]/tr[%i]/td[1]/a/@href'%(x))
       #  newstr2 = ''.join(event_fight_card_url_array)
       #  asccii_string2 = smart_str(newstr2)
-      ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
+      ev_fc_wbst = db_utils.absolute_wiki_url(''.join(asccii_string2))
       event_fight_card_url.append(ev_fc_wbst)
       #else:
-      #  ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
+      #  ev_fc_wbst = db_utils.absolute_wiki_url(''.join(asccii_string2))
       #  event_fight_card_url.append(ev_fc_wbst)
 
       #event_date_array = tree.xpath('(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/text()'%(x))

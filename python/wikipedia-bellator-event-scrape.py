@@ -81,7 +81,7 @@ def loadEventsData (event_url, event_org):
       new_fight_card_url_str = ''.join(event_fight_card_url_array)
       ascii_fight_card_url_string = smart_str(new_fight_card_url_str)
       print('Event URL: \t\t %s' % ascii_fight_card_url_string)
-      ev_fc_wbst = 'http://en.wikipedia.org', ''.join(ascii_fight_card_url_string)
+      ev_fc_wbst = db_utils.absolute_wiki_url(''.join(ascii_fight_card_url_string))
       event_fight_card_url.append(ev_fc_wbst)
       #######################################################################
       event_date_array = tree.xpath('//*[@id="mw-content-text"]/div[1]/table[1]/tbody/tr[%i]/td[3]/span/text()'%(x))

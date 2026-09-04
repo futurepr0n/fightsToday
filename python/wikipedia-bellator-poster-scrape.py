@@ -41,8 +41,10 @@ def loadPosterData (event_url):
             break
 
     if not poster_url_array:
-        print(f"No poster found for {event_url}")
-        return None
+        # "https:" is the sentinel generate-html.py and the site's PHP look
+        # for to substitute the promotion's placeholder poster image
+        print(f"No poster found for {event_url} - using placeholder sentinel")
+        poster_url_array = []
 
     ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
     newstr = ev_fc_poster_wbst

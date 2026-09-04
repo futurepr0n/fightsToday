@@ -133,3 +133,67 @@ def delete_from_postgres(table_name, where_clause="", params=None):
     if where_clause:
         query += f" WHERE {where_clause}"
     return execute_on_postgres(query, params)
+
+
+# ---------------------------------------------------------------------------
+# HTTP fetch helpers
+#
+# Wikipedia returns HTTP 429 when scraped too aggressively. The scrapers loop
+# over hundreds of events, so a single throttled response used to abort the
+# whole run. fetch_url retries with exponential backoff and honours the
+# Retry-After header, returning None only once all attempts are exhausted.
+# ---------------------------------------------------------------------------
+
+import requests
+
+WIKI_REQUEST_DELAY = float(os.environ.get('WIKI_REQUEST_DELAY', '1.0'))
+WIKI_MAX_RETRIES = int(os.environ.get('WIKI_MAX_RETRIES', '5'))
+
+RETRYABLE_STATUS = (429, 500, 502, 503, 504)
+
+
+def fetch_url(url, headers=None, max_retries=None, base_delay=None):
+    """Fetch url, retrying on rate limits and transient server errors.
+
+    Returns a requests.Response on success, or None if every attempt failed.
+    Callers must handle None rather than assuming a response.
+    """
+    if max_retries is None:
+        max_retries = WIKI_MAX_RETRIES
+    if base_delay is None:
+        base_delay = WIKI_REQUEST_DELAY
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, headers=headers, timeout=30)
+        except requests.exceptions.RequestException as e:
+            wait = base_delay * (2 ** attempt)
+            print(f"Request error for {url}: {e} - retrying in {wait:.1f}s "
+                  f"({attempt + 1}/{max_retries})")
+            time.sleep(wait)
+            continue
+
+        if response.status_code in RETRYABLE_STATUS:
+            retry_after = response.headers.get('Retry-After')
+            try:
+                wait = float(retry_after) if retry_after else base_delay * (2 ** attempt)
+            except (TypeError, ValueError):
+                wait = base_delay * (2 ** attempt)
+            print(f"HTTP {response.status_code} for {url} - retrying in "
+                  f"{wait:.1f}s ({attempt + 1}/{max_retries})")
+            time.sleep(wait)
+            continue
+
+        if response.status_code >= 400:
+            print(f"HTTP {response.status_code} for {url} - giving up")
+            return None
+
+        return response
+
+    print(f"Exhausted {max_retries} attempts for {url}")
+    return None
+
+
+def polite_delay(seconds=None):
+    """Sleep between scraped pages to stay within Wikipedia's rate limits."""
+    time.sleep(WIKI_REQUEST_DELAY if seconds is None else seconds)

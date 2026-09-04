@@ -25,13 +25,11 @@ def loadPosterData (event_url):
     try:
         #set up the lxml, load url to scrape
         hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-        page = requests.get('%s' % (event_url), headers=hdr)
+        page = db_utils.fetch_url('%s' % (event_url), headers=hdr)
+        if page is None:
+            return None
         tree = html.fromstring(page.content)
 
-        #set up PyQuery section, load the url to scrape
-        d = pq("<html></html>")
-        d = pq(etree.fromstring("<html></html>"))
-        d = pq(url='%s' % (event_url), headers=hdr)
 
         poster_url_array = None
         for xpath in ['//table[@class="infobox vevent"]/tbody/tr[2]/td/span/a/img/@src',
@@ -44,7 +42,8 @@ def loadPosterData (event_url):
                 break
 
         if not poster_url_array:
-            poster_url_array = []
+            print(f"No poster found for {event_url}")
+            return None
 
         ev_fc_poster_wbst = str(poster_url_array).strip('[\'\']')
         newstr = ev_fc_poster_wbst
@@ -62,6 +61,9 @@ def loadPosterData (event_url):
 
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     # print('+++++++++++++++++++++++++++++')
+    if poster_url is None:
+        print('Skipping event %s - no poster data retrieved' % event_id)
+        return
     db_e_poster_url = ''.join(poster_url)
     w_e_p_i = event_org + str(event_id)
     print('Adding poster URL to the Database: ', db_e_poster_url)
@@ -159,8 +161,7 @@ for x in range(0, x_range):  # prev 0, 533
   g_fight_card_poster_url.append(this_event_poster)
   insertRows(this_event_poster, x + 1, g_event_fight_card_url[x], g_event_date[x], g_event_name[x], g_event_org[x])
 
-  # time.sleep(5)
-
+  db_utils.polite_delay()
 '''
 # Scrape UFC Information
 # initialize our arrays. our Arrays.

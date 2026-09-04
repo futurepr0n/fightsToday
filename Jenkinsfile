@@ -27,9 +27,20 @@ node {
         git 'https://github.com/futurepr0n/fightsToday.git'
         // Set up the Python Environment and dependencies  
         if (isUnix()) {
-            sleep(60)
+            // A fresh mysql container has to build its system tables first. Poll
+            // until it actually answers instead of guessing with a fixed sleep,
+            // which raced and failed all 5 retries in build 220.
+            sh '''
+                for i in $(seq 1 60); do
+                    if docker exec fightsTodayTestDB mysqladmin ping -u root --password=fttesting --silent 2>/dev/null; then
+                        echo "MySQL ready after ${i} attempts"; exit 0
+                    fi
+                    sleep 5
+                done
+                echo "MySQL did not become ready within 300s"; docker logs --tail 30 fightsTodayTestDB; exit 1
+            '''
             retry(5){
-                sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql --port=3308 -u root --password=fttesting'
+                sh 'cat sql/fights_today_setup.sql | docker exec -i fightsTodayTestDB mysql -u root --password=fttesting'
             }
                 
             }else{

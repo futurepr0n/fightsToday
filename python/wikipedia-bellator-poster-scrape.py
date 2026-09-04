@@ -77,7 +77,10 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
 
     values = (db_e_poster_url, event_id, event_fight_card_url, event_date, event_name, event_org, w_e_p_i)
 
-    cur.execute(query, values)
+    def _rebind(new_db, new_cur):
+        global db, cur
+        db, cur = new_db, new_cur
+    db_utils.execute_reconnecting(cur, query, values, _rebind)
     db_utils.execute_on_postgres(query, values)
 
     return;

@@ -147,7 +147,7 @@ def delete_from_postgres(table_name, where_clause="", params=None):
 import requests
 
 WIKI_REQUEST_DELAY = float(os.environ.get('WIKI_REQUEST_DELAY', '1.0'))
-WIKI_MAX_RETRIES = int(os.environ.get('WIKI_MAX_RETRIES', '5'))
+WIKI_MAX_RETRIES = int(os.environ.get("WIKI_MAX_RETRIES", "3"))
 
 RETRYABLE_STATUS = (429, 500, 502, 503, 504)
 
@@ -238,3 +238,44 @@ def absolute_wiki_url(href):
     if href.startswith('//'):
         return 'https:' + href
     return WIKI_BASE + href
+
+
+MYSQL_RECONNECT_ERRNOS = (2006, 2013, 4031)  # gone away / lost connection / idle timeout
+
+
+def mysql_connect():
+    """Open the production MySQL connection from the Jenkins-injected env."""
+    import MySQLdb
+    return MySQLdb.connect(
+        host=os.environ['MYSQL_HOST'],
+        user=os.environ['MYSQL_ID'],
+        passwd=os.environ['MYSQL_PASSWORD'],
+        db="mark5463_ft_prod",
+        charset="utf8",
+    )
+
+
+def execute_reconnecting(cur, query, values, on_reconnect):
+    """Execute query, reopening the connection once if the server dropped it.
+
+    The scrapers hold a single connection open for the whole run. An event
+    whose page 404s burns several retries with backoff and issues no query in
+    the meantime, which can exceed the server's wait_timeout; MySQL then
+    reports 4031 on the next statement. Nothing here runs in an explicit
+    transaction, so reconnecting cannot lose already-inserted rows.
+
+    on_reconnect(db, cur) lets the caller rebind its module-level handles.
+    """
+    import MySQLdb
+    try:
+        cur.execute(query, values)
+        return cur
+    except MySQLdb.OperationalError as e:
+        if e.args[0] not in MYSQL_RECONNECT_ERRNOS:
+            raise
+        print(f"MySQL connection lost ({e.args[0]}), reconnecting")
+        db = mysql_connect()
+        cur = db.cursor()
+        on_reconnect(db, cur)
+        cur.execute(query, values)
+        return cur

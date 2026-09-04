@@ -64,7 +64,7 @@ def loadPastEventsData(event_url, event_org):
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url), headers=hdr)
 
-    p = d("#Past_events tr")
+    p = db_utils.rows_after_heading(d, "Past_events")
     row_len = len(p)
 
     pe_num = row_len - 1
@@ -77,24 +77,24 @@ def loadPastEventsData(event_url, event_org):
     outF_pe.close()
 
     for x in range(2, row_len+1):
-        event_name_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/a/text()'%(x))
+        event_name_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/a/text()'%(x))
         newstr = ''.join(event_name_array)
         asccii_string = smart_str(newstr)
 
         if asccii_string == '':
-            event_name_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/span/a/text()'%(x))
+            event_name_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/span/a/text()'%(x))
             newstr = ''.join(event_name_array)
             asccii_string = smart_str(newstr)
             event_name.append(asccii_string)
         else:
             event_name.append(asccii_string)
 
-        event_fight_card_url_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/span/a/@href'%(x))
+        event_fight_card_url_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/span/a/@href'%(x))
         newstr2 = ''.join(event_fight_card_url_array)
         asccii_string2 = smart_str(newstr2)
 
         if asccii_string2 == '':
-            event_fight_card_url_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[2]/a/@href'%(x))
+            event_fight_card_url_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/a/@href'%(x))
             newstr2 = ''.join(event_fight_card_url_array)
             asccii_string2 = smart_str(newstr2)
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
@@ -103,7 +103,7 @@ def loadPastEventsData(event_url, event_org):
             ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
             event_fight_card_url.append(ev_fc_wbst)
 
-        event_date_array = tree.xpath('//*[@id="Past_events"]/tbody/tr[%i]/td[3]/span/text()'%(x))
+        event_date_array = tree.xpath('(//h2[@id="Past_events"]/parent::div/following-sibling::table | //h2[@id="Past_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[3]/span/text()'%(x))
         event_date.append(event_date_array)
         ep_b = True
         db_ep_int = int(ep_b)
@@ -120,7 +120,7 @@ def loadUpcomingEventsData(event_url, event_org):
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s'%(event_url), headers=hdr)
 
-    p = d("#Scheduled_events tr")
+    p = db_utils.rows_after_heading(d, "Scheduled_events")
     row_len = len(p)
 
     se_num = row_len - 1
@@ -134,10 +134,10 @@ def loadUpcomingEventsData(event_url, event_org):
 
     for x in range(2, row_len+1):
         event_name_array = None
-        for xpath in ['//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/text()',
-                    '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/span/text()',
-                    '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/text()',
-                    '//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/span/text()']:
+        for xpath in ['(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[1]/a/text()',
+                    '(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[1]/a/span/text()',
+                    '(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[1]/text()',
+                    '(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[1]/span/text()']:
             event_name_array = tree.xpath(xpath % x)
             if event_name_array:
                 break
@@ -149,18 +149,18 @@ def loadUpcomingEventsData(event_url, event_org):
         else:
             event_name.append('UFC Event')  
 
-        event_fight_card_url_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[1]/a/@href'%(x))
+        event_fight_card_url_array = tree.xpath('(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[1]/a/@href'%(x))
         newstr2 = ''.join(event_fight_card_url_array)
         asccii_string2 = smart_str(newstr2)
         ev_fc_wbst = 'http://en.wikipedia.org', ''.join(asccii_string2)
         event_fight_card_url.append(ev_fc_wbst)
 
-        event_date_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[2]/span/text()'%(x))
+        event_date_array = tree.xpath('(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/span/text()'%(x))
         newstr3 = ''.join(event_date_array)
         ascii_string3 = smart_str(newstr3)
 
         if ascii_string3 == '':
-            event_date_array = tree.xpath('//*[@id="Scheduled_events"]/tbody/tr[%i]/td[2]/text()'%(x))
+            event_date_array = tree.xpath('(//h2[@id="Scheduled_events"]/parent::div/following-sibling::table | //h2[@id="Scheduled_events"]/parent::div/following-sibling::*/descendant::table)[1]/tbody/tr[%i]/td[2]/text()'%(x))
             newstr3 = ''.join(event_date_array)
             ascii_string3 = smart_str(newstr3)
             event_date.append(ascii_string3)

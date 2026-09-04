@@ -197,3 +197,23 @@ def fetch_url(url, headers=None, max_retries=None, base_delay=None):
 def polite_delay(seconds=None):
     """Sleep between scraped pages to stay within Wikipedia's rate limits."""
     time.sleep(WIKI_REQUEST_DELAY if seconds is None else seconds)
+
+
+def rows_after_heading(d, heading_id):
+    """Return the <tr> elements of the first table following a section heading.
+
+    Wikipedia moved section ids onto the <h2> inside <div class="mw-heading">,
+    so the table is now a sibling of that wrapper rather than a descendant of
+    the element carrying the id. The old '#id tr' selectors silently matched
+    nothing, which made the scrapers report success while collecting no rows.
+    """
+    heading = d('#' + heading_id)
+    if not len(heading):
+        print(f"Heading #{heading_id} not found on page")
+        return heading
+    siblings = heading.parent().nextAll()
+    table = siblings.filter('table').eq(0)
+    if not len(table):
+        # Parsoid wraps sections in <section>, putting the table one level down
+        table = siblings.find('table').eq(0)
+    return table.find('tr')

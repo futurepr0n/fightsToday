@@ -113,6 +113,9 @@ for x in range(0, x_range):  # prev 0, 533
     # bring in the url information
     ##time.sleep(3) #introducing sleep to prevent ddos and ip ban
     event_main_event_url = g_event_fight_card_url[x]
+    if not event_main_event_url:
+        print("No event URL yet - skipping")
+        continue
     hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     try:
          page = requests.get('%s' % (event_main_event_url), headers=hdr)

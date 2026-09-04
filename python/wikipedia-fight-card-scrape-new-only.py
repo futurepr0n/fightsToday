@@ -150,7 +150,16 @@ for x in range(0, x_range):  # prev 0, 533
     event_main_event_url = g_event_fight_card_url[x]
     print(event_main_event_url)
     hdr = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-    page = requests.get('%s' % (event_main_event_url), headers=hdr)
+    if not event_main_event_url:
+        # Newly announced events appear on the schedule before they have a
+        # Wikipedia article, so there is no fight card to scrape yet.
+        print("No event URL yet - skipping")
+        continue
+    page = db_utils.fetch_url('%s' % (event_main_event_url), headers=hdr)
+    if page is None:
+        print("Could not fetch %s - skipping" % event_main_event_url)
+        continue
+    db_utils.polite_delay()
     tree = html.fromstring(page.content)
 
     this_event_name = g_event_name[x]

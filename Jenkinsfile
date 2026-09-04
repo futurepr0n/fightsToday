@@ -31,9 +31,16 @@ node {
             // until it actually answers instead of guessing with a fixed sleep,
             // which raced and failed all 5 retries in build 220.
             sh '''
+                ok=0
                 for i in $(seq 1 60); do
-                    if docker exec fightsTodayTestDB mysqladmin ping -u root --password=fttesting --silent 2>/dev/null; then
-                        echo "MySQL ready after ${i} attempts"; exit 0
+                    # -h 127.0.0.1 forces TCP. The entrypoint's temporary init
+                    # server is socket-only with networking disabled, so only the
+                    # real server answers here; a socket ping would pass too early.
+                    if docker exec fightsTodayTestDB mysql -h 127.0.0.1 -P 3306 -u root --password=fttesting -e 'SELECT 1' >/dev/null 2>&1; then
+                        ok=$((ok+1))
+                        if [ "$ok" -ge 2 ]; then echo "MySQL ready after ${i} attempts"; exit 0; fi
+                    else
+                        ok=0
                     fi
                     sleep 5
                 done

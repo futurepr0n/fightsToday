@@ -9,5 +9,15 @@ session.storbinary('STOR all_events.ics', file)     # send the file
 file.close()     
 file = open('all_events_test.ics','rb')                  # file to send
 session.storbinary('STOR all_events_test.ics', file)     # send the file
-file.close()     
+file.close()
+
+# The generated site itself. Only uploaded when generate-html.py actually
+# produced it, so a failed generation cannot blank the live page.
+if os.path.exists('index.php') and os.path.getsize('index.php') > 0:
+    with open('index.php', 'rb') as f:
+        session.storbinary('STOR index.php', f)
+    print('Uploaded index.php (%d bytes)' % os.path.getsize('index.php'))
+else:
+    print('index.php missing or empty - not uploading')
+
 session.quit()

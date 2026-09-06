@@ -64,8 +64,12 @@ def loadPosterData (event_url):
 def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_name, event_org):
     # print('+++++++++++++++++++++++++++++')
     if poster_url is None:
-        print('Skipping event %s - no poster data retrieved' % event_id)
-        return
+        # Still write a row so every event has one - generate-html.py indexes
+        # these arrays positionally. The sentinel is not allowed to overwrite a
+        # real URL (see the IF() in the upsert below), so a transient fetch
+        # failure cannot downgrade a poster we already have.
+        print('No poster data for event %s - writing placeholder sentinel' % event_id)
+        poster_url = 'https:'
     db_e_poster_url = ''.join(poster_url)
     w_e_p_i = event_org + str(event_id)
     print('Adding poster URL to the Database: ', db_e_poster_url)
@@ -77,7 +81,8 @@ def insertRows (poster_url, event_id, event_fight_card_url, event_date, event_na
     VALUES
     (%s, %s, %s, %s, %s, %s, %s)
     ON DUPLICATE KEY UPDATE
-    event_fight_poster_url = VALUES(event_fight_poster_url),
+    event_fight_poster_url = IF(VALUES(event_fight_poster_url) = 'https:',
+                               event_fight_poster_url, VALUES(event_fight_poster_url)),
     event_fight_card_url = VALUES(event_fight_card_url),
     event_date = VALUES(event_date),
     event_name = VALUES(event_name),

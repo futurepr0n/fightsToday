@@ -19,9 +19,14 @@ import MySQLdb
 from pastevents import *
 from schedevents import * 
 from totalevents import *
-from bellator_pastevents import *
-from bellator_schedevents import * 
-from bellator_totalevents import *
+try:
+    from bellator_pastevents import *
+    from bellator_schedevents import *
+    from bellator_totalevents import *
+except ImportError:
+    # The Bellator scraper is disabled (the promotion is defunct), so its
+    # generated count modules are absent. Zero renders no Bellator sections.
+    BELLATOR_PAST_EVENTS = BELLATOR_SCHED_EVENTS = BELLATOR_TOTAL_EVENTS = 0
 from pfl_pastevents import *
 from pfl_schedevents import * 
 from pfl_totalevents import *
@@ -535,7 +540,7 @@ $conn->close();
 
 
     #z = BELLATOR_PAST_EVENTS - 1
-    z = BELLATOR_PAST_EVENTS 
+    z = BELLATOR_PAST_EVENTS - 1
     length_of_loop2 = BELLATOR_PAST_EVENTS - BELLATOR_SCHED_EVENTS
     while z >= length_of_loop2:
         print('<li data-flip-title="%s">' %  (bellator_event_name[z]), file=f)
@@ -866,7 +871,7 @@ cur = db.cursor()
 
 
 # This section will query the database and return all data in the table
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'UFC' ")
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'UFC'  ORDER BY event_id ASC")
 
 # initialize the arrays
 event_fight_poster_url = []
@@ -885,7 +890,7 @@ for row in cur.fetchall():
 
 
 # Bellator query
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'Bellator'")
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'Bellator' ORDER BY event_id ASC")
 
 bellator_event_fight_poster_url = []
 bellator_event_id = []
@@ -902,7 +907,7 @@ for row2 in cur.fetchall():
     bellator_event_name.append(row2[4])
 
 # Bellator query
-cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'PFL'")
+cur.execute("SELECT event_fight_poster_url, event_id, event_fight_card_url, event_date, event_name from wiki_mma_events_poster where event_org = 'PFL' ORDER BY event_id ASC")
 
 pfl_event_fight_poster_url = []
 pfl_event_id = []

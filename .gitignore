@@ -58,3 +58,4 @@ Thumbs.db
 python/totalevents.py
 python/schedevents.py
 python/pastevents.py
+.backup/

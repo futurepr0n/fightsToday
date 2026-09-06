@@ -333,6 +333,42 @@ node {
 //         discordSend description: "iCal Built", footer: "futurepr0n", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://www.assetworks.com/wp-content/uploads/2018/11/Calendar-GIF-240p-8d6f3eae-a7fa-4497-bbad-28b1e76d64d0.gif", title: JOB_NAME, webhookURL: "https://discordapp.com/api/webhooks/647580857242091570/tsfe5Y0YnzGqWKRrx0WiQOrpadM3OM-6pCEVIYC9DS2oNLTWtuNveJ9ZQP3agMjoEjIU"
    }
    }
+   stage('Generate Website') {
+      // Rebuilds index.php from the database. This ran by hand for a long time
+      // while the pipeline only shipped the ICS files, which is why the site
+      // went stale even when the scrape succeeded.
+       withCredentials([
+                string(
+                    credentialsId: 'mysql-id',
+                    variable: 'MYSQL_ID'
+                ),
+                string(
+                    credentialsId: 'mysql-password',
+                    variable: 'MYSQL_PASSWORD'
+                ),
+                string(
+                    credentialsId: 'mysql-host',
+                    variable: 'MYSQL_HOST'
+                )
+      ]){
+         if (isUnix()) {
+            // generate-html.py opens index.php in append mode, so a stale file
+            // would be doubled rather than replaced.
+            sh 'rm -f index.php'
+            sh 'pipenv run python python/generate-html.py'
+            // Fail the build rather than publish a truncated page. A healthy
+            // render is ~35KB; anything under 10KB means generation went wrong.
+            sh '''
+               size=$(wc -c < index.php)
+               echo "index.php is ${size} bytes"
+               if [ "$size" -lt 10000 ]; then
+                   echo "index.php looks truncated - refusing to publish"; exit 1
+               fi
+               grep -q "</html>" index.php || { echo "index.php has no closing </html>"; exit 1; }
+            '''
+         }
+      }
+   }
    stage('Upload To Server') {
        withCredentials([
                 string(

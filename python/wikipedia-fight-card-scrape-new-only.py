@@ -133,9 +133,13 @@ db = MySQLdb.connect(
 )
 
 cur = db.cursor()
-#first we are deleting the events which are upcoming, so we don't get duplicate fights
-cur.execute("DELETE FROM `wiki_mma_fight_cards` WHERE event_past = 0")
-db_utils.delete_from_postgres("wiki_mma_fight_cards", "event_past = 0")
+# Deleting upcoming rows before scraping meant a parser failure wiped the card
+# and replaced it with nothing. Instead: snapshot, record what exists, and drop
+# only the rows that a successful scrape supersedes (see the reconcile below).
+FIGHT_TABLE = 'wiki_mma_fight_cards'
+db_utils.snapshot_rows(cur, FIGHT_TABLE, 'event_past = 0')
+fight_baseline = db_utils.fight_counts_by_event(cur, FIGHT_TABLE, 'event_past = 0')
+scraped_by_event = {}
 print("X Range is: ")
 print(x_range)
 
@@ -457,12 +461,26 @@ for x in range(0, x_range):  # prev 0, 533
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
             db_utils.execute_on_postgres(query, values)
+            scraped_by_event.setdefault(e_wei, set()).add(w_fight_id)
             print(values)
             fight_iterator = fight_iterator + 1
         else:
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,ascii_fight_weightclass,e_wei,w_fight_id)
 
-    
+
+# Remove only the tail rows a successful scrape supersedes. An event that
+# scraped nothing keeps whatever it already had, so a failed fetch or a markup
+# change cannot silently empty the card.
+total_scraped = sum(len(v) for v in scraped_by_event.values())
+for wiki_event_id in sorted(set(list(fight_baseline) + list(scraped_by_event))):
+    db_utils.reconcile_event_fights(cur, FIGHT_TABLE, wiki_event_id,
+                                    scraped_by_event.get(wiki_event_id, set()),
+                                    fight_baseline)
+
 cur.close()
 db.close()
+
+# Raised last so the reconcile above still runs and the connection closes
+# cleanly. A zero-fight run against a non-empty table fails the build.
+db_utils.assert_scrape_productive(total_scraped, fight_baseline, 'UFC fight cards')

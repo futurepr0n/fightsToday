@@ -106,7 +106,14 @@ db = MySQLdb.connect(
 )
 
 cur = db.cursor()
-#cur.execute("TRUNCATE wiki_mma_fight_cards")
+
+# This scraper never cleaned up, so a card that shrank left stale trailing
+# fights behind. Snapshot first, then reconcile per event after scraping.
+FIGHT_TABLE = 'wiki_mma_fight_cards'
+db_utils.snapshot_rows(cur, FIGHT_TABLE, "event_past = 0 AND event_org = 'PFL'")
+fight_baseline = db_utils.fight_counts_by_event(
+    cur, FIGHT_TABLE, "event_past = 0 AND event_org = 'PFL'")
+scraped_by_event = {}
 
 # This loops for every entry of event in the database to build our fight card information
 for x in range(0, x_range):  # prev 0, 533
@@ -422,12 +429,21 @@ for x in range(0, x_range):  # prev 0, 533
             values = (e_name, e_f1, e_f1_url, e_f2, e_f2_url, e_fc_url, e_org, e_wei, db_ep_int, ascii_fight_method, ascii_fight_time, ascii_fight_round, ascii_fight_weightclass, w_fight_id)
             cur.execute(query, values)
             db_utils.execute_on_postgres(query, values)
+            scraped_by_event.setdefault(e_wei, set()).add(w_fight_id)
             fight_iterator = fight_iterator + 1
           else: print("Not all vars required for insertion")
         else:
             print("Not all required variables have a value. Skipping database insertion.")
             print(e_name,e_f1,e_f2,ascii_fight_weightclass)
 
-    
+
+total_scraped = sum(len(v) for v in scraped_by_event.values())
+for wiki_event_id in sorted(set(list(fight_baseline) + list(scraped_by_event))):
+    db_utils.reconcile_event_fights(cur, FIGHT_TABLE, wiki_event_id,
+                                    scraped_by_event.get(wiki_event_id, set()),
+                                    fight_baseline)
+
 cur.close()
 db.close()
+
+db_utils.assert_scrape_productive(total_scraped, fight_baseline, 'PFL fight cards')

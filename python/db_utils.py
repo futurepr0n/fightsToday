@@ -279,3 +279,80 @@ def execute_reconnecting(cur, query, values, on_reconnect):
         on_reconnect(db, cur)
         cur.execute(query, values)
         return cur
+
+
+# ---------------------------------------------------------------------------
+# Safe repopulation of scraped rows
+#
+# The fight card scraper used to DELETE every upcoming row before scraping.
+# When a Wikipedia markup change silently zeroed the parser, that deleted all
+# upcoming fights and replaced them with nothing, every night, for months.
+# These helpers make the write path fail safe instead: snapshot first, and only
+# remove rows for events that actually scraped successfully.
+# ---------------------------------------------------------------------------
+
+def snapshot_rows(cur, table, where):
+    """Copy the rows about to be modified into <table>_backup.
+
+    Gives an obvious restore path if a run writes bad data:
+        INSERT INTO <table> SELECT * FROM <table>_backup
+              ON DUPLICATE KEY UPDATE ...
+    """
+    backup = table + '_backup'
+    cur.execute("CREATE TABLE IF NOT EXISTS `%s` LIKE `%s`" % (backup, table))
+    cur.execute("DELETE FROM `%s`" % backup)
+    cur.execute("INSERT INTO `%s` SELECT * FROM `%s` WHERE %s" % (backup, table, where))
+    cur.execute("SELECT COUNT(*) FROM `%s`" % backup)
+    n = cur.fetchone()[0]
+    print("Backed up %d rows to %s" % (n, backup))
+    return n
+
+
+def fight_counts_by_event(cur, table, where):
+    """Rows per wiki_event_id, used as the before/after baseline."""
+    cur.execute("SELECT wiki_event_id, COUNT(*) FROM `%s` WHERE %s GROUP BY wiki_event_id"
+                % (table, where))
+    return dict(cur.fetchall())
+
+
+def reconcile_event_fights(cur, table, wiki_event_id, scraped_fight_ids, baseline):
+    """Drop rows for one event that this run did not produce.
+
+    Fight ids are positional (UFC331Fight1, Fight2, ...) and inserts upsert, so
+    the only rows needing removal are the tail left behind when a card shrinks.
+
+    Returns (deleted, skipped_reason). An event that previously had fights and
+    now yields none is left untouched and reported: that is the signature of
+    markup drift or a failed fetch, not of a cancelled card.
+    """
+    had = baseline.get(wiki_event_id, 0)
+    if not scraped_fight_ids:
+        if had:
+            print("DRIFT? %s previously had %d fights and scraped 0 - keeping existing rows"
+                  % (wiki_event_id, had))
+            return 0, 'scraped-zero'
+        return 0, 'nothing-to-do'
+    placeholders = ','.join(['%s'] * len(scraped_fight_ids))
+    sql = ("DELETE FROM `%s` WHERE wiki_event_id = %%s AND event_past = 0 "
+           "AND wiki_fight_id NOT IN (%s)" % (table, placeholders))
+    cur.execute(sql, [wiki_event_id] + sorted(scraped_fight_ids))
+    removed = cur.rowcount
+    if removed:
+        print("%s: removed %d stale fight row(s)" % (wiki_event_id, removed))
+    return removed, None
+
+
+def assert_scrape_productive(total_scraped, baseline, label):
+    """Fail the build when a scrape that should produce rows produces none.
+
+    Without this a total parser failure and a clean run look identical in the
+    Jenkins log - both are green. This is what let the fight card breakage sit
+    unnoticed.
+    """
+    had = sum(baseline.values())
+    if total_scraped == 0 and had > 0:
+        raise SystemExit(
+            "%s scraped 0 fights but %d upcoming rows already exist. Refusing to "
+            "treat this as a real result - likely Wikipedia markup drift or a "
+            "failed fetch. Existing rows left untouched." % (label, had))
+    print("%s: scraped %d fights (previous upcoming rows: %d)" % (label, total_scraped, had))

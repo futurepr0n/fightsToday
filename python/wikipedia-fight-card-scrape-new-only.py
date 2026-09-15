@@ -180,7 +180,10 @@ for x in range(0, x_range):  # prev 0, 533
     d = pq(etree.fromstring("<html></html>"))
     d = pq(url='%s' % (event_main_event_url), headers=hdr)
 
-    p = d('#mw-content-text > div.mw-parser-output > table.toccolours > tbody > tr')
+    # Wikipedia nests the fight card table deeper than it used to, so the
+    # strict child chain matched nothing: row_len became 1 and range(3, 1)
+    # never iterated, so no fights were extracted and no error was raised.
+    p = d('table.toccolours tr')
 
     row_len = len(p) + 1
     fight_iterator = 1

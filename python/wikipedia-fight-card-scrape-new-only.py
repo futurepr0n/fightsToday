@@ -137,8 +137,9 @@ cur = db.cursor()
 # and replaced it with nothing. Instead: snapshot, record what exists, and drop
 # only the rows that a successful scrape supersedes (see the reconcile below).
 FIGHT_TABLE = 'wiki_mma_fight_cards'
-db_utils.snapshot_rows(cur, FIGHT_TABLE, 'event_past = 0')
-fight_baseline = db_utils.fight_counts_by_event(cur, FIGHT_TABLE, 'event_past = 0')
+UFC_SCOPE = "event_past = 0 AND event_org = 'UFC'"
+db_utils.snapshot_rows(cur, FIGHT_TABLE, UFC_SCOPE)
+fight_baseline = db_utils.fight_counts_by_event(cur, FIGHT_TABLE, UFC_SCOPE)
 scraped_by_event = {}
 print("X Range is: ")
 print(x_range)

@@ -300,9 +300,12 @@ def snapshot_rows(cur, table, where):
     """
     backup = table + '_backup'
     cur.execute("CREATE TABLE IF NOT EXISTS `%s` LIKE `%s`" % (backup, table))
-    cur.execute("DELETE FROM `%s`" % backup)
+    # Scope the clear to the same rows being snapshotted: UFC and PFL both use
+    # this table, and truncating it meant the second run discarded the first
+    # run's backup.
+    cur.execute("DELETE FROM `%s` WHERE %s" % (backup, where))
     cur.execute("INSERT INTO `%s` SELECT * FROM `%s` WHERE %s" % (backup, table, where))
-    cur.execute("SELECT COUNT(*) FROM `%s`" % backup)
+    cur.execute("SELECT COUNT(*) FROM `%s` WHERE %s" % (backup, where))
     n = cur.fetchone()[0]
     print("Backed up %d rows to %s" % (n, backup))
     return n
